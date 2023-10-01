@@ -8,12 +8,13 @@ A framework that assembles DressingTools and provides interfaces for third-party
 ## Hooks
 
 DressingFramework categories hooks into two levels and four types:
-    - Cabinet-level
-        - 1. Cabinet Hook
-        - 2. Cabinet Module
-    - Wearable-level
-        - 3. Wearable Hook
-        - 4. Wearable Module
+
+- Cabinet-level
+    - Cabinet Hook
+    - Cabinet Module
+- Wearable-level
+    - Wearable Hook
+    - Wearable Module
 
 ### Difference of hooks and modules
 
