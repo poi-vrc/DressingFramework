@@ -3,7 +3,7 @@ A framework that assembles DressingTools and provides interfaces for third-party
 
 ## API Stability
 
-::warning:: **Unstable** and might have large refactor breaking changes soon.
+:warning: **Unstable** and might have large refactor breaking changes soon.
 
 ## Documentation and samples
 
