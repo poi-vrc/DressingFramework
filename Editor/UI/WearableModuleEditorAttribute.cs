@@ -1,31 +1,38 @@
 ﻿/*
- * File: WearableModuleEditorAttribute.cs
- * Project: DressingTools
+ * File: CustomWearableModuleEditor.cs
+ * Project: DressingFramework
  * Created Date: Tuesday, August 1st 2023, 12:37:10 am
  * Author: chocopoi (poi@chocopoi.com)
  * -----
  * Copyright (c) 2023 chocopoi
  * 
- * This file is part of DressingTools.
+ * This file is part of DressingFramework.
  * 
- * DressingTools is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ * DressingFramework is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * 
- * DressingTools is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ * DressingFramework is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
  * 
- * You should have received a copy of the GNU General Public License along with DressingTools. If not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with DressingFramework. If not, see <https://www.gnu.org/licenses/>.
  */
 
 using System;
 
 namespace Chocopoi.DressingFramework.UI
 {
+    /// <summary>
+    /// Attribute to tag module editor will be used for the module provider (This API will be changed soon)
+    /// </summary>
     public class CustomWearableModuleEditor : Attribute
     {
         public Type ModuleProviderType { get; private set; }
 
-        public CustomWearableModuleEditor(Type moduleType)
+        /// <summary>
+        /// Create a new attribute
+        /// </summary>
+        /// <param name="moduleProviderType">Target module provider type</param>
+        public CustomWearableModuleEditor(Type moduleProviderType)
         {
-            ModuleProviderType = moduleType;
+            ModuleProviderType = moduleProviderType;
         }
     }
 }

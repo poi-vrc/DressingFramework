@@ -1,29 +1,25 @@
 ﻿/*
- * File: IMGUIViewBase.cs
- * Project: DressingTools
- * Created Date: Saturday, August 12th 2023, 12:21:25 am
- * Author: chocopoi (poi@chocopoi.com)
- * -----
  * Copyright (c) 2023 chocopoi
  * 
- * This file is part of DressingTools.
+ * This file is part of DressingFramework.
  * 
- * DressingTools is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ * DressingFramework is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * 
- * DressingTools is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ * DressingFramework is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
  * 
- * You should have received a copy of the GNU General Public License along with DressingTools. If not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with DressingFramework. If not, see <https://www.gnu.org/licenses/>.
  */
 
 using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
 using UnityEditor;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Chocopoi.DressingFramework.UI
 {
+    /// <summary>
+    /// Unity UIElements view base
+    /// </summary>
     [ExcludeFromCodeCoverage]
     public abstract class ElementViewBase : VisualElement, IEditorView
     {
@@ -73,6 +69,11 @@ namespace Chocopoi.DressingFramework.UI
             return UQueryExtensions.Query<T>(this, name, classes);
         }
 
+        /// <summary>
+        /// Binds the foldout with the container together
+        /// </summary>
+        /// <param name="foldoutName">Foldout name</param>
+        /// <param name="containerName">Container name</param>
         public void BindFoldoutHeaderWithContainer(string foldoutName, string containerName)
         {
             var foldout = Q<Foldout>(foldoutName).First();
@@ -80,6 +81,12 @@ namespace Chocopoi.DressingFramework.UI
             foldout.RegisterValueChangedCallback((ChangeEvent<bool> evt) => container.style.display = evt.newValue ? DisplayStyle.Flex : DisplayStyle.None);
         }
 
+        /// <summary>
+        /// Creates a HelpBox element (Unity 2019.4 not yet have helpbox in UXML yet)
+        /// </summary>
+        /// <param name="msg">Message</param>
+        /// <param name="msgType">Message type</param>
+        /// <returns>Element</returns>
         public VisualElement CreateHelpBox(string msg, MessageType msgType)
         {
             // unity 2019.4 not yet have helpbox in uxml
