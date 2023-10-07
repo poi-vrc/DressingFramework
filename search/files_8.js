@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['pluginbase_2ecs_0',['PluginBase.cs',['../_plugin_base_8cs.html',1,'']]],
-  ['pluginmanager_2ecs_1',['PluginManager.cs',['../_plugin_manager_8cs.html',1,'']]]
+  ['moduleproviderbase_2ecs_0',['ModuleProviderBase.cs',['../_module_provider_base_8cs.html',1,'']]],
+  ['moverootwearablemoduleconfig_2ecs_1',['MoveRootWearableModuleConfig.cs',['../_move_root_wearable_module_config_8cs.html',1,'']]]
 ];

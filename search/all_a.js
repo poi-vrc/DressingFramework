@@ -1,27 +1,4 @@
 var searchData=
 [
-  ['label_0',['Label',['../class_chocopoi_1_1_dressing_framework_1_1_u_i_1_1_i_m_g_u_i_view_base.html#ae734c023134166c8bca68d99b6ec0b19',1,'Chocopoi.DressingFramework.UI.IMGUIViewBase.Label(string text, params GUILayoutOption[] options)'],['../class_chocopoi_1_1_dressing_framework_1_1_u_i_1_1_i_m_g_u_i_view_base.html#a773e243ca582c63c7936ada2abbdf84f',1,'Chocopoi.DressingFramework.UI.IMGUIViewBase.Label(string text, GUIStyle style, params GUILayoutOption[] options)']]],
-  ['label_1',['label',['../class_chocopoi_1_1_dressing_framework_1_1_logging_1_1_log_entry.html#a4aa6debaf2701063298593e6af5ecc10',1,'Chocopoi::DressingFramework::Logging::LogEntry']]],
-  ['load_2',['Load',['../class_chocopoi_1_1_dressing_framework_1_1_u_i_1_1_element_view_base.html#a86b3cd3fd4a558b1f12751f0931b5558',1,'Chocopoi.DressingFramework.UI.ElementViewBase.Load()'],['../interface_chocopoi_1_1_dressing_framework_1_1_u_i_1_1_i_editor_view.html#aa4ca28c72e1c9f97019e3c9a4f97b84e',1,'Chocopoi.DressingFramework.UI.IEditorView.Load()'],['../class_chocopoi_1_1_dressing_framework_1_1_u_i_1_1_i_m_g_u_i_view_base.html#a685e3abf9fe3e25a3c5c8477abc9d649',1,'Chocopoi.DressingFramework.UI.IMGUIViewBase.Load()']]],
-  ['loadeditortestasset_3c_20t_20_3e_3',['LoadEditorTestAsset&lt; T &gt;',['../class_chocopoi_1_1_dressing_framework_1_1_tests_1_1_editor_test_base.html#a11e11971b4d87be51e9564a60ef19025',1,'Chocopoi::DressingFramework::Tests::EditorTestBase']]],
-  ['loadtranslations_4',['LoadTranslations',['../class_chocopoi_1_1_dressing_framework_1_1_localization_1_1_i18n_translator.html#a204596b06826086f526225538a1b49be',1,'Chocopoi::DressingFramework::Localization::I18nTranslator']]],
-  ['localizeelement_5',['LocalizeElement',['../class_chocopoi_1_1_dressing_framework_1_1_localization_1_1_i18n_translator.html#a1a21422f72065ca3f126aa0b038b69b3',1,'Chocopoi::DressingFramework::Localization::I18nTranslator']]],
-  ['log_6',['Log',['../class_chocopoi_1_1_dressing_framework_1_1_logging_1_1_d_k_report.html#a224b525cc4a35d8462a904a1f1baaf5f',1,'Chocopoi::DressingFramework::Logging::DKReport']]],
-  ['logdebug_7',['LogDebug',['../class_chocopoi_1_1_dressing_framework_1_1_logging_1_1_d_k_report.html#ad14e8ebf56280f543c6caa4f66fb54d5',1,'Chocopoi::DressingFramework::Logging::DKReport']]],
-  ['logdebuglocalized_8',['LogDebugLocalized',['../class_chocopoi_1_1_dressing_framework_1_1_logging_1_1_d_k_report.html#a80c5440bf63b977bbca44e8bbceabded',1,'Chocopoi::DressingFramework::Logging::DKReport']]],
-  ['logentries_9',['LogEntries',['../class_chocopoi_1_1_dressing_framework_1_1_logging_1_1_d_k_report.html#a154e8eddf6230f69b2b24e6ebdb9cee7',1,'Chocopoi::DressingFramework::Logging::DKReport']]],
-  ['logentry_10',['LogEntry',['../class_chocopoi_1_1_dressing_framework_1_1_logging_1_1_log_entry.html',1,'Chocopoi::DressingFramework::Logging']]],
-  ['logerror_11',['LogError',['../class_chocopoi_1_1_dressing_framework_1_1_logging_1_1_d_k_report.html#a1105570615c4e80a3f58bd265bdff0da',1,'Chocopoi::DressingFramework::Logging::DKReport']]],
-  ['logerrorlocalized_12',['LogErrorLocalized',['../class_chocopoi_1_1_dressing_framework_1_1_logging_1_1_d_k_report.html#ad8a4b8864b7e0ce3384795fcf150fe0d',1,'Chocopoi::DressingFramework::Logging::DKReport']]],
-  ['logexception_13',['LogException',['../class_chocopoi_1_1_dressing_framework_1_1_logging_1_1_d_k_report.html#ac56b6c12ecd56dda4cbe19a64691e91c',1,'Chocopoi::DressingFramework::Logging::DKReport']]],
-  ['logexceptionlocalized_14',['LogExceptionLocalized',['../class_chocopoi_1_1_dressing_framework_1_1_logging_1_1_d_k_report.html#a69c540bc5bc6588ebed47e0fc2d62471',1,'Chocopoi::DressingFramework::Logging::DKReport']]],
-  ['loginfo_15',['LogInfo',['../class_chocopoi_1_1_dressing_framework_1_1_logging_1_1_d_k_report.html#af7c3ad4bcae803cc683088e2af1611a2',1,'Chocopoi::DressingFramework::Logging::DKReport']]],
-  ['loginfolocalized_16',['LogInfoLocalized',['../class_chocopoi_1_1_dressing_framework_1_1_logging_1_1_d_k_report.html#a78ba0ee07971ec2651b22a9a0c30d5a4',1,'Chocopoi::DressingFramework::Logging::DKReport']]],
-  ['loglabel_17',['LogLabel',['../class_chocopoi_1_1_dressing_framework_1_1_cabinet_applier.html#a141cee1b55e9b850d85393ce58c33c41',1,'Chocopoi::DressingFramework::CabinetApplier']]],
-  ['loglocalized_18',['LogLocalized',['../class_chocopoi_1_1_dressing_framework_1_1_logging_1_1_d_k_report.html#acdc844c05a8cc836721111ccd89e1194',1,'Chocopoi::DressingFramework::Logging::DKReport']]],
-  ['logtrace_19',['LogTrace',['../class_chocopoi_1_1_dressing_framework_1_1_logging_1_1_d_k_report.html#a5e49a271d2844c1f958484a792d26d6c',1,'Chocopoi::DressingFramework::Logging::DKReport']]],
-  ['logtracelocalized_20',['LogTraceLocalized',['../class_chocopoi_1_1_dressing_framework_1_1_logging_1_1_d_k_report.html#a533e2c6a4fbb70e7da76158f2aeef834',1,'Chocopoi::DressingFramework::Logging::DKReport']]],
-  ['logtype_21',['LogType',['../namespace_chocopoi_1_1_dressing_framework_1_1_logging.html#ad7992bb96b2635a6619c1d56cc4dc373',1,'Chocopoi::DressingFramework::Logging']]],
-  ['logwarn_22',['LogWarn',['../class_chocopoi_1_1_dressing_framework_1_1_logging_1_1_d_k_report.html#aa5ad890a472dc085cb75b3aff248c0e8',1,'Chocopoi::DressingFramework::Logging::DKReport']]],
-  ['logwarnlocalized_23',['LogWarnLocalized',['../class_chocopoi_1_1_dressing_framework_1_1_logging_1_1_d_k_report.html#a77c5fa90d969b3d148b0ac5d31c811a8',1,'Chocopoi::DressingFramework::Logging::DKReport']]]
+  ['jsonserializationtest_0',['JsonSerializationTest',['../class_chocopoi_1_1_dressing_framework_1_1_tests_1_1_wearable_1_1_serialization_version_test.html#ab619e07936ec23e3a70321c1e3047853',1,'Chocopoi::DressingFramework::Tests::Wearable::SerializationVersionTest']]]
 ];

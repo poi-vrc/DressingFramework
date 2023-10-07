@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['x_0',['x',['../class_chocopoi_1_1_dressing_framework_1_1_wearable_1_1_avatar_config_vector3.html#a19760fbfc79834b4277f15e03510b779',1,'Chocopoi.DressingFramework.Wearable.AvatarConfigVector3.x()'],['../class_chocopoi_1_1_dressing_framework_1_1_wearable_1_1_avatar_config_quaternion.html#a5ddb5928da67099fba2948f87279def5',1,'Chocopoi.DressingFramework.Wearable.AvatarConfigQuaternion.x()']]]
+  ['y_0',['y',['../class_chocopoi_1_1_dressing_framework_1_1_wearable_1_1_avatar_config_vector3.html#a7dd96f209fb6649dec175a11e208b443',1,'Chocopoi.DressingFramework.Wearable.AvatarConfigVector3.y()'],['../class_chocopoi_1_1_dressing_framework_1_1_wearable_1_1_avatar_config_quaternion.html#a912166be4da27c62f52f3e350574b581',1,'Chocopoi.DressingFramework.Wearable.AvatarConfigQuaternion.y()']]]
 ];

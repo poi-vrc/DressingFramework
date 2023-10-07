@@ -1,19 +1,4 @@
 var searchData=
 [
-  ['i18n_2ecs_0',['I18n.cs',['../_i18n_8cs.html',1,'']]],
-  ['ianimationstore_2ecs_1',['IAnimationStore.cs',['../_i_animation_store_8cs.html',1,'']]],
-  ['icabinet_2ecs_2',['ICabinet.cs',['../_i_cabinet_8cs.html',1,'']]],
-  ['icabinethook_2ecs_3',['ICabinetHook.cs',['../_i_cabinet_hook_8cs.html',1,'']]],
-  ['idresser_2ecs_4',['IDresser.cs',['../_i_dresser_8cs.html',1,'']]],
-  ['idynamicsproxy_2ecs_5',['IDynamicsProxy.cs',['../_i_dynamics_proxy_8cs.html',1,'']]],
-  ['ieditorview_2ecs_6',['IEditorView.cs',['../_i_editor_view_8cs.html',1,'']]],
-  ['iframeworkeventhandler_2ecs_7',['IFrameworkEventHandler.cs',['../_i_framework_event_handler_8cs.html',1,'']]],
-  ['ihook_2ecs_8',['IHook.cs',['../_i_hook_8cs.html',1,'']]],
-  ['imguiviewbase_2ecs_9',['IMGUIViewBase.cs',['../_i_m_g_u_i_view_base_8cs.html',1,'']]],
-  ['imoduleconfig_2ecs_10',['IModuleConfig.cs',['../_i_module_config_8cs.html',1,'']]],
-  ['ipathremapper_2ecs_11',['IPathRemapper.cs',['../_i_path_remapper_8cs.html',1,'']]],
-  ['iplugin_2ecs_12',['IPlugin.cs',['../_i_plugin_8cs.html',1,'']]],
-  ['iwearable_2ecs_13',['IWearable.cs',['../_i_wearable_8cs.html',1,'']]],
-  ['iwearablehook_2ecs_14',['IWearableHook.cs',['../_i_wearable_hook_8cs.html',1,'']]],
-  ['iwearablemoduleeditorviewparent_2ecs_15',['IWearableModuleEditorViewParent.cs',['../_i_wearable_module_editor_view_parent_8cs.html',1,'']]]
+  ['groupdynamicswearablehook_2ecs_0',['GroupDynamicsWearableHook.cs',['../_group_dynamics_wearable_hook_8cs.html',1,'']]]
 ];
