@@ -21,6 +21,7 @@ using UnityEditor;
 using UnityEngine;
 using VRC.SDKBase;
 using VRC.SDKBase.Editor.BuildPipeline;
+using LogType = Chocopoi.DressingFramework.Logging.LogType;
 
 namespace Chocopoi.DressingFramework.Triggers.VRChat
 {
@@ -32,9 +33,12 @@ namespace Chocopoi.DressingFramework.Triggers.VRChat
 
         public int callbackOrder => -10000;
 
+        // for mocking
+        internal UI ui = new UnityEditorUI();
+
         public bool OnPreprocessAvatar(GameObject avatarGameObject)
         {
-            var cabinet = DKRuntimeUtils.GetAvatarCabinet(avatarGameObject);
+            var cabinet = DKEditorUtils.GetAvatarCabinet(avatarGameObject);
             if (cabinet == null)
             {
                 // avatar has no cabinet, skipping
@@ -46,7 +50,7 @@ namespace Chocopoi.DressingFramework.Triggers.VRChat
             try
             {
                 // create hook instances
-                EditorUtility.DisplayProgressBar(t._("tool.name"), t._("integrations.vrc.progressBar.msg.applyingCabinet"), 0);
+                ui.ShowProgressBar();
                 new CabinetApplier(report, cabinet).RunStages();
             }
             catch (System.Exception ex)
@@ -56,22 +60,55 @@ namespace Chocopoi.DressingFramework.Triggers.VRChat
             finally
             {
                 // show report window if any errors
-                if (report.HasLogType(DressingFramework.Logging.LogType.Error))
+                if (report.HasLogType(LogType.Error))
                 {
-                    ReportWindow.ShowWindow(report);
-                    EditorUtility.DisplayDialog(t._("tool.name"), t._("integrations.vrc.dialog.msg.errorPreprocessingReferReportWindow"), t._("common.dialog.btn.ok"));
+                    ui.ShowReportWindow(report);
+                    ui.ShowErrorPreprocessingAvatarDialog();
                 }
 
                 AssetDatabase.SaveAssets();
                 // hide the progress bar
-                EditorUtility.ClearProgressBar();
+                ui.ClearProgressBar();
             }
 
-            return !report.HasLogType(DressingFramework.Logging.LogType.Error);
+            return !report.HasLogType(LogType.Error);
         }
 
         public void OnPostprocessAvatar()
         {
+        }
+
+        // UI abstraction layer for mocking
+        internal interface UI
+        {
+            void ShowProgressBar();
+            void ClearProgressBar();
+            void ShowErrorPreprocessingAvatarDialog();
+            void ShowReportWindow(DKReport report);
+        }
+
+        // Unity editor UI
+        internal class UnityEditorUI : UI
+        {
+            public void ShowErrorPreprocessingAvatarDialog()
+            {
+                EditorUtility.DisplayDialog(t._("framework.name"), t._("integrations.vrc.dialog.msg.errorPreprocessingReferReportWindow"), t._("common.dialog.btn.ok"));
+            }
+
+            public void ShowReportWindow(DKReport report)
+            {
+                ReportWindow.ShowWindow(report);
+            }
+
+            public void ShowProgressBar()
+            {
+                EditorUtility.DisplayProgressBar(t._("framework.name"), t._("integrations.vrc.progressBar.msg.applyingCabinet"), 0);
+            }
+
+            public void ClearProgressBar()
+            {
+                EditorUtility.ClearProgressBar();
+            }
         }
     }
 

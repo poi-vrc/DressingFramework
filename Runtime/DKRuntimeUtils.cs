@@ -11,12 +11,14 @@
  */
 
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Chocopoi.DressingFramework.Cabinet;
 using Chocopoi.DressingFramework.Cabinet.Modules;
 using Chocopoi.DressingFramework.Wearable;
 using Chocopoi.DressingFramework.Wearable.Modules;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 
 namespace Chocopoi.DressingFramework
@@ -26,8 +28,6 @@ namespace Chocopoi.DressingFramework
     /// </summary>
     internal static class DKRuntimeUtils
     {
-        private static readonly System.Random Random = new System.Random();
-
         public enum LifecycleStage
         {
             Awake,
@@ -36,132 +36,5 @@ namespace Chocopoi.DressingFramework
 
         public delegate void OnCabinetLifecycleDelegate(LifecycleStage stage, ICabinet cabinet);
         public static OnCabinetLifecycleDelegate OnCabinetLifecycle = (stage, cabinet) => { };
-
-        public static string RandomString(int length)
-        {
-            // i just copied from stackoverflow :D
-            // https://stackoverflow.com/questions/1344221/how-can-i-generate-random-alphanumeric-strings?page=1&tab=scoredesc#tab-top
-            const string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            return new string(Enumerable.Repeat(chars, length)
-                .Select(s => s[Random.Next(s.Length)]).ToArray());
-        }
-
-        public static bool IsGrandParent(Transform grandParent, Transform grandChild)
-        {
-            var p = grandChild.parent;
-            while (p != null)
-            {
-                if (p == grandParent)
-                {
-                    return true;
-                }
-                p = p.parent;
-            }
-            return false;
-        }
-
-        public static DTWearable[] GetAllSceneWearables()
-        {
-            // TODO: check for IWearable instead sticking to DT
-            return Object.FindObjectsOfType<DTWearable>();
-        }
-
-        public static IWearable GetCabinetWearable(GameObject wearableGameObject)
-        {
-            if (wearableGameObject == null)
-            {
-                return null;
-            }
-
-            // loop through all scene wearables and search
-            var wearables = GetAllSceneWearables();
-
-            // no matter there are two occurance or not, we return the first found
-            foreach (var sceneWearable in wearables)
-            {
-                if (sceneWearable.WearableGameObject == wearableGameObject)
-                {
-                    return sceneWearable;
-                }
-            }
-
-            return null;
-        }
-
-        public static IWearable[] GetCabinetWearables(GameObject avatarGameObject)
-        {
-            if (avatarGameObject == null)
-            {
-                return new IWearable[0];
-            }
-            return avatarGameObject.GetComponentsInChildren<IWearable>();
-        }
-
-        public static DTCabinet[] GetAllCabinets()
-        {
-            // TODO: check for ICabinet instead sticking to DT
-            return Object.FindObjectsOfType<DTCabinet>();
-        }
-
-        public static ICabinet GetAvatarCabinet(GameObject avatarGameObject, bool createIfNotExists = false)
-        {
-            if (avatarGameObject == null)
-            {
-                return null;
-            }
-
-            // loop through all cabinets and search
-            var cabinets = GetAllCabinets();
-
-            // no matter there are two occurance or not, we return the first found
-            foreach (var cabinet in cabinets)
-            {
-                if (cabinet.AvatarGameObject == avatarGameObject)
-                {
-                    return cabinet;
-                }
-            }
-
-            if (createIfNotExists)
-            {
-                // create new cabinet if not exist
-                var comp = avatarGameObject.AddComponent<DTCabinet>();
-
-                // TODO: read default config, scan for armature names?
-                comp.AvatarGameObject = avatarGameObject;
-                var config = new CabinetConfig();
-                comp.configJson = JsonConvert.SerializeObject(config);
-
-                return comp;
-            }
-
-            return null;
-        }
-
-        public static List<CabinetModule> GetCabinetModulesByName(CabinetConfig config, string moduleName)
-        {
-            var list = new List<CabinetModule>();
-            foreach (var module in config.modules)
-            {
-                if (module.moduleName == moduleName)
-                {
-                    list.Add(module);
-                }
-            }
-            return list;
-        }
-
-        public static List<WearableModule> GetWearableModulesByName(WearableConfig config, string moduleName)
-        {
-            var list = new List<WearableModule>();
-            foreach (var module in config.modules)
-            {
-                if (module.moduleName == moduleName)
-                {
-                    list.Add(module);
-                }
-            }
-            return list;
-        }
     }
 }

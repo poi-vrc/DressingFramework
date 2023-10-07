@@ -18,7 +18,6 @@ namespace Chocopoi.DressingFramework.Wearable
     /// <summary>
     /// Wearable meta information
     /// </summary>
-    [Serializable]
     public class WearableInfo
     {
         /// <summary>

@@ -77,5 +77,10 @@ crashlytics-build.properties
 docs/
 docs
 
+Tests
+Tests.meta
+
 LICENSE.meta
 Doxyfile.meta
+README.md.meta
+MakeTestsSymlink.bat.meta

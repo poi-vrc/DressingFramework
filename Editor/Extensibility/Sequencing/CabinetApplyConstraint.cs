@@ -85,7 +85,7 @@ namespace Chocopoi.DressingFramework.Extensibility.Sequencing
     }
 
     /// <summary>
-    /// Wearable apply constraint builder
+    /// Cabinet apply constraint builder
     /// </summary>
     public class CabinetApplyConstraintBuilder : ExecutionConstraintBuilder
     {

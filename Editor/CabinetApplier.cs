@@ -12,6 +12,7 @@
 
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Chocopoi.DressingFramework.Animations;
 using Chocopoi.DressingFramework.Cabinet;
 using Chocopoi.DressingFramework.Cabinet.Modules;
 using Chocopoi.DressingFramework.Context;
@@ -59,8 +60,11 @@ namespace Chocopoi.DressingFramework
             _cabCtx = new ApplyCabinetContext()
             {
                 report = report,
-                avatarGameObject = cabinet.AvatarGameObject
+                avatarGameObject = cabinet.AvatarGameObject,
+                pathRemapper = new PathRemapper(cabinet.AvatarGameObject),
+                avatarDynamics = DKEditorUtils.ScanDynamics(cabinet.AvatarGameObject, true)
             };
+            _cabCtx.animationStore = new AnimationStore(_cabCtx);
         }
 
         private void SetUp()
@@ -81,7 +85,7 @@ namespace Chocopoi.DressingFramework
                 return;
             }
 
-            var wearables = DKRuntimeUtils.GetCabinetWearables(_cabCtx.avatarGameObject);
+            var wearables = DKEditorUtils.GetCabinetWearables(_cabCtx.avatarGameObject);
 
             foreach (var wearable in wearables)
             {
@@ -106,19 +110,19 @@ namespace Chocopoi.DressingFramework
                 }
 
                 // detect unknown modules and report them
-                var unknownModules = DKEditorUtils.FindUnknownWearableModuleNames(wearableConfig.modules);
+                var unknownModules = wearableConfig.FindUnknownModules();
                 if (unknownModules.Count > 0)
                 {
-                    foreach (var name in unknownModules)
+                    foreach (var module in unknownModules)
                     {
-                        _cabCtx.report.LogErrorLocalized(t, LogLabel, MessageCode.ModuleHasNoProviderAvailable, name);
+                        _cabCtx.report.LogErrorLocalized(t, LogLabel, MessageCode.ModuleHasNoProviderAvailable, module.moduleName);
                     }
                     return;
                 }
 
                 // clone if needed
                 GameObject wearableObj;
-                if (DKRuntimeUtils.IsGrandParent(_cabCtx.avatarGameObject.transform, wearable.WearableGameObject.transform))
+                if (DKEditorUtils.IsGrandParent(_cabCtx.avatarGameObject.transform, wearable.WearableGameObject.transform))
                 {
                     wearableObj = wearable.WearableGameObject;
 
@@ -136,7 +140,8 @@ namespace Chocopoi.DressingFramework
                 var wearCtx = new ApplyWearableContext()
                 {
                     wearableConfig = wearableConfig,
-                    wearableGameObject = wearableObj
+                    wearableGameObject = wearableObj,
+                    wearableDynamics = DKEditorUtils.ScanDynamics(wearableObj, false)
                 };
                 _cabCtx.wearableContexts[wearable] = wearCtx;
             }
@@ -198,7 +203,7 @@ namespace Chocopoi.DressingFramework
                 {
                     result = moduleProvider.Invoke(
                         _cabCtx,
-                        new ReadOnlyCollection<CabinetModule>(DKRuntimeUtils.GetCabinetModulesByName(_cabCtx.cabinetConfig, moduleProvider.Identifier)),
+                        new ReadOnlyCollection<CabinetModule>(_cabCtx.cabinetConfig.FindModules(moduleProvider.Identifier)),
                         false);
                 }
                 else
@@ -301,7 +306,7 @@ namespace Chocopoi.DressingFramework
                         result = moduleProvider.Invoke(
                             _cabCtx,
                             wearCtx,
-                            new ReadOnlyCollection<WearableModule>(DKRuntimeUtils.GetWearableModulesByName(wearCtx.wearableConfig, moduleProvider.Identifier)),
+                            new ReadOnlyCollection<WearableModule>(wearCtx.wearableConfig.FindModules(moduleProvider.Identifier)),
                             false);
                     }
                     else

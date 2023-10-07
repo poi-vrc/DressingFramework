@@ -1,0 +1,75 @@
+name: Unity Tests
+
+on:
+  push:
+    paths:
+      - "**.cs"
+      - ".github/unity-project/**/*"
+      - ".github/workflows/unity-tests.yml"
+  pull_request:
+    paths:
+      - "**.cs"
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Setup .NET 6
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0.x'
+
+      - name: Prepare Unity Project
+        run: |
+          mv Tests~ Tests
+          mkdir -p .github/unity-project/Packages/com.chocopoi.vrc.dressingframework
+          mv [!.github]* .github/unity-project/Packages/com.chocopoi.vrc.dressingframework/
+          mv .github/unity-project/* .
+          rm -rf .github/unity-project
+          ls -l
+          ls -l Packages/com.chocopoi.vrc.dressingframework
+
+      # Cache
+      - uses: actions/cache@v3
+        with:
+          path: Library
+          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: |
+            Library-
+
+      - name: Resolve VPM Project
+        run: |
+          dotnet tool install --global vrchat.vpm.cli
+          vpm resolve project
+
+      # Test
+      - name: Run tests
+        uses: game-ci/unity-test-runner@v2
+        id: tests
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          testMode: 'all'
+          customParameters: '-assemblyNames "com.chocopoi.vrc.dressingframework.Editor.Tests;com.chocopoi.vrc.dressingframework.Runtime.Tests" -nographics'
+          coverageOptions: 'generateAdditionalMetrics;generateHtmlReport;generateBadgeReport;assemblyFilters:+com.chocopoi.vrc.dressingframework.Editor,+com.chocopoi.vrc.dressingframework.Runtime'
+      
+      # Upload coverage report to GitHub
+      - uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: Coverage results
+          path: ${{ steps.tests.outputs.coveragePath }}
+          
+      # Upload coverage report to Codecov
+      - name: Upload XML report to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          flags: automated
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ${{ steps.tests.outputs.coveragePath }}/**/*.xml

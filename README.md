@@ -1,5 +1,16 @@
 # DressingFramework - DK
-A framework that assembles DressingTools and provides interfaces for third-party developers.
+A framework that assembles DressingTools and allows the creation of modular plugins for avatars.
+
+## Features
+
+- Automatic non-destructive cabinet apply while uploading avatars or entering play mode
+- Standardized cabinet and wearable configuration system
+- Standardized logging and reporting system
+- Sequencing cabinet, wearable hook and module executions by specifying before/after constraints and categorizing into different stages
+- Animation scanning and path remapping are supported
+- Platform-independent avatar dynamics scanning
+- Non-VRChat workflows supported
+- Reading values from DynamicBones and VRCPhysBone without them installed (WIP)
 
 ## API Stability
 
@@ -15,6 +26,14 @@ DressingFramework categories hooks into two levels and four types:
 - Wearable-level
     - Wearable Hook
     - Wearable Module
+
+### Cabinet-level
+
+At cabinet-level, hooks and modules are **only executed once on stage start or end** (defined via `CabinetHookStageRunOrder`).
+
+### Wearable-level
+
+At wearable-level, hooks and modules will be **executed on each wearable once.**
 
 ### Difference of hooks and modules
 
@@ -36,14 +55,6 @@ public abstract bool Invoke(ApplyCabinetContext cabCtx, ReadOnlyCollection<Cabin
 public abstract bool Invoke(ApplyCabinetContext cabCtx, ApplyWearableContext wearCtx, ReadOnlyCollection<WearableModule> modules, bool isPreview);
 ```
 
-### Cabinet-level
-
-At cabinet-level, hooks and modules are **only executed once on stage start or end** (defined via `CabinetHookStageRunOrder`).
-
-### Wearable-level
-
-At wearable-level, hooks and modules will be **executed on each wearable once.**
-
 ## Execution Constraints
 
 DressingFramework schedules hooks and modules by constructing a dependency graph using the execution constraints defined by hooks and modules.
@@ -53,20 +64,20 @@ The order of execution is obtained by performing a topological sort on the depen
 
 You should categorize your hooks and modules into these stages for better management with other hooks and modules.
 
-    - Pre
-        - Generic pre-stage. The earliest stage to execute hooks.
-        - You are preferred to categorize your hook instead of using this generic stage.
-    - Analyzing
-        - Analyzing stage. Scanning, generation, cloning are done in this stage.
-    - Transpose
-        - Transpose stage. Mapping, animation etc. general stuff are done in this stage.
-    - Integration
-        - Integration stage. Integration-specific hooks and modules are invoked in this stage.
-    - Optimization
-        - Optimization stage
-    - Post
-        - Generic post-stage. The latest stage to execute hooks.
-        - You are preferred to categorize your hook instead of using this generic stage.
+- Pre
+    - Generic pre-stage. The earliest stage to execute hooks.
+    - You are preferred to categorize your hook instead of using this generic stage.
+- Analyzing
+    - Analyzing stage. Scanning, generation, cloning are done in this stage.
+- Transpose
+    - Transpose stage. Mapping, animation etc. general stuff are done in this stage.
+- Integration
+    - Integration stage. Integration-specific hooks and modules are invoked in this stage.
+- Optimization
+    - Optimization stage
+- Post
+    - Generic post-stage. The latest stage to execute hooks.
+    - You are preferred to categorize your hook instead of using this generic stage.
 
 ### Cabinet hooks and modules
 

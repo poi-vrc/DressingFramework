@@ -11,12 +11,13 @@
  */
 
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using Chocopoi.DressingFramework.Cabinet;
-using Chocopoi.DressingFramework.Extensibility.Plugin;
-using Chocopoi.DressingFramework.Serialization;
+using Chocopoi.DressingFramework.Proxy;
 using Chocopoi.DressingFramework.Wearable;
-using Chocopoi.DressingFramework.Wearable.Modules;
-using UnityEditor;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 
 namespace Chocopoi.DressingFramework
@@ -26,147 +27,276 @@ namespace Chocopoi.DressingFramework
     /// </summary>
     internal static class DKEditorUtils
     {
-        public static List<string> FindUnknownWearableModuleNames(List<WearableModule> modules)
+        private static readonly System.Random Random = new System.Random();
+        private static readonly Dictionary<string, System.Type> s_reflectionTypeCache = new Dictionary<string, System.Type>();
+
+        public static System.Type FindType(string typeName)
         {
-            var list = new List<string>();
-            foreach (var module in modules)
+            // try getting from cache to avoid scanning the assemblies again
+            if (s_reflectionTypeCache.ContainsKey(typeName))
             {
-                var provider = PluginManager.Instance.GetWearableModuleProvider(module.moduleName);
-                if (provider == null)
+                return s_reflectionTypeCache[typeName];
+            }
+
+            // scan from assemblies and save to cache
+            var assemblies = System.AppDomain.CurrentDomain.GetAssemblies();
+
+            foreach (var assembly in assemblies)
+            {
+                var type = assembly.GetType(typeName);
+                if (type != null)
                 {
-                    list.Add(module.moduleName);
+                    s_reflectionTypeCache[typeName] = type;
+                    return type;
                 }
             }
-            return list;
+
+            // no such type found
+            return null;
         }
 
-        public static void ApplyWearableTransforms(AvatarConfig avatarConfig, GameObject targetAvatar, GameObject targetWearable)
+        // copied from avatarlib since this is the only function DK needs from it
+        // Referenced and modified from https://answers.unity.com/questions/8500/how-can-i-get-the-full-path-to-a-gameobject.html
+        public static string GetRelativePath(Transform transform, Transform untilTransform = null, string prefix = "", string suffix = "")
         {
-            // check position delta and adjust
+            string path = transform.name;
+            while (true)
             {
-                var wearableWorldPos = avatarConfig.worldPosition.ToVector3();
-                if (targetWearable.transform.position - targetAvatar.transform.position != wearableWorldPos)
+                transform = transform.parent;
+
+                if (transform.parent == null || (untilTransform != null && transform == untilTransform))
                 {
-                    Debug.LogFormat("[DressingTools] [AddCabinetWearable] Moved wearable world pos: {0}", wearableWorldPos.ToString());
-                    targetWearable.transform.position += wearableWorldPos;
+                    break;
                 }
-            }
 
-            // check rotation delta and adjust
-            {
-                var wearableWorldRot = avatarConfig.worldRotation.ToQuaternion();
-                if (targetWearable.transform.rotation * Quaternion.Inverse(targetAvatar.transform.rotation) != wearableWorldRot)
-                {
-                    Debug.LogFormat("[DressingTools] [AddCabinetWearable] Moved wearable world rotation: {0}", wearableWorldRot.ToString());
-                    targetWearable.transform.rotation *= wearableWorldRot;
-                }
+                path = transform.name + "/" + path;
             }
-
-            // apply avatar scale
-            var lastAvatarParent = targetAvatar.transform.parent;
-            var lastAvatarScale = Vector3.zero + targetAvatar.transform.localScale;
-            if (lastAvatarParent != null)
-            {
-                // tricky workaround to apply lossy world scale is to unparent
-                targetAvatar.transform.SetParent(null);
-            }
-
-            var avatarScaleVec = avatarConfig.avatarLossyScale.ToVector3();
-            if (targetAvatar.transform.localScale != avatarScaleVec)
-            {
-                Debug.LogFormat("[DressingTools] [AddCabinetWearable] Adjusted avatar scale: {0}", avatarScaleVec.ToString());
-                targetAvatar.transform.localScale = avatarScaleVec;
-            }
-
-            // apply wearable scale
-            var lastWearableParent = targetWearable.transform.parent;
-            var lastWearableScale = Vector3.zero + targetWearable.transform.localScale;
-            if (lastWearableParent != null)
-            {
-                // tricky workaround to apply lossy world scale is to unparent
-                targetWearable.transform.SetParent(null);
-            }
-
-            var wearableScaleVec = avatarConfig.wearableLossyScale.ToVector3();
-            if (targetWearable.transform.localScale != wearableScaleVec)
-            {
-                Debug.LogFormat("[DressingTools] [AddCabinetWearable] Adjusted wearable scale: {0}", wearableScaleVec.ToString());
-                targetWearable.transform.localScale = wearableScaleVec;
-            }
-
-            // restore avatar scale
-            if (lastAvatarParent != null)
-            {
-                targetAvatar.transform.SetParent(lastAvatarParent);
-            }
-            targetAvatar.transform.localScale = lastAvatarScale;
-
-            // restore wearable scale
-            if (lastWearableParent != null)
-            {
-                targetWearable.transform.SetParent(lastWearableParent);
-            }
-            targetWearable.transform.localScale = lastWearableScale;
+            return prefix + path + suffix;
         }
 
-        public static bool AddCabinetWearable(CabinetConfig cabinetConfig, GameObject avatarGameObject, WearableConfig wearableConfig, GameObject wearableGameObject)
+        public static string RandomString(int length)
         {
-            var cabinetWearable = DKRuntimeUtils.GetCabinetWearable(wearableGameObject);
-
-            // if not exist, create a new component
-            if (cabinetWearable == null)
-            {
-                if (PrefabUtility.IsPartOfAnyPrefab(wearableGameObject) && PrefabUtility.GetPrefabInstanceStatus(wearableGameObject) == PrefabInstanceStatus.NotAPrefab)
-                {
-                    // if not in scene, we instantiate it with a prefab connection
-                    wearableGameObject = (GameObject)PrefabUtility.InstantiatePrefab(wearableGameObject);
-                }
-
-                // parent to avatar if haven't yet
-                if (!DKRuntimeUtils.IsGrandParent(avatarGameObject.transform, wearableGameObject.transform))
-                {
-                    wearableGameObject.transform.SetParent(avatarGameObject.transform);
-                }
-
-                // applying scalings
-                ApplyWearableTransforms(wearableConfig.avatarConfig, avatarGameObject, wearableGameObject);
-
-                // add cabinet wearable component
-                cabinetWearable = wearableGameObject.AddComponent<DTWearable>();
-                cabinetWearable.WearableGameObject = wearableGameObject;
-            }
-
-            wearableConfig.info.RefreshUpdatedTime();
-            cabinetWearable.ConfigJson = WearableConfigUtility.Serialize(wearableConfig);
-
-            // TODO: check config valid
-
-            var handlers = PluginManager.Instance.GetAllFrameworkEventHandlers();
-            foreach (var handler in handlers)
-            {
-                // TODO: dependency graph
-                handler.OnAddWearableToCabinet(cabinetConfig, avatarGameObject, wearableConfig, wearableGameObject);
-            }
-
-            return true;
+            // i just copied from stackoverflow :D
+            // https://stackoverflow.com/questions/1344221/how-can-i-generate-random-alphanumeric-strings?page=1&tab=scoredesc#tab-top
+            const string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[Random.Next(s.Length)]).ToArray());
         }
 
-        public static void RemoveCabinetWearable(DTCabinet cabinet, DTWearable wearable)
+        // referenced from: http://answers.unity3d.com/questions/458207/copy-a-component-at-runtime.html
+        public static Component CopyComponent(Component originalComponent, GameObject destGameObject)
         {
-            var cabinetWearables = cabinet.AvatarGameObject.GetComponentsInChildren<DTWearable>();
-            foreach (var cabinetWearable in cabinetWearables)
+            System.Type type = originalComponent.GetType();
+
+            // get the destination component or add new
+            var destComp = destGameObject.AddComponent(type);
+
+            var fields = type.GetFields();
+            foreach (var field in fields)
             {
-                if (cabinetWearable == wearable)
+                if (field.IsStatic) continue;
+                field.SetValue(destComp, field.GetValue(originalComponent));
+            }
+
+            var props = type.GetProperties();
+            foreach (var prop in props)
+            {
+                if (!prop.CanWrite || prop.Name == "name")
                 {
-                    if (!PrefabUtility.IsOutermostPrefabInstanceRoot(cabinetWearable.gameObject))
+                    continue;
+                }
+                prop.SetValue(destComp, prop.GetValue(originalComponent, null), null);
+            }
+
+            return destComp;
+        }
+
+        public static JObject ParseJson(string json)
+        {
+            // Newtonsoft.JSON has a non-standard, silly design decision that modifies date-like strings by default
+            // Our ISO date strings are modified by this library into normal date strings...
+            // We can consider using other solutions soon. This is so silly.
+            // https://github.com/JamesNK/Newtonsoft.Json/issues/862
+
+            var reader = new JsonTextReader(new StringReader(json))
+            {
+                // why need to parse dates by default?
+                DateParseHandling = DateParseHandling.None
+            };
+            var result = JObject.Load(reader);
+            while (reader.Read()) { }
+
+            return result;
+        }
+
+        public static List<IDynamicsProxy> ScanDynamics(GameObject obj, bool doNotScanContainingWearables = false)
+        {
+            var dynamicsList = new List<IDynamicsProxy>();
+
+            // TODO: replace by reading YAML
+
+            // get the dynbone type
+            var DynamicBoneType = FindType("DynamicBone");
+            var PhysBoneType = FindType("VRC.SDK3.Dynamics.PhysBone.Components.VRCPhysBone");
+
+            // scan dynbones
+            if (DynamicBoneType != null)
+            {
+                var dynBones = obj.GetComponentsInChildren(DynamicBoneType, true);
+                foreach (var dynBone in dynBones)
+                {
+                    if (doNotScanContainingWearables && IsOriginatedFromAnyWearable(obj.transform, dynBone.transform))
                     {
-                        Debug.Log("Prefab is not outermost. Aborting");
-                        return;
+                        continue;
                     }
-                    Object.DestroyImmediate(cabinetWearable.gameObject);
+                    dynamicsList.Add(new DynamicBoneProxy(dynBone));
+                }
+            }
+
+            // scan physbones
+            if (PhysBoneType != null)
+            {
+                var physBones = obj.GetComponentsInChildren(PhysBoneType, true);
+                foreach (var physBone in physBones)
+                {
+                    if (doNotScanContainingWearables && IsOriginatedFromAnyWearable(obj.transform, physBone.transform))
+                    {
+                        continue;
+                    }
+                    dynamicsList.Add(new PhysBoneProxy(physBone));
+                }
+            }
+
+            return dynamicsList;
+        }
+
+        public static IDynamicsProxy FindDynamicsWithRoot(List<IDynamicsProxy> avatarDynamics, Transform dynamicsRoot)
+        {
+            foreach (var bone in avatarDynamics)
+            {
+                if (bone.RootTransform == dynamicsRoot)
+                {
+                    return bone;
+                }
+            }
+            return null;
+        }
+
+        public static bool IsDynamicsExists(List<IDynamicsProxy> avatarDynamics, Transform dynamicsRoot)
+        {
+            return FindDynamicsWithRoot(avatarDynamics, dynamicsRoot) != null;
+        }
+
+        public static bool IsGrandParent(Transform grandParent, Transform grandChild)
+        {
+            var p = grandChild.parent;
+            while (p != null)
+            {
+                if (p == grandParent)
+                {
+                    return true;
+                }
+                p = p.parent;
+            }
+            return false;
+        }
+
+        public static DTWearable[] GetAllSceneWearables()
+        {
+            // TODO: check for IWearable instead sticking to DT
+            return Object.FindObjectsOfType<DTWearable>();
+        }
+
+        public static IWearable GetCabinetWearable(GameObject wearableGameObject)
+        {
+            if (wearableGameObject == null)
+            {
+                return null;
+            }
+
+            // loop through all scene wearables and search
+            var wearables = GetAllSceneWearables();
+
+            // no matter there are two occurance or not, we return the first found
+            foreach (var sceneWearable in wearables)
+            {
+                if (sceneWearable.WearableGameObject == wearableGameObject)
+                {
+                    return sceneWearable;
+                }
+            }
+
+            return null;
+        }
+
+        public static IWearable[] GetCabinetWearables(GameObject avatarGameObject)
+        {
+            if (avatarGameObject == null)
+            {
+                return new IWearable[0];
+            }
+            return avatarGameObject.GetComponentsInChildren<IWearable>();
+        }
+
+        public static DTCabinet[] GetAllCabinets()
+        {
+            // TODO: check for ICabinet instead sticking to DT
+            return Object.FindObjectsOfType<DTCabinet>();
+        }
+
+        public static DTCabinet GetAvatarCabinet(GameObject avatarGameObject, bool createIfNotExists = false)
+        {
+            if (avatarGameObject == null)
+            {
+                return null;
+            }
+
+            // loop through all cabinets and search
+            var cabinets = GetAllCabinets();
+
+            // no matter there are two occurance or not, we return the first found
+            foreach (var cabinet in cabinets)
+            {
+                if (cabinet.AvatarGameObject == avatarGameObject)
+                {
+                    return cabinet;
+                }
+            }
+
+            if (createIfNotExists)
+            {
+                // create new cabinet if not exist
+                var comp = avatarGameObject.AddComponent<DTCabinet>();
+
+                // TODO: read default config, scan for armature names?
+                comp.AvatarGameObject = avatarGameObject;
+                var config = new CabinetConfig();
+                comp.configJson = JsonConvert.SerializeObject(config);
+
+                return comp;
+            }
+
+            return null;
+        }
+
+        public static bool IsOriginatedFromAnyWearable(Transform root, Transform transform)
+        {
+            var found = false;
+            while (transform != null)
+            {
+                transform = transform.parent;
+                if (transform == root || transform == null)
+                {
+                    break;
+                }
+
+                if (transform.TryGetComponent<DTWearable>(out var _))
+                {
+                    found = true;
                     break;
                 }
             }
+            return found;
         }
     }
 }

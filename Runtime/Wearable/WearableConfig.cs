@@ -68,6 +68,7 @@ namespace Chocopoi.DressingFramework.Wearable
 
         public T FindModuleConfig<T>() where T : IModuleConfig
         {
+            var list = new List<T>();
             foreach (var module in modules)
             {
                 if (module.config is T moduleConfig)
@@ -78,16 +79,42 @@ namespace Chocopoi.DressingFramework.Wearable
             return default;
         }
 
+        public List<T> FindModuleConfigs<T>() where T : IModuleConfig
+        {
+            var list = new List<T>();
+            foreach (var module in modules)
+            {
+                if (module.config is T moduleConfig)
+                {
+                    list.Add(moduleConfig);
+                }
+            }
+            return list;
+        }
+
         public WearableModule FindModule(string moduleName)
         {
             foreach (var module in modules)
             {
-                if (moduleName == module.moduleName)
+                if (module.moduleName == moduleName)
                 {
                     return module;
                 }
             }
             return null;
+        }
+
+        public List<WearableModule> FindModules(string moduleName)
+        {
+            var list = new List<WearableModule>();
+            foreach (var module in modules)
+            {
+                if (module.moduleName == moduleName)
+                {
+                    list.Add(module);
+                }
+            }
+            return list;
         }
     }
 }

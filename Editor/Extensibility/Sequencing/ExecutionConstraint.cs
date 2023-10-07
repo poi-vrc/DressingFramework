@@ -10,6 +10,7 @@
  * You should have received a copy of the GNU General Public License along with DressingFramework. If not, see <https://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.Collections.Generic;
 
 namespace Chocopoi.DressingFramework.Extensibility.Sequencing
@@ -167,9 +168,21 @@ namespace Chocopoi.DressingFramework.Extensibility.Sequencing
         /// <param name="identifier">Plugin identifier</param>
         /// <param name="optional">Optional dependency. If not optional, the dependency solving will fail if the dependency does not exist</param>
         /// <returns>This builder</returns>
-        public ExecutionConstraintBuilder BeforePlugin(string identifier, bool optional = false)
+        public PluginExecutionConstraintBuilder BeforePlugin(string identifier, bool optional = false)
         {
             Before(DependencySource.Plugin, identifier, optional);
+            return this;
+        }
+
+        /// <summary>
+        /// Schedule this before a specific plugin. The type's class full name will be used.
+        /// </summary>
+        /// <param name="type">Plugin type</param>
+        /// <param name="optional">Optional dependency. If not optional, the dependency solving will fail if the dependency does not exist</param>
+        /// <returns>This builder</returns>
+        public PluginExecutionConstraintBuilder BeforePlugin(Type type, bool optional = false)
+        {
+            Before(DependencySource.Plugin, type.FullName, optional);
             return this;
         }
 
@@ -179,9 +192,21 @@ namespace Chocopoi.DressingFramework.Extensibility.Sequencing
         /// <param name="identifier">Plugin identifier</param>
         /// <param name="optional">Optional dependency. If not optional, the dependency solving will fail if the dependency does not exist</param>
         /// <returns>This builder</returns>
-        public ExecutionConstraintBuilder AfterPlugin(string identifier, bool optional = false)
+        public PluginExecutionConstraintBuilder AfterPlugin(string identifier, bool optional = false)
         {
             After(DependencySource.Plugin, identifier, optional);
+            return this;
+        }
+
+        /// <summary>
+        /// Schedule this after a specific plugin. The type's class full name will be used.
+        /// </summary>
+        /// <param name="type">Plugin type</param>
+        /// <param name="optional">Optional dependency. If not optional, the dependency solving will fail if the dependency does not exist</param>
+        /// <returns>This builder</returns>
+        public PluginExecutionConstraintBuilder AfterPlugin(Type type, bool optional = false)
+        {
+            After(DependencySource.Plugin, type.FullName, optional);
             return this;
         }
     }

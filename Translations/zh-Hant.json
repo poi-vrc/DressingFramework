@@ -1,5 +1,19 @@
 {
+    "framework.name": "DressingFramework",
     "cabinet.applier.msgCode.error.moduleHasNoProviderAvailable": "錯誤：模組沒有提供者：{0}",
     "cabinet.applier.msgCode.error.unableToDeserializeCabinetConfig": "錯誤：無法載入衣櫃配置：{0}",
-    "cabinet.applier.msgCode.error.unableToDeserializeWearableConfig": "錯誤：無法載入穿戴物品配置：{0}"
+    "cabinet.applier.msgCode.error.unableToDeserializeWearableConfig": "錯誤：無法載入穿戴物品配置：{0}",
+    "integrations.vrc.msgCode.error.exceptionProcessAvatar": "錯誤：處理角色時發生錯誤",
+    "integrations.vrc.progressBar.msg.applyingCabinet": "正在套用衣櫃…",
+    "integrations.vrc.dialog.msg.errorPreprocessingReferReportWindow": "預處理角色時出錯，請參閱報告視窗。",
+    "common.dialog.btn.ok": "好的",
+    "report.editor.helpbox.resultError": "結果：發生錯誤",
+    "report.editor.helpbox.resultSuccess": "結果：成功",
+    "report.editor.helpbox.resultWarn": "結果：在繼續之前檢查報告警告",
+    "report.editor.label.logs": "記錄",
+    "report.editor.label.errors": "錯誤：{0}",
+    "report.editor.label.infos": "訊息：{0}",
+    "report.editor.label.warnings": "警告：{0}",
+    "report.editor.title": "DT 報告視窗",
+    "report.helpbox.noReport": "無可用報告。"
 }

@@ -1,9 +1,4 @@
 ﻿/*
- * File: CabinetConfigUtility.cs
- * Project: DressingFramework
- * Created Date: Tuesday, Sep 26th 2023, 05:01:33 pm
- * Author: chocopoi (poi@chocopoi.com)
- * -----
  * Copyright (c) 2023 chocopoi
  * 
  * This file is part of DressingFramework.
@@ -65,12 +60,12 @@ namespace Chocopoi.DressingFramework.Serialization
         public static CabinetConfig Deserialize(string json)
         {
             // TODO: perform schema check
-            var jObject = JObject.Parse(json);
+            var jObject = DKEditorUtils.ParseJson(json);
 
             var version = jObject["version"].ToObject<SerializationVersion>();
             if (version.Major > CabinetConfig.CurrentConfigVersion.Major)
             {
-                throw new Exception("Incompatbile cabinet config version: " + version.Major + " > " + CabinetConfig.CurrentConfigVersion.Major);
+                throw new Exception("Incompatible cabinet config version: " + version.Major + " > " + CabinetConfig.CurrentConfigVersion.Major);
             }
 
             var serializer = new JsonSerializer();
