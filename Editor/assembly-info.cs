@@ -15,3 +15,4 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("com.chocopoi.vrc.dressingtools.Editor")]
 [assembly: InternalsVisibleTo("com.chocopoi.vrc.dressingtools.Editor.Tests")]
 [assembly: InternalsVisibleTo("com.chocopoi.vrc.dressingframework.Editor.Tests")]
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]

@@ -76,6 +76,7 @@ namespace Chocopoi.DressingFramework.Cabinet
 
         public T FindModuleConfig<T>() where T : IModuleConfig
         {
+            var list = new List<T>();
             foreach (var module in modules)
             {
                 if (module.config is T moduleConfig)
@@ -86,16 +87,42 @@ namespace Chocopoi.DressingFramework.Cabinet
             return default;
         }
 
+        public List<T> FindModuleConfigs<T>() where T : IModuleConfig
+        {
+            var list = new List<T>();
+            foreach (var module in modules)
+            {
+                if (module.config is T moduleConfig)
+                {
+                    list.Add(moduleConfig);
+                }
+            }
+            return list;
+        }
+
         public CabinetModule FindModule(string moduleName)
         {
             foreach (var module in modules)
             {
-                if (moduleName == module.moduleName)
+                if (module.moduleName == moduleName)
                 {
                     return module;
                 }
             }
             return null;
+        }
+
+        public List<CabinetModule> FindModules(string moduleName)
+        {
+            var list = new List<CabinetModule>();
+            foreach (var module in modules)
+            {
+                if (module.moduleName == moduleName)
+                {
+                    list.Add(module);
+                }
+            }
+            return list;
         }
     }
 }

@@ -1,9 +1,4 @@
 ﻿/*
- * File: IDynamicsProxy.cs
- * Project: DressingFramework
- * Created Date: Saturday, July 22nd 2023, 12:36:56 am
- * Author: chocopoi (poi@chocopoi.com)
- * -----
  * Copyright (c) 2023 chocopoi
  * 
  * This file is part of DressingFramework.

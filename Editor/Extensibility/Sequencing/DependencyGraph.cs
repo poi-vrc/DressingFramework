@@ -12,6 +12,7 @@
 
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Chocopoi.DressingFramework.Extensibility.Sequencing
 {
@@ -75,6 +76,7 @@ namespace Chocopoi.DressingFramework.Extensibility.Sequencing
                 if (!_vertices.TryGetValue(dependencyTuple, out var dependencyVertex))
                 {
                     _vertices[dependencyTuple] = dependencyVertex = new Vertex();
+                    dependencyVertex.optional = dependency.optional;
                 }
                 dependencyVertex.optional &= dependency.optional;
 
@@ -89,6 +91,7 @@ namespace Chocopoi.DressingFramework.Extensibility.Sequencing
                 if (!_vertices.TryGetValue(dependencyTuple, out var dependencyVertex))
                 {
                     _vertices[dependencyTuple] = dependencyVertex = new Vertex();
+                    dependencyVertex.optional = dependency.optional;
                 }
                 dependencyVertex.optional &= dependency.optional;
 
@@ -132,6 +135,7 @@ namespace Chocopoi.DressingFramework.Extensibility.Sequencing
             {
                 // init to zero if not exist
                 if (!inDegrees.ContainsKey(u)) inDegrees[u] = 0;
+                if (!_edges.ContainsKey(u)) continue;
 
                 foreach (var v in _edges[u])
                 {
@@ -157,11 +161,14 @@ namespace Chocopoi.DressingFramework.Extensibility.Sequencing
                 var u = queue.Dequeue();
                 topOrder.Add(u);
 
-                foreach (var v in _edges[u])
+                if (_edges.ContainsKey(u))
                 {
-                    if (--inDegrees[v] == 0)
+                    foreach (var v in _edges[u])
                     {
-                        queue.Enqueue(v);
+                        if (--inDegrees[v] == 0)
+                        {
+                            queue.Enqueue(v);
+                        }
                     }
                 }
 

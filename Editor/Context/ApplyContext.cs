@@ -11,8 +11,10 @@
  */
 
 using System.Collections.Generic;
+using Chocopoi.DressingFramework.Animations;
 using Chocopoi.DressingFramework.Cabinet;
 using Chocopoi.DressingFramework.Logging;
+using Chocopoi.DressingFramework.Proxy;
 using Chocopoi.DressingFramework.Wearable;
 using UnityEditor;
 using UnityEngine;
@@ -67,6 +69,21 @@ namespace Chocopoi.DressingFramework.Context
         /// </summary>
         public Dictionary<IWearable, ApplyWearableContext> wearableContexts;
 
+        /// <summary>
+        /// Scanned avatar dynamics
+        /// </summary>
+        public List<IDynamicsProxy> avatarDynamics;
+
+        /// <summary>
+        /// Path remapper
+        /// </summary>
+        public PathRemapper pathRemapper;
+
+        /// <summary>
+        /// Animation store
+        /// </summary>
+        public AnimationStore animationStore;
+
         private readonly string _randomString;
 
         /// <summary>
@@ -79,7 +96,7 @@ namespace Chocopoi.DressingFramework.Context
             avatarGameObject = null;
             wearableContexts = new Dictionary<IWearable, ApplyWearableContext>();
             _extraContexts = new Dictionary<System.Type, ExtraCabinetContext>();
-            _randomString = DKRuntimeUtils.RandomString(8);
+            _randomString = DKEditorUtils.RandomString(8);
         }
 
         /// <summary>
@@ -155,6 +172,11 @@ namespace Chocopoi.DressingFramework.Context
         /// </summary>
         public GameObject wearableGameObject;
 
+        /// <summary>
+        /// Scanned wearable dynamics
+        /// </summary>
+        public List<IDynamicsProxy> wearableDynamics;
+
         private readonly string _randomString;
 
         private readonly Dictionary<System.Type, ExtraWearableContext> _extraContexts;
@@ -165,7 +187,7 @@ namespace Chocopoi.DressingFramework.Context
         public ApplyWearableContext()
         {
             _extraContexts = new Dictionary<System.Type, ExtraWearableContext>();
-            _randomString = DKRuntimeUtils.RandomString(8);
+            _randomString = DKEditorUtils.RandomString(8);
         }
 
         /// <summary>

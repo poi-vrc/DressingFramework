@@ -21,6 +21,7 @@ using Chocopoi.DressingFramework.Localization;
 using Chocopoi.DressingFramework.Logging;
 using UnityEditor;
 using UnityEngine;
+using LogType = Chocopoi.DressingFramework.Logging.LogType;
 
 namespace Chocopoi.DressingFramework.UI
 {
@@ -31,7 +32,7 @@ namespace Chocopoi.DressingFramework.UI
 
         private DKReport _report;
 
-        private Dictionary<DressingFramework.Logging.LogType, List<LogEntry>> _logEntries;
+        private Dictionary<LogType, List<LogEntry>> _logEntries;
 
         private Vector2 scrollPos;
         public static void ShowWindow(DKReport report)
@@ -59,11 +60,11 @@ namespace Chocopoi.DressingFramework.UI
                 }
                 //Result
 
-                if (_report.HasLogType(DressingFramework.Logging.LogType.Error))
+                if (_report.HasLogType(LogType.Error))
                 {
                     EditorGUILayout.HelpBox(t._("report.editor.helpbox.resultError"), MessageType.Error);
                 }
-                else if (_report.HasLogType(DressingFramework.Logging.LogType.Warning))
+                else if (_report.HasLogType(LogType.Warning))
                 {
                     EditorGUILayout.HelpBox(t._("report.editor.helpbox.resultWarn"), MessageType.Warning);
                 }
@@ -76,35 +77,35 @@ namespace Chocopoi.DressingFramework.UI
 
                 EditorGUILayout.BeginHorizontal();
                 {
-                    GUILayout.Label(t._("report.editor.label.errors", _logEntries.ContainsKey(DressingFramework.Logging.LogType.Error) ? _logEntries[DressingFramework.Logging.LogType.Error].Count : 0));
-                    GUILayout.Label(t._("report.editor.label.warnings", _logEntries.ContainsKey(DressingFramework.Logging.LogType.Warning) ? _logEntries[DressingFramework.Logging.LogType.Warning].Count : 0));
-                    GUILayout.Label(t._("report.editor.label.infos", _logEntries.ContainsKey(DressingFramework.Logging.LogType.Info) ? _logEntries[DressingFramework.Logging.LogType.Info].Count : 0));
+                    GUILayout.Label(t._("report.editor.label.errors", _logEntries.ContainsKey(LogType.Error) ? _logEntries[LogType.Error].Count : 0));
+                    GUILayout.Label(t._("report.editor.label.warnings", _logEntries.ContainsKey(LogType.Warning) ? _logEntries[LogType.Warning].Count : 0));
+                    GUILayout.Label(t._("report.editor.label.infos", _logEntries.ContainsKey(LogType.Info) ? _logEntries[LogType.Info].Count : 0));
                 }
                 EditorGUILayout.EndHorizontal();
 
                 // show logs
                 scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
                 {
-                    if (_logEntries.ContainsKey(DressingFramework.Logging.LogType.Error))
+                    if (_logEntries.ContainsKey(LogType.Error))
                     {
-                        foreach (var logEntry in _logEntries[DressingFramework.Logging.LogType.Error])
+                        foreach (var logEntry in _logEntries[LogType.Error])
                         {
                             EditorGUILayout.HelpBox(logEntry.message, MessageType.Error);
                         }
                     }
 
-                    if (_logEntries.ContainsKey(DressingFramework.Logging.LogType.Warning))
+                    if (_logEntries.ContainsKey(LogType.Warning))
                     {
 
-                        foreach (var logEntry in _logEntries[DressingFramework.Logging.LogType.Warning])
+                        foreach (var logEntry in _logEntries[LogType.Warning])
                         {
                             EditorGUILayout.HelpBox(logEntry.message, MessageType.Warning);
                         }
                     }
 
-                    if (_logEntries.ContainsKey(DressingFramework.Logging.LogType.Info))
+                    if (_logEntries.ContainsKey(LogType.Info))
                     {
-                        foreach (var logEntry in _logEntries[DressingFramework.Logging.LogType.Info])
+                        foreach (var logEntry in _logEntries[LogType.Info])
                         {
                             EditorGUILayout.HelpBox(logEntry.message, MessageType.Info);
                         }

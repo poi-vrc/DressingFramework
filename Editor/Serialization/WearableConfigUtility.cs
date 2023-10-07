@@ -18,7 +18,6 @@
 using System;
 using Chocopoi.DressingFramework.Wearable;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using UnityEngine;
 
 namespace Chocopoi.DressingFramework.Serialization
@@ -65,16 +64,17 @@ namespace Chocopoi.DressingFramework.Serialization
         public static WearableConfig Deserialize(string json)
         {
             // TODO: perform schema check
-            var jObject = JObject.Parse(json);
+            var jObject = DKEditorUtils.ParseJson(json);
 
             var version = jObject["version"].ToObject<SerializationVersion>();
             if (version.Major > WearableConfig.CurrentConfigVersion.Major)
             {
-                throw new Exception("Incompatbile wearable config version: " + version.Major + " > " + WearableConfig.CurrentConfigVersion.Major);
+                throw new Exception("Incompatible wearable config version: " + version.Major + " > " + WearableConfig.CurrentConfigVersion.Major);
             }
 
             var serializer = new JsonSerializer();
             serializer.Converters.Add(new WearableModuleConverter());
+
             return jObject.ToObject<WearableConfig>(serializer);
         }
 
