@@ -4,7 +4,7 @@ var searchData=
   ['i18ntest_1',['I18nTest',['../class_chocopoi_1_1_dressing_framework_1_1_tests_1_1_cabinet_1_1_i18n_test.html',1,'Chocopoi::DressingFramework::Tests::Cabinet']]],
   ['i18ntranslator_2',['I18nTranslator',['../class_chocopoi_1_1_dressing_framework_1_1_localization_1_1_i18n_translator.html',1,'Chocopoi::DressingFramework::Localization']]],
   ['icabinet_3',['ICabinet',['../interface_chocopoi_1_1_dressing_framework_1_1_cabinet_1_1_i_cabinet.html',1,'Chocopoi::DressingFramework::Cabinet']]],
-  ['idresser_4',['IDresser',['../interface_chocopoi_1_1_dressing_framework_1_1_dresser_1_1_i_dresser.html',1,'Chocopoi::DressingFramework::Dresser']]],
+  ['idresser_4',['IDresser',['../interface_chocopoi_1_1_dressing_tools_1_1_api_1_1_wearable_1_1_modules_1_1_built_in_1_1_armature_mapping_1_1_i_dresser.html',1,'Chocopoi::DressingTools::Api::Wearable::Modules::BuiltIn::ArmatureMapping']]],
   ['idynamicsproxy_5',['IDynamicsProxy',['../interface_chocopoi_1_1_dressing_framework_1_1_proxy_1_1_i_dynamics_proxy.html',1,'Chocopoi::DressingFramework::Proxy']]],
   ['ieditorview_6',['IEditorView',['../interface_chocopoi_1_1_dressing_framework_1_1_u_i_1_1_i_editor_view.html',1,'Chocopoi::DressingFramework::UI']]],
   ['iframeworkeventhandler_7',['IFrameworkEventHandler',['../interface_chocopoi_1_1_dressing_framework_1_1_extensibility_1_1_plugin_1_1_i_framework_event_handler.html',1,'Chocopoi::DressingFramework::Extensibility::Plugin']]],

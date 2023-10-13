@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pathmode_0',['PathMode',['../class_chocopoi_1_1_dressing_framework_1_1_integration_1_1_v_r_chat_1_1_modules_1_1_v_r_c_merge_a5bd1b9f9d476ff55e04367bc0b2e76c2.html#a3b7bb8d1b60ebfe31fe2c6a00e25eff8',1,'Chocopoi::DressingFramework::Integration::VRChat::Modules::VRCMergeAnimLayerWearableModuleConfig']]]
+  ['pathmode_0',['PathMode',['../class_chocopoi_1_1_dressing_tools_1_1_api_1_1_integration_1_1_v_r_chat_1_1_wearable_1_1_modules_6633e8620d4847174c7c6ec3aec6d8e3.html#ad72976dadad3d3b9fbf1813aed0e8e6c',1,'Chocopoi::DressingTools::Api::Integration::VRChat::Wearable::Modules::VRCMergeAnimLayerWearableModuleConfig']]]
 ];
