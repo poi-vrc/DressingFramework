@@ -19,5 +19,6 @@
     "report.editor.label.logs": "Logs",
     "report.editor.label.warnings": "Warnings: {0}",
     "report.editor.title": "DT Report Window",
-    "report.helpbox.noReport": "No report available."
+    "report.helpbox.noReport": "No report available.",
+    "menu.dialog.msg.noCabinetFoundInSelection": "No cabinet found in selection."
 }

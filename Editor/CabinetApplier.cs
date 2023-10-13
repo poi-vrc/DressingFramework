@@ -69,9 +69,10 @@ namespace Chocopoi.DressingFramework
 
         private void SetUp()
         {
-            // remove previous generated files
-            AssetDatabase.DeleteAsset(ApplyCabinetContext.GeneratedAssetsPath);
-            AssetDatabase.CreateFolder("Assets", ApplyCabinetContext.GeneratedAssetsFolderName);
+            if (!AssetDatabase.IsValidFolder(ApplyCabinetContext.GeneratedAssetsPath))
+            {
+                AssetDatabase.CreateFolder("Assets", ApplyCabinetContext.GeneratedAssetsFolderName);
+            }
 
             // attempt to deserialize cabinet config
             try

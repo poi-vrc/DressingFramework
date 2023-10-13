@@ -16,6 +16,8 @@ using System.Linq;
 using Chocopoi.DressingFramework.Cabinet;
 using Chocopoi.DressingFramework.Proxy;
 using Chocopoi.DressingFramework.Wearable;
+using Chocopoi.DressingTools.Api.Cabinet;
+using Chocopoi.DressingTools.Api.Wearable;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using UnityEngine;

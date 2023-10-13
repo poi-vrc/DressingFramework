@@ -10,7 +10,9 @@
  * You should have received a copy of the GNU General Public License along with DressingFramework. If not, see <https://www.gnu.org/licenses/>.
  */
 
+using System.Diagnostics.CodeAnalysis;
 using Chocopoi.DressingFramework.Cabinet;
+using Chocopoi.DressingFramework.Context;
 using Chocopoi.DressingFramework.Logging;
 using Chocopoi.DressingFramework.UI;
 using UnityEditor;
@@ -18,6 +20,7 @@ using UnityEditor;
 namespace Chocopoi.DressingFramework
 {
     [InitializeOnLoad]
+    [ExcludeFromCodeCoverage]
     internal static class AutoPlayModeApply
     {
         private static DKRuntimeUtils.LifecycleStage s_applyLifeCycle = DKRuntimeUtils.LifecycleStage.Awake;
@@ -49,6 +52,8 @@ namespace Chocopoi.DressingFramework
                     s_applyLifeCycle = DKRuntimeUtils.LifecycleStage.Start;
                     break;
                 case PlayModeStateChange.EnteredEditMode:
+                    // remove previous generated files
+                    AssetDatabase.DeleteAsset(ApplyCabinetContext.GeneratedAssetsPath);
                     s_applyLifeCycle = DKRuntimeUtils.LifecycleStage.Awake;
                     break;
             }

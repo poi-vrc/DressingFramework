@@ -10,16 +10,7 @@
  * You should have received a copy of the GNU General Public License along with DressingFramework. If not, see <https://www.gnu.org/licenses/>.
  */
 
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using Chocopoi.DressingFramework.Cabinet;
-using Chocopoi.DressingFramework.Cabinet.Modules;
-using Chocopoi.DressingFramework.Wearable;
-using Chocopoi.DressingFramework.Wearable.Modules;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using UnityEngine;
 
 namespace Chocopoi.DressingFramework
 {

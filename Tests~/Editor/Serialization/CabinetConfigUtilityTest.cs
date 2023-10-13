@@ -14,7 +14,6 @@ using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using Chocopoi.DressingFramework.Cabinet;
 using Chocopoi.DressingFramework.Cabinet.Modules;
-using Chocopoi.DressingFramework.Cabinet.Modules.BuiltIn;
 using Chocopoi.DressingFramework.Context;
 using Chocopoi.DressingFramework.Extensibility.Plugin;
 using Chocopoi.DressingFramework.Extensibility.Sequencing;
