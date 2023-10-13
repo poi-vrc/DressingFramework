@@ -13,6 +13,8 @@
 using Chocopoi.DressingFramework.Extensibility.Plugin;
 using Chocopoi.DressingFramework.Serialization;
 using Chocopoi.DressingFramework.Wearable;
+using Chocopoi.DressingTools.Api.Cabinet;
+using Chocopoi.DressingTools.Api.Wearable;
 using UnityEditor;
 using UnityEngine;
 

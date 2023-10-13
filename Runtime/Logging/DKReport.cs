@@ -160,6 +160,7 @@ namespace Chocopoi.DressingFramework.Logging
         /// <param name="code">Message code for machines</param>
         public void Log(LogType type, string label, string message, string code = null)
         {
+#if DK_PRINT_REPORT_LOG
             // TODO: do not output debug, trace unless specified in settings
             if (code != null)
             {
@@ -169,6 +170,7 @@ namespace Chocopoi.DressingFramework.Logging
             {
                 Debug.Log(string.Format("[DressingFramework] [{0}] [{1}] {2}", label, type, message));
             }
+#endif
             LogEntries.Add(new LogEntry() { type = type, label = label, code = code, message = message });
         }
 

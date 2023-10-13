@@ -106,10 +106,11 @@ namespace Chocopoi.DressingFramework.Animations
 
         private void RegeneratePaths(GameObject go, List<string> originalPaths, Dictionary<string, string> mappings, bool avoidContainerBones)
         {
+            var p = go.transform;
+
             // traverse up until no container bones are found
             if (avoidContainerBones)
             {
-                var p = go.transform;
                 while (p != null && _taggedContainerBones.Contains(p.gameObject))
                 {
                     p = p.parent;
@@ -124,7 +125,7 @@ namespace Chocopoi.DressingFramework.Animations
             // regenerate relative path
             foreach (var originalPath in originalPaths)
             {
-                mappings[originalPath] = DKEditorUtils.GetRelativePath(go.transform, _avatarRoot.transform);
+                mappings[originalPath] = DKEditorUtils.GetRelativePath(p, _avatarRoot.transform);
             }
         }
 

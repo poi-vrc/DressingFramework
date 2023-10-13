@@ -11,8 +11,8 @@
  */
 
 using System.Collections;
-using Chocopoi.DressingFramework.Cabinet;
-using Chocopoi.DressingFramework.Wearable;
+using Chocopoi.DressingTools.Api.Cabinet;
+using Chocopoi.DressingTools.Api.Wearable;
 using NUnit.Framework;
 using UnityEngine.TestTools;
 

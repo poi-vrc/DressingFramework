@@ -96,7 +96,7 @@ namespace Chocopoi.DressingFramework.Animations
                 for (var i = 0; i < tree.children.Length; i++)
                 {
                     var childIndex = i;
-                    RegisterMotion(motion, (AnimationClip newClip) => tree.children[childIndex].motion = newClip, filterMotionFunc, visitedMotions);
+                    RegisterMotion(tree.children[childIndex].motion, (AnimationClip newClip) => tree.children[childIndex].motion = newClip, filterMotionFunc, visitedMotions);
                 }
             }
         }

@@ -10,10 +10,10 @@
  * You should have received a copy of the GNU General Public License along with DressingFramework. If not, see <https://www.gnu.org/licenses/>.
  */
 
-using Chocopoi.DressingFramework.Cabinet;
 using Chocopoi.DressingFramework.Logging;
 using Chocopoi.DressingFramework.Serialization;
-using Chocopoi.DressingFramework.Wearable;
+using Chocopoi.DressingTools.Api.Cabinet;
+using Chocopoi.DressingTools.Api.Wearable;
 using NUnit.Framework;
 
 namespace Chocopoi.DressingFramework.Tests
