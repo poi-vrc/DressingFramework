@@ -18,7 +18,8 @@
     "report.editor.label.infos": "Infos: {0}",
     "report.editor.label.logs": "Logs",
     "report.editor.label.warnings": "Warnings: {0}",
-    "report.editor.title": "DT Report Window",
+    "report.editor.title": "DK Report Window",
+    "report.editor.saveReportToFile": "Save report to file",
     "report.helpbox.noReport": "No report available.",
     "menu.dialog.msg.noCabinetFoundInSelection": "No cabinet found in selection."
 }

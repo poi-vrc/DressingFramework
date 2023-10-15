@@ -14,6 +14,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Chocopoi.DressingFramework.Cabinet;
 using Chocopoi.DressingFramework.Localization;
 using Chocopoi.DressingFramework.Logging;
 using Chocopoi.DressingFramework.UI;
@@ -38,6 +39,8 @@ namespace Chocopoi.DressingFramework.Triggers.VRChat
 
         public bool OnPreprocessAvatar(GameObject avatarGameObject)
         {
+            ReportWindow.Reset();
+
             var cabinet = DKEditorUtils.GetAvatarCabinet(avatarGameObject);
             if (cabinet == null)
             {
@@ -59,10 +62,11 @@ namespace Chocopoi.DressingFramework.Triggers.VRChat
             }
             finally
             {
+                ReportWindow.AddReport(avatarGameObject.name, report);
                 // show report window if any errors
                 if (report.HasLogType(LogType.Error))
                 {
-                    ui.ShowReportWindow(report);
+                    ui.ShowReportWindow();
                     ui.ShowErrorPreprocessingAvatarDialog();
                 }
 
@@ -84,7 +88,7 @@ namespace Chocopoi.DressingFramework.Triggers.VRChat
             void ShowProgressBar();
             void ClearProgressBar();
             void ShowErrorPreprocessingAvatarDialog();
-            void ShowReportWindow(DKReport report);
+            void ShowReportWindow();
         }
 
         // Unity editor UI
@@ -95,9 +99,9 @@ namespace Chocopoi.DressingFramework.Triggers.VRChat
                 EditorUtility.DisplayDialog(t._("framework.name"), t._("integrations.vrc.dialog.msg.errorPreprocessingReferReportWindow"), t._("common.dialog.btn.ok"));
             }
 
-            public void ShowReportWindow(DKReport report)
+            public void ShowReportWindow()
             {
-                ReportWindow.ShowWindow(report);
+                ReportWindow.ShowWindow();
             }
 
             public void ShowProgressBar()

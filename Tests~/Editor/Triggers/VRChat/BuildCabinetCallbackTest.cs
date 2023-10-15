@@ -76,7 +76,7 @@ namespace Chocopoi.DressingFramework.Tests.Triggers.VRChat
             Assert.False(callback.OnPreprocessAvatar(avatarObj));
             mock.Verify(ui => ui.ShowProgressBar(), Times.Once);
             mock.Verify(ui => ui.ClearProgressBar(), Times.Once);
-            mock.Verify(ui => ui.ShowReportWindow(It.IsAny<DKReport>()), Times.Once);
+            mock.Verify(ui => ui.ShowReportWindow(), Times.Once);
             mock.Verify(ui => ui.ShowErrorPreprocessingAvatarDialog(), Times.Once);
         }
     }
