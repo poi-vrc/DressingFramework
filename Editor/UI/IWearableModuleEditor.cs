@@ -17,7 +17,6 @@
 
 using Chocopoi.DressingFramework.Extensibility.Plugin;
 using Chocopoi.DressingFramework.Serialization;
-using UnityEditor;
 
 namespace Chocopoi.DressingFramework.UI
 {

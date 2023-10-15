@@ -13,7 +13,6 @@
 using System;
 using Chocopoi.DressingFramework.Cabinet;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using UnityEngine;
 
 namespace Chocopoi.DressingFramework.Serialization

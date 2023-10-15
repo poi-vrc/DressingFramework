@@ -12,7 +12,6 @@
 
 #if VRC_SDK_VRCSDK3
 using Chocopoi.DressingFramework.Cabinet;
-using Chocopoi.DressingFramework.Logging;
 using Chocopoi.DressingFramework.Serialization;
 using Chocopoi.DressingFramework.Triggers.VRChat;
 using Chocopoi.DressingFramework.Wearable;

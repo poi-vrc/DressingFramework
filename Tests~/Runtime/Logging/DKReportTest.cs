@@ -13,7 +13,6 @@
 using Chocopoi.DressingFramework.Logging;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
-using UnityEngine;
 using LogType = Chocopoi.DressingFramework.Logging.LogType;
 
 namespace Chocopoi.DressingFramework.Tests.Logging
