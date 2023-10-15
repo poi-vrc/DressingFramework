@@ -21,7 +21,6 @@ using System.Globalization;
 using Chocopoi.DressingFramework.Localization;
 using Chocopoi.DressingFramework.Serialization;
 using Newtonsoft.Json;
-using UnityEngine;
 
 namespace Chocopoi.DressingFramework.Logging
 {

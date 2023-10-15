@@ -14,7 +14,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Chocopoi.DressingFramework.Cabinet;
 using Chocopoi.DressingFramework.Localization;
 using Chocopoi.DressingFramework.Logging;
 using Chocopoi.DressingFramework.UI;
