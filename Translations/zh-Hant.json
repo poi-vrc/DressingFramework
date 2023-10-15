@@ -20,5 +20,6 @@
     "cabinet.applier.msgCode.error.cabinetHookHasErrors": "錯誤：衣櫃鉤子有錯誤：{0}",
     "cabinet.applier.msgCode.error.wearableHookHasErrors": "錯誤：穿戴物品鉤子有錯誤：{0}",
     "cabinet.applier.msgCode.error.unresolvedDependencies": "錯誤：偵測到未解決的依賴關係、請檢查是否有一些需要的模組或鉤子沒有導入。",
-    "cabinet.applier.msgCode.error.cyclicDependencies": "錯誤：偵測到循環依賴關係、無法套用衣櫃。"
+    "cabinet.applier.msgCode.error.cyclicDependencies": "錯誤：偵測到循環依賴關係、無法套用衣櫃。",
+    "report.editor.saveReportToFile": "儲存報告"
 }
