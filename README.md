@@ -14,7 +14,8 @@ A framework that assembles DressingTools and allows the creation of modular plug
 
 ## API Stability
 
-**Unstable** but most features are usable.
+Generally stable, and can be used for development.
+Some APIs marked with `This API will be changed soon` are pending for changes and please avoid using them at this moment.
 
 ## Hooks
 
