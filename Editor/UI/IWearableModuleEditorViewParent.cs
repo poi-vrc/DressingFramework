@@ -43,6 +43,6 @@ namespace Chocopoi.DressingFramework.UI
         /// <summary>
         /// Trigger update avatar preview
         /// </summary>
-        void UpdateAvatarPreview();
+        void UpdateAvatarPreview(bool forceRecreate = false);
     }
 }
