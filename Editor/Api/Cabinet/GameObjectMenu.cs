@@ -56,7 +56,7 @@ namespace Chocopoi.DressingTools.Api
 
             if (originalCabinet == null)
             {
-                EditorUtility.DisplayDialog(t._("tool.name"), t._("menu.dialog.msg.noCabinetFoundInSelection"), t._("common.dialog.btn.ok"));
+                EditorUtility.DisplayDialog(t._("framework.name"), t._("menu.dialog.msg.noCabinetFoundInSelection"), t._("common.dialog.btn.ok"));
                 return;
             }
 
@@ -66,9 +66,10 @@ namespace Chocopoi.DressingTools.Api
 
             var report = new DKReport();
             new CabinetApplier(report, cabinetCopy).RunStages();
+            ReportWindow.AddReport(avatarCopy.name, report);
             if (report.HasLogType(LogType.Error))
             {
-                ReportWindow.ShowWindow(report);
+                ReportWindow.ShowWindow();
             }
         }
     }

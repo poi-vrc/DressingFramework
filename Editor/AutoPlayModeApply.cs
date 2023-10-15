@@ -36,10 +36,12 @@ namespace Chocopoi.DressingFramework
             if (s_applyLifeCycle == stage)
             {
                 var report = new DKReport();
+                var avatarObj = cabinet.AvatarGameObject;
                 new CabinetApplier(report, cabinet).RunStages();
+                ReportWindow.AddReport(avatarObj.name, report);
                 if (report.HasLogType(LogType.Error))
                 {
-                    ReportWindow.ShowWindow(report);
+                    ReportWindow.ShowWindow();
                 }
             }
         }
@@ -48,6 +50,9 @@ namespace Chocopoi.DressingFramework
         {
             switch (change)
             {
+                case PlayModeStateChange.ExitingEditMode:
+                    ReportWindow.Reset();
+                    break;
                 case PlayModeStateChange.EnteredPlayMode:
                     s_applyLifeCycle = DKRuntimeUtils.LifecycleStage.Start;
                     break;

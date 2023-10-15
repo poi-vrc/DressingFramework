@@ -15,8 +15,11 @@
  * You should have received a copy of the GNU General Public License along with DressingTools. If not, see <https://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
+using System.Linq;
 using Chocopoi.DressingFramework.Localization;
 using Chocopoi.DressingFramework.Logging;
 using UnityEditor;
@@ -30,41 +33,79 @@ namespace Chocopoi.DressingFramework.UI
     {
         private static readonly I18nTranslator t = I18nManager.Instance.FrameworkTranslator;
 
-        private DKReport _report;
+        public static readonly Dictionary<string, DKReport> Reports = new Dictionary<string, DKReport>();
+
+        private string _selectedReportName;
 
         private Dictionary<LogType, List<LogEntry>> _logEntries;
 
         private Vector2 scrollPos;
-        public static void ShowWindow(DKReport report)
+
+        [MenuItem("Tools/chocopoi/DK Report Window", false, 0)]
+        public static void ShowWindow()
         {
             var window = (ReportWindow)GetWindow(typeof(ReportWindow));
             window.titleContent = new GUIContent(t._("report.editor.title"));
             window.Show();
-
-            window._report = report;
         }
 
-        public void ResetReport()
+        public static void Reset()
         {
-            _report = null;
-            _logEntries = null;
+            Reports.Clear();
+        }
+
+        public static void AddReport(string reportName, DKReport report)
+        {
+            Reports.Add($"{reportName} ({System.DateTime.Now:yyyy-MM-dd HH:mm:ss.fff})", report);
         }
 
         public void OnGUI()
         {
-            if (_report != null)
+            if (Reports.Count != 0)
             {
+                if (_selectedReportName == null || !Reports.ContainsKey(_selectedReportName))
+                {
+                    _logEntries = null;
+                    _selectedReportName = Reports.Keys.First();
+                }
+
+                var report = Reports[_selectedReportName];
+
                 if (_logEntries == null)
                 {
-                    _logEntries = _report.GetLogEntriesAsDictionary();
+                    _logEntries = report.GetLogEntriesAsDictionary();
                 }
+
+                var keys = Reports.Keys.ToArray();
+                _selectedReportName = keys[GUILayout.SelectionGrid(Array.IndexOf(keys, _selectedReportName), keys, 1)];
+
+                EditorGUILayout.Separator();
+
+                if (GUILayout.Button(t._("report.editor.saveReportToFile")))
+                {
+                    var dateTime = DateTime.Parse(report.GeneratedTime, null, System.Globalization.DateTimeStyles.RoundtripKind);
+                    var path = EditorUtility.SaveFilePanel(t._("framework.name"), "", $"dk-report-{dateTime:yyyy-MM-dd-HH-mm-ss-fff}", "json");
+                    if (!string.IsNullOrEmpty(path))
+                    {
+                        try
+                        {
+                            File.WriteAllText(path, report.Serialize());
+                        }
+                        catch (IOException e)
+                        {
+                            Debug.LogException(e);
+                            EditorUtility.DisplayDialog(t._("framework.name"), e.Message, t._("common.dialog.btn.ok"));
+                        }
+                    }
+                }
+
                 //Result
 
-                if (_report.HasLogType(LogType.Error))
+                if (report.HasLogType(LogType.Error))
                 {
                     EditorGUILayout.HelpBox(t._("report.editor.helpbox.resultError"), MessageType.Error);
                 }
-                else if (_report.HasLogType(LogType.Warning))
+                else if (report.HasLogType(LogType.Warning))
                 {
                     EditorGUILayout.HelpBox(t._("report.editor.helpbox.resultWarn"), MessageType.Warning);
                 }

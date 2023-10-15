@@ -8,7 +8,7 @@ namespace Chocopoi.DressingFramework.Tests
     // a test script base containing utility functions
     public class EditorTestBase
     {
-        public const string GeneratedAssetsFolderName = "_DKGeneratedAssets";
+        public const string GeneratedAssetsFolderName = "_DTGeneratedAssets";
         public const string GeneratedAssetsPath = "Assets/" + GeneratedAssetsFolderName;
         protected List<GameObject> instantiatedGameObjects;
 

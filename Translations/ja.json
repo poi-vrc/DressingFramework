@@ -14,7 +14,7 @@
     "report.editor.label.infos": "情報: {0}",
     "report.editor.label.logs": "ログ",
     "report.editor.label.warnings": "警告: {0}",
-    "report.editor.title": "DT レポートウィンドウ",
+    "report.editor.title": "DK レポートウィンドウ",
     "report.helpbox.noReport": "レポートはありません。",
     "menu.dialog.msg.noCabinetFoundInSelection": "キャビネットが見つかりません。",
     "cabinet.applier.msgCode.error.cyclicDependencies": "エラー: 循環依存関係が検出されました。キャビネットを適用できません。",

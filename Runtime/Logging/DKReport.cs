@@ -17,7 +17,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Chocopoi.DressingFramework.Localization;
+using Chocopoi.DressingFramework.Serialization;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace Chocopoi.DressingFramework.Logging
@@ -68,9 +71,24 @@ namespace Chocopoi.DressingFramework.Logging
     [Serializable]
     public class DKReport
     {
+        private static readonly SerializationVersion CurrentReportVersion = new SerializationVersion(1, 0, 0);
+
+        /// <summary>
+        /// Serialization version of this DKReport
+        /// </summary>
+        [JsonProperty(PropertyName = "version")]
+        public SerializationVersion Version { get; private set; }
+
+        /// <summary>
+        /// Generated time
+        /// </summary>
+        [JsonProperty(PropertyName = "generatedTime")]
+        public string GeneratedTime { get; private set; }
+
         /// <summary>
         /// Log entries
         /// </summary>
+        [JsonProperty(PropertyName = "logEntries")]
         public List<LogEntry> LogEntries { get; private set; }
 
         /// <summary>
@@ -78,7 +96,18 @@ namespace Chocopoi.DressingFramework.Logging
         /// </summary>
         public DKReport()
         {
+            Version = CurrentReportVersion;
+            GeneratedTime = DateTime.UtcNow.ToString("o", CultureInfo.InvariantCulture);
             LogEntries = new List<LogEntry>();
+        }
+
+        /// <summary>
+        /// Serialize this into JSON
+        /// </summary>
+        /// <returns></returns>
+        public string Serialize()
+        {
+            return JsonConvert.SerializeObject(this);
         }
 
         /// <summary>

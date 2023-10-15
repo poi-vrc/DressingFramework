@@ -11,6 +11,7 @@
  */
 
 using Chocopoi.DressingFramework.Logging;
+using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using UnityEngine;
 using LogType = Chocopoi.DressingFramework.Logging.LogType;
@@ -106,6 +107,26 @@ namespace Chocopoi.DressingFramework.Tests.Logging
             Assert.AreEqual("System.Exception: Exception of type 'System.Exception' was thrown.", report.LogEntries[0].message);
             report.LogException("label", new System.Exception(), "my-message");
             Assert.AreEqual("my-message: System.Exception: Exception of type 'System.Exception' was thrown.", report.LogEntries[1].message);
+        }
+
+        public void GetterSetterTest()
+        {
+            // just for passing cov
+            var report = new DKReport();
+            Assert.NotNull(report.Version);
+            Assert.NotNull(report.GeneratedTime);
+            Assert.NotNull(report.LogEntries);
+        }
+
+        public void SerializeTest()
+        {
+            // just for passing cov
+            var report = new DKReport();
+            var json = report.Serialize();
+            var jObj = JObject.Parse(json);
+            Assert.True(jObj.ContainsKey("version"));
+            Assert.True(jObj.ContainsKey("generatedTime"));
+            Assert.True(jObj.ContainsKey("logEntries"));
         }
     }
 }
