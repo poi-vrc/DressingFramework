@@ -150,6 +150,8 @@ namespace Chocopoi.DressingFramework
 
         private void TearDown()
         {
+            _cabCtx.animationStore.Dispatch();
+
             // remove all DT components
             var dtComps = _cabCtx.avatarGameObject.GetComponentsInChildren<DKBaseComponent>();
             foreach (var comp in dtComps)
