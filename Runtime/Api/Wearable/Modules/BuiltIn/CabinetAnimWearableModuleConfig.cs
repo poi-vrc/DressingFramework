@@ -263,7 +263,7 @@ namespace Chocopoi.DressingTools.Api.Wearable.Modules.BuiltIn
             avatarAnimationOnWear = new Preset();
             wearableAnimationOnWear = new Preset();
             wearableCustomizables = new List<Customizable>();
-            invertAvatarToggleOriginalStates = true;
+            invertAvatarToggleOriginalStates = false;
             invertWearableToggleOriginalStates = true;
             setWearableDynamicsInactive = true;
         }
