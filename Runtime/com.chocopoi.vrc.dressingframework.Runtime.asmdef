@@ -1,10 +1,7 @@
 {
     "name": "com.chocopoi.vrc.dressingframework.Runtime",
     "references": [],
-    "includePlatforms": [
-        "Editor",
-        "WindowsStandalone64"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
