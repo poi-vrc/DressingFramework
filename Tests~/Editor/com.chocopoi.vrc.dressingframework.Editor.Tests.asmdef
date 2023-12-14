@@ -1,5 +1,6 @@
 {
     "name": "com.chocopoi.vrc.dressingframework.Editor.Tests",
+    "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
@@ -21,6 +22,12 @@
     "defineConstraints": [
         "UNITY_INCLUDE_TESTS"
     ],
-    "versionDefines": [],
+    "versionDefines": [
+        {
+            "name": "com.vrmc.vrm",
+            "expression": "0.110",
+            "define": "DK_VRM"
+        }
+    ],
     "noEngineReferences": false
 }
