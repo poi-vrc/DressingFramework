@@ -140,6 +140,7 @@ namespace Chocopoi.DressingFramework
             // get the dynbone type
             var DynamicBoneType = FindType("DynamicBone");
             var PhysBoneType = FindType("VRC.SDK3.Dynamics.PhysBone.Components.VRCPhysBone");
+            var VRMSpringBoneType = FindType("VRM.VRMSpringBone");
 
             // scan dynbones
             if (DynamicBoneType != null)
@@ -166,6 +167,24 @@ namespace Chocopoi.DressingFramework
                         continue;
                     }
                     dynamicsList.Add(new PhysBoneProxy(physBone));
+                }
+            }
+
+            // scan vrmspringbones
+            if (VRMSpringBoneType != null)
+            {
+                var vrmSpringBones = obj.GetComponentsInChildren(VRMSpringBoneType, true);
+                foreach (var vrmSpringBone in vrmSpringBones)
+                {
+                    var rootBones = VRMSpringBoneProxy.GetRootBones(vrmSpringBone);
+                    foreach (var rootBone in rootBones)
+                    {
+                        if (doNotScanContainingWearables && IsOriginatedFromAnyWearable(obj.transform, rootBone))
+                        {
+                            continue;
+                        }
+                        dynamicsList.Add(new VRMSpringBoneProxy(vrmSpringBone, rootBone));
+                    }
                 }
             }
 

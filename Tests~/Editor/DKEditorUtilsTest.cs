@@ -142,6 +142,18 @@ namespace Chocopoi.DressingFramework.Tests
 #endif
         }
 
+        [Test]
+        public void ScanDynamics_VRMSpringBone()
+        {
+#if !DK_VRM
+            Assert.Pass("UniVRM is not imported, skipping this test");
+#else
+            var root = InstantiateEditorTestPrefab("DKTest_VRMSpringBoneAvatar.prefab");
+            InstantiateEditorTestPrefab("DKTest_VRMSpringBoneWearable.prefab", root.transform);
+            AssertScannedDynamics(root);
+#endif
+        }
+
         private class DummyDynamicsProxy : IDynamicsProxy
         {
             public Component Component { get; set; } = null;

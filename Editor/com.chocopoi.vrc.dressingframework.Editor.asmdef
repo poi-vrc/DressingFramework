@@ -1,5 +1,6 @@
 {
     "name": "com.chocopoi.vrc.dressingframework.Editor",
+    "rootNamespace": "",
     "references": [
         "GUID:dcaf16fd99f37914888e6e13bdf533ea"
     ],
@@ -12,6 +13,12 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],
-    "versionDefines": [],
+    "versionDefines": [
+        {
+            "name": "com.vrmc.vrm",
+            "expression": "0.110.0",
+            "define": "DK_VRM"
+        }
+    ],
     "noEngineReferences": false
 }

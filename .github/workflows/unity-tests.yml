@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: Build and Test (${{ matrix.unity-version }}${{ matrix.import-vrcsdk && ', VRC' || '' }}${{ matrix.import-dynbone && ', DynBone' || '' }})
+    name: Build and Test (${{ matrix.unity-version }}${{ matrix.import-vrcsdk && ', VRC' || '' }}${{ matrix.import-dynbone && ', DynBone' || '' }}${{ matrix.import-univrm && ', VRM' || '' }})
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -17,7 +17,10 @@ jobs:
         unity-version: ['2019.4.31f1', '2021.3.33f1', '2022.3.6f1', '2023.2.2f1']
         import-vrcsdk: [false, true]
         import-dynbone: [false, true]
+        import-univrm: [false, true]
         exclude:
+          - unity-version: "2019.4.31f1"
+            import-univrm: true
           - unity-version: "2021.3.33f1"
             import-vrcsdk: true
           - unity-version: "2023.2.2f1"
@@ -46,9 +49,13 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: Library
-          key: Library-${{ matrix.unity-version }}-${{ matrix.import-vrcsdk }}-${{ matrix.import-dynbone }}-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          key: Library-${{ matrix.unity-version }}-${{ matrix.import-vrcsdk }}-${{ matrix.import-dynbone }}-${{ matrix.import-univrm }}-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
           restore-keys: |
-            Library-${{ matrix.unity-version }}-${{ matrix.import-vrcsdk }}-${{ matrix.import-dynbone }}-
+            Library-${{ matrix.unity-version }}-${{ matrix.import-vrcsdk }}-${{ matrix.import-dynbone }}-${{ matrix.import-univrm }}-
+
+      - name: Use UniVRM manifest
+        if: matrix.import-univrm
+        run: mv Packages/manifest-vrm.json Packages/manifest.json
 
       - name: Resolve VPM Project
         if: matrix.import-vrcsdk
@@ -84,14 +91,14 @@ jobs:
       - uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: Test results (${{ matrix.unity-version }}${{ matrix.import-vrcsdk && ', VRC' || '' }}${{ matrix.import-dynbone && ', DynBone' || '' }})
+          name: Test results (${{ matrix.unity-version }}${{ matrix.import-vrcsdk && ', VRC' || '' }}${{ matrix.import-dynbone && ', DynBone' || '' }}${{ matrix.import-univrm && ', VRM' || '' }})
           path: artifacts
       
       # Upload coverage report to GitHub
       - uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: Coverage results (${{ matrix.unity-version }}${{ matrix.import-vrcsdk && ', VRC' || '' }}${{ matrix.import-dynbone && ', DynBone' || '' }})
+          name: Coverage results (${{ matrix.unity-version }}${{ matrix.import-vrcsdk && ', VRC' || '' }}${{ matrix.import-dynbone && ', DynBone' || '' }}${{ matrix.import-univrm && ', VRM' || '' }})
           path: ${{ steps.tests.outputs.coveragePath }}
           
       # Upload coverage report to Codecov
