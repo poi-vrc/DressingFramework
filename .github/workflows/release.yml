@@ -2,11 +2,7 @@ name: Build Release
 
 on:
   push:
-    paths:
-      - "Packages/**"
   pull_request:
-    paths:
-      - "Packages/**"
   create:
     ref_type: tag
   workflow_dispatch:
@@ -24,12 +20,27 @@ jobs:
     
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Setup .NET 6
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0.x'
+
+      - name: Prepare Unity Project
+        run: |
+          rm -rf Tests~
+          mkdir -p .github/unity-project/Packages/${{ env.packageName }}
+          mv [!.github]* .github/unity-project/Packages/${{ env.packageName }}/
+          mv .github/unity-project/* .
+          rm -rf .github/unity-project
+          ls -l
+          ls -l Packages/${{ env.packageName }}
     
-      - name: get version
+      - name: Obtain package version
         id: version
         uses: notiz-dev/github-action-json-property@7c8cf5cc36eb85d8d287a8086a39dac59628eb31
         with: 
-            path: "package.json"
+            path: "Packages/${{env.packageName}}/package.json"
             prop_path: "version"
     
       - name: Set Environment Variables
@@ -41,25 +52,25 @@ jobs:
         uses: thedoctor0/zip-release@09336613be18a8208dfa66bd57efafd9e2685657
         with:
           type: "zip"
-          exclusions: '*.git* .editorconfig'
-          filename: "${{env.zipFile}}"
+          exclusions: 'Doxyfile* *.bat'
+          directory: "Packages/${{env.packageName}}/"
+          filename: "../../${{env.zipFile}}" # make the zip file two directories up, since we start two directories in above
       
-      # TODO: we can't use this because DressingFramework lives in the root, not Packages
-      
-      # - run: find "." -name \*.meta >> metaList
+      - run: find Packages/${{env.packageName}}/ -name \*.meta -not -path '*/.github/*' -not -path '*/Tests~/*' -not -path '*/Tests/*' >> metaList
           
-      # - name: Create UnityPackage
-        # uses: pCYSl5EDgo/create-unitypackage@cfcd3cf0391a5ef1306342794866a9897c32af0b
-        # with:
-          # package-path: ${{ env.unityPackage }}
-          # include-files: metaList
+      - name: Create UnityPackage
+        uses: pCYSl5EDgo/create-unitypackage@cfcd3cf0391a5ef1306342794866a9897c32af0b
+        with:
+          package-path: ${{ env.unityPackage }}
+          include-files: metaList
           
       # upload artifact
       - uses: actions/upload-artifact@v3
         with:
-          name: DK-${{ steps.version.outputs.prop }}
+          name: AL-${{ steps.version.outputs.prop }}
           path: |
             ${{ env.zipFile }}
+            ${{ env.unityPackage }}
             Packages/${{ env.packageName }}/package.json
         
       - name: Make Release
@@ -67,7 +78,7 @@ jobs:
         if: ${{ github.ref_type == 'tag' }}
         with:
           tag_name: ${{ steps.version.outputs.prop }}
-          # ${{ env.unityPackage }}
           files: |
             ${{ env.zipFile }}
-            package.json
+            ${{ env.unityPackage }}
+            Packages/${{ env.packageName }}/package.json

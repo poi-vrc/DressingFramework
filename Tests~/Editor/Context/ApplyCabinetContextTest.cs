@@ -56,7 +56,7 @@ namespace Chocopoi.DressingFramework.Tests.Context
             var ctx = new ApplyCabinetContext() { avatarGameObject = CreateGameObject("abc") };
             var obj = new AnimationClip();
 
-            var name = "assetName123";
+            var name = "assetName123.asset";
             var expectedPath = ctx.MakeUniqueAssetPath(name);
             ctx.CreateUniqueAsset(obj, name);
 

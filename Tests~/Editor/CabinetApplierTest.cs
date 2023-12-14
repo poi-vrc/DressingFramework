@@ -28,6 +28,10 @@ namespace Chocopoi.DressingFramework.Tests
         [Test]
         public void AvatarWithOneWearable_AppliesNormally()
         {
+            // TODO: dynbone check?
+            // This test requires PhysBone
+            AssertPassImportedVRCSDK();
+
             var avatarRoot = InstantiateEditorTestPrefab("DKTest_PhysBoneAvatarWithWearable.prefab");
             var cabinet = avatarRoot.GetComponent<DTCabinet>();
             Assert.NotNull(cabinet);
@@ -64,6 +68,10 @@ namespace Chocopoi.DressingFramework.Tests
         [Test]
         public void WearableConfigDeserializationFailure_ReturnsCorrectErrorCodes()
         {
+            // TODO: dynbone check?
+            // This test requires PhysBone
+            AssertPassImportedVRCSDK();
+
             var avatarRoot = InstantiateEditorTestPrefab("DKTest_PhysBoneAvatarWithWearable.prefab");
             var cabinet = avatarRoot.GetComponent<DTCabinet>();
             Assert.NotNull(cabinet);
@@ -82,6 +90,10 @@ namespace Chocopoi.DressingFramework.Tests
         [Test]
         public void GroupDynamicsToSeparateGameObjectsCorrectly()
         {
+            // TODO: dynbone check?
+            // This test requires PhysBone
+            AssertPassImportedVRCSDK();
+
             var avatarRoot = InstantiateEditorTestPrefab("DKTest_PhysBoneAvatarWithWearableOtherDynamics.prefab");
             var cabinet = avatarRoot.GetComponent<DTCabinet>();
             Assert.NotNull(cabinet);
@@ -113,6 +125,10 @@ namespace Chocopoi.DressingFramework.Tests
         [Test]
         public void GroupDynamicsToSingleGameObjectCorrectly()
         {
+            // TODO: dynbone check?
+            // This test requires PhysBone
+            AssertPassImportedVRCSDK();
+
             var avatarRoot = InstantiateEditorTestPrefab("DKTest_PhysBoneAvatarWithWearableOtherDynamics.prefab");
             var cabinet = avatarRoot.GetComponent<DTCabinet>();
             Assert.NotNull(cabinet);
