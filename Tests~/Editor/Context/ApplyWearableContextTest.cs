@@ -69,7 +69,7 @@ namespace Chocopoi.DressingFramework.Tests.Context
             var ctx = new ApplyWearableContext() { wearableGameObject = CreateGameObject("abc") };
             var obj = new AnimationClip();
 
-            var name = "assetName123";
+            var name = "assetName123.asset";
             var expectedPath = ctx.MakeUniqueAssetPath(cabCtx, name);
             ctx.CreateUniqueAsset(cabCtx, obj, name);
 
