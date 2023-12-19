@@ -43,7 +43,10 @@ namespace Chocopoi.DressingFramework.Cabinet
                 }
 
                 // applying scalings
-                wearableConfig.ApplyAvatarConfigTransforms(cabinet.AvatarGameObject, wearableGameObject);
+                if (!PrefabUtility.IsPartOfAnyPrefab(wearableGameObject))
+                {
+                    wearableConfig.ApplyAvatarConfigTransforms(cabinet.AvatarGameObject, wearableGameObject);
+                }
 
                 // add cabinet wearable component
                 cabinetWearable = wearableGameObject.AddComponent<DTWearable>();
@@ -72,12 +75,15 @@ namespace Chocopoi.DressingFramework.Cabinet
             {
                 if (cabinetWearable == wearable)
                 {
-                    if (!PrefabUtility.IsOutermostPrefabInstanceRoot(cabinetWearable.gameObject))
+                    if (PrefabUtility.IsPartOfAnyPrefab(cabinetWearable.gameObject))
                     {
-                        Debug.Log("Prefab is not outermost. Aborting");
-                        return;
+                        Debug.Log("[DressingFramework] Wearable is part of a prefab. Only the component is removed.");
+                        Object.DestroyImmediate(cabinetWearable);
                     }
-                    Object.DestroyImmediate(cabinetWearable.gameObject);
+                    else
+                    {
+                        Object.DestroyImmediate(cabinetWearable.gameObject);
+                    }
                     break;
                 }
             }
