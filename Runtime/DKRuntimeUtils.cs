@@ -10,8 +10,6 @@
  * You should have received a copy of the GNU General Public License along with DressingFramework. If not, see <https://www.gnu.org/licenses/>.
  */
 
-using Chocopoi.DressingFramework.Cabinet;
-
 namespace Chocopoi.DressingFramework
 {
     /// <summary>
@@ -25,7 +23,7 @@ namespace Chocopoi.DressingFramework
             Start
         }
 
-        public delegate void OnCabinetLifecycleDelegate(LifecycleStage stage, ICabinet cabinet);
-        public static OnCabinetLifecycleDelegate OnCabinetLifecycle = (stage, cabinet) => { };
+        // public delegate void OnCabinetLifecycleDelegate(LifecycleStage stage, ICabinet cabinet);
+        // public static OnCabinetLifecycleDelegate OnCabinetLifecycle = (stage, cabinet) => { };
     }
 }

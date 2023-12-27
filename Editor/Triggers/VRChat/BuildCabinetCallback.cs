@@ -14,9 +14,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Chocopoi.DressingFramework.Detail.DK.Logging;
 using Chocopoi.DressingFramework.Localization;
-using Chocopoi.DressingFramework.Logging;
-using Chocopoi.DressingFramework.UI;
 using UnityEditor;
 using UnityEngine;
 using VRC.SDKBase;
@@ -40,12 +39,12 @@ namespace Chocopoi.DressingFramework.Triggers.VRChat
         {
             ReportWindow.Reset();
 
-            var cabinet = DKEditorUtils.GetAvatarCabinet(avatarGameObject);
-            if (cabinet == null)
-            {
-                // avatar has no cabinet, skipping
-                return true;
-            }
+            // var cabinet = DKEditorUtils.GetAvatarCabinet(avatarGameObject);
+            // if (cabinet == null)
+            // {
+            //     // avatar has no cabinet, skipping
+            //     return true;
+            // }
 
             var report = new DKReport();
 
@@ -53,7 +52,7 @@ namespace Chocopoi.DressingFramework.Triggers.VRChat
             {
                 // create hook instances
                 ui.ShowProgressBar();
-                new CabinetApplier(report, cabinet).RunStages();
+                // new CabinetApplier(report, cabinet).RunStages();
             }
             catch (System.Exception ex)
             {
