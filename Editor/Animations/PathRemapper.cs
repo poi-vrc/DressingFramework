@@ -17,8 +17,13 @@ namespace Chocopoi.DressingFramework.Animations
 {
     /// <summary>
     /// Path remapper
+    /// 
+    /// Warning: This API is subject to change.
+    /// Since MA have not exposed the PathMappings API, if the same project contains MA and NDMF,
+    /// this will only provide a way to detect GameObject relocations but does not remap existing
+    /// animations to prevent unexpected behaviour.
     /// </summary>
-    public class PathRemapper
+    public class PathRemapper : ContextFeature
     {
         private Dictionary<GameObject, List<string>> _originalPaths;
         private bool _invalidMappingsCache;
@@ -157,5 +162,9 @@ namespace Chocopoi.DressingFramework.Animations
             }
             return mappings;
         }
+
+        internal override void OnEnable() { }
+
+        internal override void OnDisable() { }
     }
 }

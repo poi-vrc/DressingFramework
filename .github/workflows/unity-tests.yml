@@ -12,7 +12,7 @@ jobs:
     name: Build and Test (${{ matrix.unity-version }}${{ matrix.import-vrcsdk && ', VRC' || '' }}${{ matrix.import-dynbone && ', DynBone' || '' }}${{ matrix.import-univrm && ', VRM' || '' }})
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         unity-version: ['2019.4.31f1', '2021.3.33f1', '2022.3.6f1', '2023.2.2f1']
         import-vrcsdk: [false, true]

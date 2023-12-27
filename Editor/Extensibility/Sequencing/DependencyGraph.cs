@@ -10,7 +10,6 @@
  * You should have received a copy of the GNU General Public License along with DressingFramework. If not, see <https://www.gnu.org/licenses/>.
  */
 
-using System;
 using System.Collections.Generic;
 
 namespace Chocopoi.DressingFramework.Extensibility.Sequencing
@@ -18,7 +17,7 @@ namespace Chocopoi.DressingFramework.Extensibility.Sequencing
     /// <summary>
     /// Dependency graph
     /// </summary>
-    public class DependencyGraph
+    public class DependencyGraph<T>
     {
         private class Vertex
         {
@@ -32,16 +31,16 @@ namespace Chocopoi.DressingFramework.Extensibility.Sequencing
             }
         }
 
-        private readonly Dictionary<Tuple<DependencySource, string>, Vertex> _vertices;
-        private readonly Dictionary<Tuple<DependencySource, string>, List<Tuple<DependencySource, string>>> _edges;
+        private readonly Dictionary<T, Vertex> _vertices;
+        private readonly Dictionary<T, List<T>> _edges;
 
         /// <summary>
         /// Constructs a new dependency graph
         /// </summary>
         public DependencyGraph()
         {
-            _vertices = new Dictionary<Tuple<DependencySource, string>, Vertex>();
-            _edges = new Dictionary<Tuple<DependencySource, string>, List<Tuple<DependencySource, string>>>();
+            _vertices = new Dictionary<T, Vertex>();
+            _edges = new Dictionary<T, List<T>>();
         }
 
         /// <summary>
@@ -50,55 +49,49 @@ namespace Chocopoi.DressingFramework.Extensibility.Sequencing
         /// <param name="source">Dependency source</param>
         /// <param name="identifier">Identifier</param>
         /// <param name="constraint">Constraint</param>
-        public void Add(DependencySource source, string identifier, ExecutionConstraint constraint)
+        public void Add(T identifier, ExecutionConstraint<T> constraint)
         {
-            var ourTuple = new Tuple<DependencySource, string>(source, identifier);
-
             // add vertex if not exist
-            if (!_vertices.TryGetValue(ourTuple, out var ourVertex))
+            if (!_vertices.TryGetValue(identifier, out var ourVertex))
             {
-                _vertices[ourTuple] = ourVertex = new Vertex();
+                _vertices[identifier] = ourVertex = new Vertex();
             }
             ourVertex.resolved = true;
 
             // get our edge list
-            if (!_edges.TryGetValue(ourTuple, out var ourEdges))
+            if (!_edges.TryGetValue(identifier, out var ourEdges))
             {
-                _edges[ourTuple] = ourEdges = new List<Tuple<DependencySource, string>>();
+                _edges[identifier] = ourEdges = new List<T>();
             }
 
             // add before dependences
             foreach (var dependency in constraint.beforeDependencies)
             {
-                var dependencyTuple = new Tuple<DependencySource, string>(dependency.source, dependency.identifier);
-
-                if (!_vertices.TryGetValue(dependencyTuple, out var dependencyVertex))
+                if (!_vertices.TryGetValue(dependency.identifier, out var dependencyVertex))
                 {
-                    _vertices[dependencyTuple] = dependencyVertex = new Vertex();
+                    _vertices[dependency.identifier] = dependencyVertex = new Vertex();
                     dependencyVertex.optional = dependency.optional;
                 }
                 dependencyVertex.optional &= dependency.optional;
 
-                ourEdges.Add(dependencyTuple);
+                ourEdges.Add(dependency.identifier);
             }
 
             // add after dependencies
             foreach (var dependency in constraint.afterDependencies)
             {
-                var dependencyTuple = new Tuple<DependencySource, string>(dependency.source, dependency.identifier);
-
-                if (!_vertices.TryGetValue(dependencyTuple, out var dependencyVertex))
+                if (!_vertices.TryGetValue(dependency.identifier, out var dependencyVertex))
                 {
-                    _vertices[dependencyTuple] = dependencyVertex = new Vertex();
+                    _vertices[dependency.identifier] = dependencyVertex = new Vertex();
                     dependencyVertex.optional = dependency.optional;
                 }
                 dependencyVertex.optional &= dependency.optional;
 
-                if (!_edges.TryGetValue(dependencyTuple, out var dependencyEdges))
+                if (!_edges.TryGetValue(dependency.identifier, out var dependencyEdges))
                 {
-                    _edges[dependencyTuple] = dependencyEdges = new List<Tuple<DependencySource, string>>();
+                    _edges[dependency.identifier] = dependencyEdges = new List<T>();
                 }
-                dependencyEdges.Add(ourTuple);
+                dependencyEdges.Add(identifier);
             }
         }
 
@@ -122,12 +115,12 @@ namespace Chocopoi.DressingFramework.Extensibility.Sequencing
         /// Runs a topological sort to generate a top order of execution
         /// </summary>
         /// <returns>Top order list</returns>
-        public List<Tuple<DependencySource, string>> Sort()
+        public List<T> Sort()
         {
             // just... a common topological sort algorithm learnt in computer science lectures
             // reference: https://www.geeksforgeeks.org/topological-sorting-indegree-based-solution/
 
-            var inDegrees = new Dictionary<Tuple<DependencySource, string>, int>();
+            var inDegrees = new Dictionary<T, int>();
 
             // traverse edges to fill in-degrees
             foreach (var u in _vertices.Keys)
@@ -144,7 +137,7 @@ namespace Chocopoi.DressingFramework.Extensibility.Sequencing
             }
 
             // add in-degree zero vertices to queue
-            var queue = new Queue<Tuple<DependencySource, string>>();
+            var queue = new Queue<T>();
             foreach (var u in _vertices.Keys)
             {
                 if (inDegrees[u] == 0)
@@ -154,7 +147,7 @@ namespace Chocopoi.DressingFramework.Extensibility.Sequencing
             }
 
             var visitedCount = 0;
-            var topOrder = new List<Tuple<DependencySource, string>>();
+            var topOrder = new List<T>();
             while (queue.Count > 0)
             {
                 var u = queue.Dequeue();

@@ -17,6 +17,8 @@ namespace Chocopoi.DressingFramework.Animations
 {
     /// <summary>
     /// A container class that holds an original clip and a new clip to be written.
+    /// 
+    /// Warning: This API is subject to change.
     /// </summary>
     public class AnimationClipContainer
     {
