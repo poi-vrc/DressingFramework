@@ -25,13 +25,12 @@ using LogType = Chocopoi.DressingFramework.Logging.LogType;
 
 namespace Chocopoi.DressingFramework.Triggers.VRChat
 {
-    [InitializeOnLoad]
     public class BuildCabinetCallback : IVRCSDKPreprocessAvatarCallback, IVRCSDKPostprocessAvatarCallback
     {
         private static readonly I18nTranslator t = I18nManager.Instance.FrameworkTranslator;
         private const string LogLabel = "BuildCabinetCallback";
 
-        public int callbackOrder => -10000;
+        public int callbackOrder => -12000;
 
         // for mocking
         internal UI ui = new UnityEditorUI();
