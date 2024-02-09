@@ -137,8 +137,6 @@ namespace Chocopoi.DressingFramework.Animations
             // return cache if possible
             if (!invalidCache && mappings != null)
             {
-                _invalidMappingsCache = true;
-                _invalidNonContainerBoneMappingsCache = true;
                 return mappings;
             }
 
