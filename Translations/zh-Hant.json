@@ -21,5 +21,8 @@
     "cabinet.applier.msgCode.error.wearableHookHasErrors": "錯誤：穿戴物品鉤子有錯誤：{0}",
     "cabinet.applier.msgCode.error.unresolvedDependencies": "錯誤：偵測到未解決的依賴關係、請檢查是否有一些需要的模組或鉤子沒有導入。",
     "cabinet.applier.msgCode.error.cyclicDependencies": "錯誤：偵測到循環依賴關係、無法套用衣櫃。",
-    "report.editor.saveReportToFile": "儲存報告"
+    "report.editor.saveReportToFile": "儲存報告",
+    "triggers.vrc.dialog.msg.errorPreprocessingReferReportWindow": "預處理角色時出錯，請參閱報告視窗。",
+    "detail.dk.avatarBuilder.msgCode.error.passHasErrors": "錯誤：建構過程發生錯誤：{0}",
+    "detail.dk.avatarBuilder.msgCode.error.unresolvedOrCyclicDependencies": "錯誤：偵測到未解決的依賴關係或循環依賴關係。請檢查是否一些必需的插件未有正確導入。"
 }
