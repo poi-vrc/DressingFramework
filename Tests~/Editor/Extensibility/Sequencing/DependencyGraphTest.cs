@@ -10,7 +10,6 @@
  * You should have received a copy of the GNU General Public License along with DressingFramework. If not, see <https://www.gnu.org/licenses/>.
  */
 
-using System;
 using System.Collections.Generic;
 using Chocopoi.DressingFramework.Extensibility.Sequencing;
 using NUnit.Framework;
@@ -19,13 +18,12 @@ namespace Chocopoi.DressingFramework.Tests.Extensibility.Sequencing
 {
     public class DependencyGraphTest : EditorTestBase
     {
-        private static void AssertListContent(DependencySource expectedSource, string[] expected, List<Tuple<DependencySource, string>> topOrder)
+        private static void AssertListContent<T>(T[] expected, List<T> topOrder)
         {
             Assert.AreEqual(expected.Length, topOrder.Count);
             for (var i = 0; i < expected.Length; i++)
             {
-                Assert.AreEqual(DependencySource.Plugin, topOrder[i].Item1, $"expected {i} is Plugin instead of {topOrder[i].Item1}");
-                Assert.AreEqual(expected[i], topOrder[i].Item2, $"expected {i} is {expected[i]} instead of {topOrder[i].Item2}");
+                Assert.AreEqual(expected[i], topOrder[i], $"expected {i} is {expected[i]} instead of {topOrder[i]}");
             }
         }
 
@@ -37,28 +35,28 @@ namespace Chocopoi.DressingFramework.Tests.Extensibility.Sequencing
             //       \     /
             //        > a <- d
             //
-            var graph = new DependencyGraph();
-            graph.Add(DependencySource.Plugin, "plugin-a",
-                new PluginExecutionConstraintBuilder()
-                    .BeforePlugin("plugin-b")
-                    .BeforePlugin("plugin-c")
-                    .AfterPlugin("plugin-d")
+            var graph = new DependencyGraph<string>();
+            graph.Add("plugin-a",
+                new PluginConstraintBuilder()
+                    .Before("plugin-b")
+                    .Before("plugin-c")
+                    .After("plugin-d")
                     .Build());
-            graph.Add(DependencySource.Plugin, "plugin-b",
-                new PluginExecutionConstraintBuilder()
-                    .BeforePlugin("plugin-c")
-                    .AfterPlugin("plugin-e")
+            graph.Add("plugin-b",
+                new PluginConstraintBuilder()
+                    .Before("plugin-c")
+                    .After("plugin-e")
                     .Build());
-            graph.Add(DependencySource.Plugin, "plugin-c", ExecutionConstraint.Empty);
-            graph.Add(DependencySource.Plugin, "plugin-d", ExecutionConstraint.Empty);
-            graph.Add(DependencySource.Plugin, "plugin-e", ExecutionConstraint.Empty);
+            graph.Add("plugin-c", PluginConstraint.Empty);
+            graph.Add("plugin-d", PluginConstraint.Empty);
+            graph.Add("plugin-e", PluginConstraint.Empty);
 
             Assert.True(graph.IsResolved());
 
             var topOrder = graph.Sort();
             Assert.NotNull(topOrder);
 
-            AssertListContent(DependencySource.Plugin, new string[] { "plugin-d", "plugin-e", "plugin-a", "plugin-b", "plugin-c" }, topOrder);
+            AssertListContent(new string[] { "plugin-d", "plugin-e", "plugin-a", "plugin-b", "plugin-c" }, topOrder);
         }
 
         [Test]
@@ -71,28 +69,28 @@ namespace Chocopoi.DressingFramework.Tests.Extensibility.Sequencing
             //          |
             //          -> d
             //
-            var graph = new DependencyGraph();
-            graph.Add(DependencySource.Plugin, "plugin-a",
-                new PluginExecutionConstraintBuilder()
-                    .AfterPlugin("plugin-b")
-                    .AfterPlugin("plugin-c")
-                    .BeforePlugin("plugin-d")
+            var graph = new DependencyGraph<string>();
+            graph.Add("plugin-a",
+                new PluginConstraintBuilder()
+                    .After("plugin-b")
+                    .After("plugin-c")
+                    .Before("plugin-d")
                     .Build());
-            graph.Add(DependencySource.Plugin, "plugin-b",
-                new PluginExecutionConstraintBuilder()
-                    .AfterPlugin("plugin-c")
-                    .BeforePlugin("plugin-e")
+            graph.Add("plugin-b",
+                new PluginConstraintBuilder()
+                    .After("plugin-c")
+                    .Before("plugin-e")
                     .Build());
-            graph.Add(DependencySource.Plugin, "plugin-c", ExecutionConstraint.Empty);
-            graph.Add(DependencySource.Plugin, "plugin-d", ExecutionConstraint.Empty);
-            graph.Add(DependencySource.Plugin, "plugin-e", ExecutionConstraint.Empty);
+            graph.Add("plugin-c", PluginConstraint.Empty);
+            graph.Add("plugin-d", PluginConstraint.Empty);
+            graph.Add("plugin-e", PluginConstraint.Empty);
 
             Assert.True(graph.IsResolved());
 
             var topOrder = graph.Sort();
             Assert.NotNull(topOrder);
 
-            AssertListContent(DependencySource.Plugin, new string[] { "plugin-c", "plugin-b", "plugin-a", "plugin-e", "plugin-d" }, topOrder);
+            AssertListContent(new string[] { "plugin-c", "plugin-b", "plugin-a", "plugin-e", "plugin-d" }, topOrder);
         }
 
         [Test]
@@ -107,26 +105,26 @@ namespace Chocopoi.DressingFramework.Tests.Extensibility.Sequencing
             //          |
             //          -> d
             //
-            var graph = new DependencyGraph();
-            graph.Add(DependencySource.Plugin, "plugin-a",
-                new PluginExecutionConstraintBuilder()
-                    .AfterPlugin("plugin-b")
-                    .AfterPlugin("plugin-c", true)
-                    .BeforePlugin("plugin-d", true)
+            var graph = new DependencyGraph<string>();
+            graph.Add("plugin-a",
+                new PluginConstraintBuilder()
+                    .After("plugin-b")
+                    .After("plugin-c", true)
+                    .Before("plugin-d", true)
                     .Build());
-            graph.Add(DependencySource.Plugin, "plugin-b",
-                new PluginExecutionConstraintBuilder()
-                    .AfterPlugin("plugin-c", true)
-                    .BeforePlugin("plugin-e")
+            graph.Add("plugin-b",
+                new PluginConstraintBuilder()
+                    .After("plugin-c", true)
+                    .Before("plugin-e")
                     .Build());
-            graph.Add(DependencySource.Plugin, "plugin-e", ExecutionConstraint.Empty);
+            graph.Add("plugin-e", PluginConstraint.Empty);
 
             Assert.True(graph.IsResolved());
 
             var topOrder = graph.Sort();
             Assert.NotNull(topOrder);
 
-            AssertListContent(DependencySource.Plugin, new string[] { "plugin-c", "plugin-b", "plugin-a", "plugin-e", "plugin-d" }, topOrder);
+            AssertListContent(new string[] { "plugin-c", "plugin-b", "plugin-a", "plugin-e", "plugin-d" }, topOrder);
         }
 
         [Test]
@@ -140,17 +138,17 @@ namespace Chocopoi.DressingFramework.Tests.Extensibility.Sequencing
             //          |
             //          -> d
             //
-            var graph = new DependencyGraph();
-            graph.Add(DependencySource.Plugin, "plugin-a",
-                new PluginExecutionConstraintBuilder()
-                    .AfterPlugin("plugin-b")
-                    .AfterPlugin("plugin-c")
-                    .BeforePlugin("plugin-d")
+            var graph = new DependencyGraph<string>();
+            graph.Add("plugin-a",
+                new PluginConstraintBuilder()
+                    .After("plugin-b")
+                    .After("plugin-c")
+                    .Before("plugin-d")
                     .Build());
-            graph.Add(DependencySource.Plugin, "plugin-b",
-                new PluginExecutionConstraintBuilder()
-                    .AfterPlugin("plugin-c")
-                    .BeforePlugin("plugin-e")
+            graph.Add("plugin-b",
+                new PluginConstraintBuilder()
+                    .After("plugin-c")
+                    .Before("plugin-e")
                     .Build());
 
             Assert.False(graph.IsResolved());
@@ -167,21 +165,21 @@ namespace Chocopoi.DressingFramework.Tests.Extensibility.Sequencing
             //          |
             //          -> d
             //
-            var graph = new DependencyGraph();
-            graph.Add(DependencySource.Plugin, "plugin-a",
-                new PluginExecutionConstraintBuilder()
-                    .AfterPlugin("plugin-b")
-                    .BeforePlugin("plugin-c")
-                    .BeforePlugin("plugin-d")
+            var graph = new DependencyGraph<string>();
+            graph.Add("plugin-a",
+                new PluginConstraintBuilder()
+                    .After("plugin-b")
+                    .Before("plugin-c")
+                    .Before("plugin-d")
                     .Build());
-            graph.Add(DependencySource.Plugin, "plugin-b",
-                new PluginExecutionConstraintBuilder()
-                    .AfterPlugin("plugin-c")
-                    .BeforePlugin("plugin-e")
+            graph.Add("plugin-b",
+                new PluginConstraintBuilder()
+                    .After("plugin-c")
+                    .Before("plugin-e")
                     .Build());
-            graph.Add(DependencySource.Plugin, "plugin-c", ExecutionConstraint.Empty);
-            graph.Add(DependencySource.Plugin, "plugin-d", ExecutionConstraint.Empty);
-            graph.Add(DependencySource.Plugin, "plugin-e", ExecutionConstraint.Empty);
+            graph.Add("plugin-c", PluginConstraint.Empty);
+            graph.Add("plugin-d", PluginConstraint.Empty);
+            graph.Add("plugin-e", PluginConstraint.Empty);
 
             Assert.True(graph.IsResolved());
             Assert.Null(graph.Sort());

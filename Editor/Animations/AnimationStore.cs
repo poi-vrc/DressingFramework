@@ -12,7 +12,6 @@
 
 using System;
 using System.Collections.Generic;
-using Chocopoi.DressingFramework.Context;
 using UnityEditor.Animations;
 using UnityEngine;
 
@@ -20,8 +19,10 @@ namespace Chocopoi.DressingFramework.Animations
 {
     /// <summary>
     /// Animation store
+    /// 
+    /// Warning: This API is subject to change.
     /// </summary>
-    public class AnimationStore
+    public class AnimationStore : ContextFeature
     {
         /// <summary>
         /// Invoked on write
@@ -33,15 +34,15 @@ namespace Chocopoi.DressingFramework.Animations
         /// </summary>
         public List<AnimationClipContainer> Clips { get; private set; }
 
-        private ApplyCabinetContext _cabCtx;
+        private Context _ctx;
 
         /// <summary>
         /// Constructs a new animation store
         /// </summary>
         /// <param name="cabCtx">Cabinet context used for creating animation clip copies</param>
-        public AnimationStore(ApplyCabinetContext cabCtx)
+        public AnimationStore(Context ctx)
         {
-            _cabCtx = cabCtx;
+            _ctx = ctx;
             Clips = new List<AnimationClipContainer>();
         }
 
@@ -54,7 +55,7 @@ namespace Chocopoi.DressingFramework.Animations
             {
                 if (clip.newClip != null && clip.originalClip != clip.newClip)
                 {
-                    _cabCtx.CreateUniqueAsset(clip.newClip, $"Clip_{clip.newClip.name}_{DKEditorUtils.RandomString(6)}.anim");
+                    _ctx.CreateUniqueAsset(clip.newClip, $"Clip_{clip.newClip.name}_{DKEditorUtils.RandomString(6)}.anim");
                     clip.dispatchFunc?.Invoke(clip.newClip);
                 }
             }
@@ -114,5 +115,9 @@ namespace Chocopoi.DressingFramework.Animations
                 dispatchFunc = dispatchFunc
             });
         }
+
+        internal override void OnEnable() { }
+
+        internal override void OnDisable() { }
     }
 }

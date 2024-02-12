@@ -12,7 +12,7 @@
 
 using System.Collections.Generic;
 using Chocopoi.DressingFramework.Animations;
-using Chocopoi.DressingFramework.Context;
+using Chocopoi.DressingFramework.Detail.DK;
 using NUnit.Framework;
 using UnityEditor.Animations;
 using UnityEngine;
@@ -31,8 +31,8 @@ namespace Chocopoi.DressingFramework.Tests.Animations
         [Test]
         public void RegisterClipTest()
         {
-            var cabCtx = new ApplyCabinetContext();
-            var store = new AnimationStore(cabCtx);
+            var ctx = new DKNativeContext(CreateGameObject("Avatar"));
+            var store = new AnimationStore(ctx);
 
             var clip1 = new AnimationClip();
             store.RegisterClip(clip1, (AnimationClip _) => { });
@@ -52,8 +52,8 @@ namespace Chocopoi.DressingFramework.Tests.Animations
         [Test]
         public void RegisterBlendTreeTest()
         {
-            var cabCtx = new ApplyCabinetContext();
-            var store = new AnimationStore(cabCtx);
+            var ctx = new DKNativeContext(CreateGameObject("Avatar"));
+            var store = new AnimationStore(ctx);
 
             var bt = new BlendTree();
             var clip1 = new AnimationClip();
@@ -74,8 +74,8 @@ namespace Chocopoi.DressingFramework.Tests.Animations
         [Test]
         public void RegisterNestedBlendTreeTest()
         {
-            var cabCtx = new ApplyCabinetContext();
-            var store = new AnimationStore(cabCtx);
+            var ctx = new DKNativeContext(CreateGameObject("Avatar"));
+            var store = new AnimationStore(ctx);
 
             var bt1 = new BlendTree();
             var clip1 = new AnimationClip();
@@ -110,8 +110,8 @@ namespace Chocopoi.DressingFramework.Tests.Animations
         [Test]
         public void FilterMotionFuncTest()
         {
-            var cabCtx = new ApplyCabinetContext();
-            var store = new AnimationStore(cabCtx);
+            var ctx = new DKNativeContext(CreateGameObject("Avatar"));
+            var store = new AnimationStore(ctx);
 
             var bt = new BlendTree();
             var clip1 = new AnimationClip();
@@ -131,11 +131,8 @@ namespace Chocopoi.DressingFramework.Tests.Animations
         [Test]
         public void DispatchTest()
         {
-            var cabCtx = new ApplyCabinetContext()
-            {
-                avatarGameObject = CreateGameObject("Avatar")
-            };
-            var store = new AnimationStore(cabCtx);
+            var ctx = new DKNativeContext(CreateGameObject("Avatar"));
+            var store = new AnimationStore(ctx);
 
             var bt = new BlendTree();
             var clip1 = new AnimationClip();
