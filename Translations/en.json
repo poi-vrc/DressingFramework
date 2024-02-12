@@ -1,15 +1,8 @@
 {
     "framework.name": "DressingFramework",
-    "cabinet.applier.msgCode.error.moduleHasNoProviderAvailable": "Error: Module has no provider available: {0}",
-    "cabinet.applier.msgCode.error.cabinetHookHasErrors": "Error: Cabinet hook has errors: {0}",
-    "cabinet.applier.msgCode.error.wearableHookHasErrors": "Error: Wearable hook has errors: {0}",
-    "cabinet.applier.msgCode.error.unresolvedDependencies": "Error: Unresolved dependencies detected. Please check if some required modules or hooks are not imported.",
-    "cabinet.applier.msgCode.error.cyclicDependencies": "Error: Cyclic hook dependencies detected. Unable to apply cabinet.",
-    "cabinet.applier.msgCode.error.unableToDeserializeCabinetConfig": "Error: Unable to load cabinet configuration: {0}",
-    "cabinet.applier.msgCode.error.unableToDeserializeWearableConfig": "Error: Unable to load wearable configuration: {0}",
-    "integrations.vrc.msgCode.error.exceptionProcessAvatar": "Error: Exception occurred while processing avatar",
-    "integrations.vrc.progressBar.msg.applyingCabinet": "Applying cabinet…",
-    "integrations.vrc.dialog.msg.errorPreprocessingReferReportWindow": "Error preprocessing avatar, please refer to the report window.",
+    "detail.dk.avatarBuilder.msgCode.error.passHasErrors": "Error: Pass has errors: {0}",
+    "detail.dk.avatarBuilder.msgCode.error.unresolvedOrCyclicDependencies": "Error: Unresolved dependencies  or cyclic dependencies detected. Please check if some required plugins are properly imported.",
+    "triggers.vrc.dialog.msg.errorPreprocessingReferReportWindow": "Error preprocessing avatar, please refer to the report window.",
     "common.dialog.btn.ok": "OK",
     "report.editor.helpbox.resultError": "Result: Errors occurred",
     "report.editor.helpbox.resultSuccess": "Result: Successful",
@@ -20,6 +13,5 @@
     "report.editor.label.warnings": "Warnings: {0}",
     "report.editor.title": "DK Report Window",
     "report.editor.saveReportToFile": "Save report to file",
-    "report.helpbox.noReport": "No report available.",
-    "menu.dialog.msg.noCabinetFoundInSelection": "No cabinet found in selection."
+    "report.helpbox.noReport": "No report available."
 }

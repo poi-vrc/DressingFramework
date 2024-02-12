@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Chocopoi.DressingFramework.Proxy;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using UnityEngine;
 
 namespace Chocopoi.DressingFramework.Tests
@@ -106,109 +104,6 @@ namespace Chocopoi.DressingFramework.Tests
             Assert.False(DKEditorUtils.IsGrandParent(randomObject.transform, child2));
         }
 
-        private static void AssertScannedDynamics(GameObject root)
-        {
-            var excludeWearableDynamics = DKEditorUtils.ScanDynamics(root, true);
-            Assert.AreEqual(2, excludeWearableDynamics.Count, "Should have 2 dynamics with wearable dynamics excluded");
-
-            var includeWearableDynamics = DKEditorUtils.ScanDynamics(root, false);
-            Assert.AreEqual(4, includeWearableDynamics.Count, "Should have 4 dynamics with wearable dynamics included");
-        }
-
-        [Test]
-        public void ScanDynamics_DynamicsBone()
-        {
-            var DynamicBoneType = DKEditorUtils.FindType("DynamicBone");
-            if (DynamicBoneType == null)
-            {
-                Assert.Pass("DynamicBone is not imported, skipping this test");
-                return;
-            }
-
-            var root = InstantiateEditorTestPrefab("DKTest_DynamicBoneAvatar.prefab");
-            InstantiateEditorTestPrefab("DKTest_DynamicBoneWearable.prefab", root.transform);
-            AssertScannedDynamics(root);
-        }
-
-        [Test]
-        public void ScanDynamics_PhysBone()
-        {
-#if !VRC_SDK_VRCSDK3
-            Assert.Pass("VRCSDK is not imported, skipping this test");
-#else
-            var root = InstantiateEditorTestPrefab("DKTest_PhysBoneAvatar.prefab");
-            InstantiateEditorTestPrefab("DKTest_PhysBoneWearable.prefab", root.transform);
-            AssertScannedDynamics(root);
-#endif
-        }
-
-        [Test]
-        public void ScanDynamics_VRMSpringBone()
-        {
-#if !DK_VRM
-            Assert.Pass("UniVRM is not imported, skipping this test");
-#else
-            var root = InstantiateEditorTestPrefab("DKTest_VRMSpringBoneAvatar.prefab");
-            InstantiateEditorTestPrefab("DKTest_VRMSpringBoneWearable.prefab", root.transform);
-            AssertScannedDynamics(root);
-#endif
-        }
-
-        private class DummyDynamicsProxy : IDynamicsProxy
-        {
-            public Component Component { get; set; } = null;
-            public Transform Transform => null;
-            public GameObject GameObject => null;
-            public Transform RootTransform { get; set; }
-            public List<Transform> IgnoreTransforms { get; set; }
-
-            public DummyDynamicsProxy(Transform rootTransform)
-            {
-                RootTransform = rootTransform;
-                IgnoreTransforms = null;
-            }
-        }
-
-        [Test]
-        public void FindDynamicsWithRootTest()
-        {
-            var obj1 = CreateGameObject("FindDynamicsWithRootObj1");
-            var obj2 = CreateGameObject("FindDynamicsWithRootObj2");
-            var obj3 = CreateGameObject("FindDynamicsWithRootObj3");
-            var obj4 = CreateGameObject("FindDynamicsWithRootObj4");
-            var list = new List<IDynamicsProxy>() {
-                new DummyDynamicsProxy(obj1.transform),
-                new DummyDynamicsProxy(obj2.transform),
-                new DummyDynamicsProxy(obj3.transform)
-            };
-
-            var dynObj1 = DKEditorUtils.FindDynamicsWithRoot(list, obj1.transform);
-            Assert.NotNull(dynObj1);
-            Assert.AreEqual(obj1.transform, dynObj1.RootTransform);
-
-            var dynObj2 = DKEditorUtils.FindDynamicsWithRoot(list, obj2.transform);
-            Assert.NotNull(dynObj2);
-            Assert.AreEqual(obj2.transform, dynObj2.RootTransform);
-
-            var dynObj3 = DKEditorUtils.FindDynamicsWithRoot(list, obj3.transform);
-            Assert.NotNull(dynObj3);
-            Assert.AreEqual(obj3.transform, dynObj3.RootTransform);
-
-            Assert.Null(DKEditorUtils.FindDynamicsWithRoot(list, obj4.transform));
-        }
-
-        [Test]
-        public void IsDynamicsExistsTest()
-        {
-            var obj1 = CreateGameObject("IsDynamicsExistsTestObj1");
-            var obj2 = CreateGameObject("IsDynamicsExistsTestObj2");
-            var list = new List<IDynamicsProxy>() {
-                new DummyDynamicsProxy(obj1.transform),
-            };
-            Assert.True(DKEditorUtils.IsDynamicsExists(list, obj1.transform));
-            Assert.False(DKEditorUtils.IsDynamicsExists(list, obj2.transform));
-        }
-
         private class DummyComponent : MonoBehaviour
         {
             public static int SomeStaticField = 24680;
@@ -247,20 +142,20 @@ namespace Chocopoi.DressingFramework.Tests
             Assert.AreEqual(comp.someString, gotComp.someString);
         }
 
-        [Test]
-        public void IsOriginatedFromAnyWearableTest()
-        {
-            var avatarRoot = InstantiateEditorTestPrefab("DKTest_PhysBoneAvatar.prefab");
-            var wearableRoot = InstantiateEditorTestPrefab("DKTest_PhysBoneWearable.prefab", avatarRoot.transform);
+        // [Test]
+        // public void IsOriginatedFromAnyWearableTest()
+        // {
+        //     var avatarRoot = InstantiateEditorTestPrefab("DKTest_PhysBoneAvatar.prefab");
+        //     var wearableRoot = InstantiateEditorTestPrefab("DKTest_PhysBoneWearable.prefab", avatarRoot.transform);
 
-            // we take the armatures GameObject as the test subjects
-            var avatarRootArmature = avatarRoot.transform.Find("Armature");
-            Assert.NotNull(avatarRootArmature);
-            var wearableRootArmature = wearableRoot.transform.Find("Armature");
-            Assert.NotNull(wearableRootArmature);
+        //     // we take the armatures GameObject as the test subjects
+        //     var avatarRootArmature = avatarRoot.transform.Find("Armature");
+        //     Assert.NotNull(avatarRootArmature);
+        //     var wearableRootArmature = wearableRoot.transform.Find("Armature");
+        //     Assert.NotNull(wearableRootArmature);
 
-            Assert.True(DKEditorUtils.IsOriginatedFromAnyWearable(avatarRoot.transform, wearableRootArmature));
-            Assert.False(DKEditorUtils.IsOriginatedFromAnyWearable(avatarRoot.transform, avatarRootArmature));
-        }
+        //     Assert.True(DKEditorUtils.IsOriginatedFromAnyWearable(avatarRoot.transform, wearableRootArmature));
+        //     Assert.False(DKEditorUtils.IsOriginatedFromAnyWearable(avatarRoot.transform, avatarRootArmature));
+        // }
     }
 }

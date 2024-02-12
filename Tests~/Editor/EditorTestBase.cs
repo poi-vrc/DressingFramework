@@ -78,7 +78,7 @@ namespace Chocopoi.DressingFramework.Tests
 
         public void AssertPassImportedVRCSDK()
         {
-#if !VRC_SDK_VRCSDK3
+#if !DK_VRCSDK3A
             Assert.Pass("This test requires VRCSDK3 (>=2022.04.21.03.29) to be imported");
 #endif
         }

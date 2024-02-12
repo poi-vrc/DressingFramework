@@ -17,8 +17,10 @@ namespace Chocopoi.DressingFramework.Animations
 {
     /// <summary>
     /// Path remapper
+    /// 
+    /// Warning: This API is subject to change.
     /// </summary>
-    public class PathRemapper
+    public class PathRemapper : ContextFeature
     {
         private Dictionary<GameObject, List<string>> _originalPaths;
         private bool _invalidMappingsCache;
@@ -155,5 +157,9 @@ namespace Chocopoi.DressingFramework.Animations
             }
             return mappings;
         }
+
+        internal override void OnEnable() { }
+
+        internal override void OnDisable() { }
     }
 }

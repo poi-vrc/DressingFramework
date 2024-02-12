@@ -10,7 +10,10 @@
  * You should have received a copy of the GNU General Public License along with DressingFramework. If not, see <https://www.gnu.org/licenses/>.
  */
 
-using Chocopoi.DressingFramework.Cabinet;
+using System.Collections.Generic;
+using Chocopoi.DressingFramework.Components.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Chocopoi.DressingFramework
 {
@@ -19,13 +22,43 @@ namespace Chocopoi.DressingFramework
     /// </summary>
     internal static class DKRuntimeUtils
     {
-        public enum LifecycleStage
+        /// <summary>
+        /// The isPlayingOrWillChangePlaymode property can only be accessed within Unity Editor.
+        /// When running a build, this will fail with a compilation error. This provides a way to hardcode true in those cases.
+        /// </summary>
+#if UNITY_EDITOR
+        public static bool IsPlaying => UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode;
+#else
+        public static bool IsPlaying => true;
+#endif
+
+        private static void FindComponentsAndAddToListIfNotExist<T>(List<GameObject> list, GameObject rootObj) where T : Component
         {
-            Awake,
-            Start
+            var comps = rootObj.GetComponentsInChildren<T>();
+            foreach (var comp in comps)
+            {
+                if (!list.Contains(comp.gameObject)) list.Add(comp.gameObject);
+            }
         }
 
-        public delegate void OnCabinetLifecycleDelegate(LifecycleStage stage, ICabinet cabinet);
-        public static OnCabinetLifecycleDelegate OnCabinetLifecycle = (stage, cabinet) => { };
+        public static List<GameObject> FindSceneAvatars(Scene scene)
+        {
+            var list = new List<GameObject>();
+            var rootObjs = scene.GetRootGameObjects();
+
+            // iterate through all root objects to find the root
+            foreach (var rootObj in rootObjs)
+            {
+#if DK_VRCSDK3A
+                // find VRC-specific avatars
+                FindComponentsAndAddToListIfNotExist<VRC.SDK3.Avatars.Components.VRCAvatarDescriptor>(list, rootObj);
+#endif
+
+                // generic avatar root components
+                FindComponentsAndAddToListIfNotExist<DKAvatarRoot>(list, rootObj);
+            }
+
+            return list;
+        }
     }
 }

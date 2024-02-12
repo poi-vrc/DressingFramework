@@ -10,14 +10,11 @@
  * You should have received a copy of the GNU General Public License along with DressingFramework. If not, see <https://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Chocopoi.DressingFramework.Cabinet;
-using Chocopoi.DressingFramework.Proxy;
-using Chocopoi.DressingFramework.Wearable;
-using Chocopoi.DressingTools.Api.Cabinet;
-using Chocopoi.DressingTools.Api.Wearable;
+using Chocopoi.DressingFramework.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
@@ -131,83 +128,6 @@ namespace Chocopoi.DressingFramework
             return result;
         }
 
-        public static List<IDynamicsProxy> ScanDynamics(GameObject obj, bool doNotScanContainingWearables = false)
-        {
-            var dynamicsList = new List<IDynamicsProxy>();
-
-            // TODO: replace by reading YAML
-
-            // get the dynbone type
-            var DynamicBoneType = FindType("DynamicBone");
-            var PhysBoneType = FindType("VRC.SDK3.Dynamics.PhysBone.Components.VRCPhysBone");
-            var VRMSpringBoneType = FindType("VRM.VRMSpringBone");
-
-            // scan dynbones
-            if (DynamicBoneType != null)
-            {
-                var dynBones = obj.GetComponentsInChildren(DynamicBoneType, true);
-                foreach (var dynBone in dynBones)
-                {
-                    if (doNotScanContainingWearables && IsOriginatedFromAnyWearable(obj.transform, dynBone.transform))
-                    {
-                        continue;
-                    }
-                    dynamicsList.Add(new DynamicBoneProxy(dynBone));
-                }
-            }
-
-            // scan physbones
-            if (PhysBoneType != null)
-            {
-                var physBones = obj.GetComponentsInChildren(PhysBoneType, true);
-                foreach (var physBone in physBones)
-                {
-                    if (doNotScanContainingWearables && IsOriginatedFromAnyWearable(obj.transform, physBone.transform))
-                    {
-                        continue;
-                    }
-                    dynamicsList.Add(new PhysBoneProxy(physBone));
-                }
-            }
-
-            // scan vrmspringbones
-            if (VRMSpringBoneType != null)
-            {
-                var vrmSpringBones = obj.GetComponentsInChildren(VRMSpringBoneType, true);
-                foreach (var vrmSpringBone in vrmSpringBones)
-                {
-                    var rootBones = VRMSpringBoneProxy.GetRootBones(vrmSpringBone);
-                    foreach (var rootBone in rootBones)
-                    {
-                        if (doNotScanContainingWearables && IsOriginatedFromAnyWearable(obj.transform, rootBone))
-                        {
-                            continue;
-                        }
-                        dynamicsList.Add(new VRMSpringBoneProxy(vrmSpringBone, rootBone));
-                    }
-                }
-            }
-
-            return dynamicsList;
-        }
-
-        public static IDynamicsProxy FindDynamicsWithRoot(List<IDynamicsProxy> avatarDynamics, Transform dynamicsRoot)
-        {
-            foreach (var bone in avatarDynamics)
-            {
-                if (bone.RootTransform == dynamicsRoot)
-                {
-                    return bone;
-                }
-            }
-            return null;
-        }
-
-        public static bool IsDynamicsExists(List<IDynamicsProxy> avatarDynamics, Transform dynamicsRoot)
-        {
-            return FindDynamicsWithRoot(avatarDynamics, dynamicsRoot) != null;
-        }
-
         public static bool IsGrandParent(Transform grandParent, Transform grandChild)
         {
             var p = grandChild.parent;
@@ -222,102 +142,18 @@ namespace Chocopoi.DressingFramework
             return false;
         }
 
-        public static DTWearable[] GetAllSceneWearables()
+        public static bool TrySafeRun(string label, Report report, Action func)
         {
-            // TODO: check for IWearable instead sticking to DT
-            return Object.FindObjectsOfType<DTWearable>();
-        }
-
-        public static IWearable GetCabinetWearable(GameObject wearableGameObject)
-        {
-            if (wearableGameObject == null)
+            try
             {
-                return null;
+                func();
             }
-
-            // loop through all scene wearables and search
-            var wearables = GetAllSceneWearables();
-
-            // no matter there are two occurance or not, we return the first found
-            foreach (var sceneWearable in wearables)
+            catch (Exception ex)
             {
-                if (sceneWearable.WearableGameObject == wearableGameObject)
-                {
-                    return sceneWearable;
-                }
+                report.LogException(label, ex);
+                return false;
             }
-
-            return null;
-        }
-
-        public static IWearable[] GetCabinetWearables(GameObject avatarGameObject)
-        {
-            if (avatarGameObject == null)
-            {
-                return new IWearable[0];
-            }
-            return avatarGameObject.GetComponentsInChildren<IWearable>();
-        }
-
-        public static DTCabinet[] GetAllCabinets()
-        {
-            // TODO: check for ICabinet instead sticking to DT
-            return Object.FindObjectsOfType<DTCabinet>();
-        }
-
-        public static DTCabinet GetAvatarCabinet(GameObject avatarGameObject, bool createIfNotExists = false)
-        {
-            if (avatarGameObject == null)
-            {
-                return null;
-            }
-
-            // loop through all cabinets and search
-            var cabinets = GetAllCabinets();
-
-            // no matter there are two occurance or not, we return the first found
-            foreach (var cabinet in cabinets)
-            {
-                if (cabinet.AvatarGameObject == avatarGameObject)
-                {
-                    return cabinet;
-                }
-            }
-
-            if (createIfNotExists)
-            {
-                // create new cabinet if not exist
-                var comp = avatarGameObject.AddComponent<DTCabinet>();
-
-                // TODO: read default config, scan for armature names?
-                comp.AvatarGameObject = avatarGameObject;
-                var config = new CabinetConfig();
-                comp.configJson = JsonConvert.SerializeObject(config);
-
-                return comp;
-            }
-
-            return null;
-        }
-
-        public static bool IsOriginatedFromAnyWearable(Transform root, Transform transform)
-        {
-            var found = false;
-            while (transform != null)
-            {
-                transform = transform.parent;
-                if (transform == root || transform == null)
-                {
-                    break;
-                }
-
-                if (transform.TryGetComponent<DTWearable>(out var _))
-                {
-                    found = true;
-                    break;
-                }
-            }
-            return found;
+            return true;
         }
     }
 }

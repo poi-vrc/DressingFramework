@@ -1,6 +1,5 @@
 {
     "name": "com.chocopoi.vrc.dressingframework.Editor.Tests",
-    "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
@@ -27,6 +26,11 @@
             "name": "com.vrmc.vrm",
             "expression": "0.110",
             "define": "DK_VRM"
+        },
+        {
+            "name": "com.vrchat.avatars",
+            "expression": "",
+            "define": "DK_VRCSDK3A"
         }
     ],
     "noEngineReferences": false
