@@ -21,5 +21,8 @@
     "cabinet.applier.msgCode.error.cabinetHookHasErrors": "エラー: キャビネット フックにエラーがあります: {0}",
     "cabinet.applier.msgCode.error.wearableHookHasErrors": "エラー: ウェアラブル フックにエラーがあります: {0}",
     "cabinet.applier.msgCode.error.unresolvedDependencies": "エラー: 未解決の依存関係が検出されました。必要なモジュールやフックがインポートされていないかを確認してください。",
-    "report.editor.saveReportToFile": "レポートを保存"
+    "report.editor.saveReportToFile": "レポートを保存",
+    "detail.dk.avatarBuilder.msgCode.error.passHasErrors": "エラー: エラーが発生しました: {0}",
+    "triggers.vrc.dialog.msg.errorPreprocessingReferReportWindow": "アバターの前処理中にエラーが発生しました。レポート ウィンドウを参照してください。",
+    "detail.dk.avatarBuilder.msgCode.error.unresolvedOrCyclicDependencies": "エラー: 未解決の依存関係または循環依存関係が検出されました。必要なプラグインが正しくインポートされているかどうかを確認してください。"
 }
