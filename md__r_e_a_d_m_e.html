@@ -68,144 +68,25 @@ $(function() {
 <div class="contents">
 <div class="textblock"><p >A framework that assembles DressingTools and allows the creation of modular plugins for avatars.</p>
 <h1><a class="anchor" id="autotoc_md1"></a>
+API Stability</h1>
+<p >:warning: Very unstable. Currently, it is only intended to use internally by my own tools. Use at your own risk. :warning:</p>
+<h1><a class="anchor" id="autotoc_md2"></a>
 Features</h1>
 <ul>
-<li>Automatic non-destructive cabinet apply while uploading avatars or entering play mode</li>
-<li>Standardized cabinet and wearable configuration system</li>
-<li>Standardized logging and reporting system</li>
-<li>Sequencing cabinet, wearable hook and module executions by specifying before/after constraints and categorizing into different stages</li>
+<li>Automatic non-destructive build while uploading avatars or entering play mode</li>
+<li>Sequencing passes executions by specifying before/after constraints and categorizing into different stages</li>
 <li>Animation scanning and path remapping are supported</li>
-<li>Platform-independent avatar dynamics scanning</li>
 <li>Non-VRChat workflows supported</li>
+<li>Acts as an avatar and build abstraction layer on top of other non-destructive frameworks</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md3"></a>
+Removed/not available currently</h1>
+<ul>
+<li>Standardized logging and reporting system</li>
+<li>Platform-independent avatar dynamics scanning</li>
 <li>Reading values from DynamicBones and VRCPhysBone without them installed (WIP)</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md2"></a>
-API Stability</h1>
-<p >Unstable, see <a href="https://github.com/poi-vrc/DressingTools/issues/294">https://github.com/poi-vrc/DressingTools/issues/294</a> for more details.</p>
-<h1><a class="anchor" id="autotoc_md3"></a>
-Hooks</h1>
-<p >DressingFramework categories hooks into two levels and four types:</p>
-<ul>
-<li>Cabinet-level<ul>
-<li>Cabinet Hook</li>
-<li>Cabinet Module</li>
-</ul>
-</li>
-<li>Wearable-level<ul>
-<li>Wearable Hook</li>
-<li>Wearable Module</li>
-</ul>
-</li>
-</ul>
-<h2><a class="anchor" id="autotoc_md4"></a>
-Cabinet-level</h2>
-<p >At cabinet-level, hooks and modules are <b>only executed once on stage start or end</b> (defined via <code>CabinetHookStageRunOrder</code>).</p>
-<h2><a class="anchor" id="autotoc_md5"></a>
-Wearable-level</h2>
-<p >At wearable-level, hooks and modules will be <b>executed on each wearable once.</b></p>
-<h2><a class="anchor" id="autotoc_md6"></a>
-Difference of hooks and modules</h2>
-<p ><b>Hooks</b> do not have configurations stored in the wearable configuration. They process avatars and wearables using the two contexts given only.</p>
-<div class="fragment"><div class="line"><span class="comment">// cabinet hook</span></div>
-<div class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keywordtype">bool</span> Invoke(ApplyCabinetContext cabCtx);</div>
-<div class="line"><span class="comment">// wearable hook</span></div>
-<div class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keywordtype">bool</span> Invoke(ApplyCabinetContext cabCtx, ApplyWearableContext wearCtx);</div>
-</div><!-- fragment --><p ><b>Modules</b> are actually just hooks, but they have configurations stored in the wearable configuration and will be passed on apply.</p>
-<div class="fragment"><div class="line"><span class="comment">// cabinet module</span></div>
-<div class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keywordtype">bool</span> Invoke(ApplyCabinetContext cabCtx, ReadOnlyCollection&lt;CabinetModule&gt; modules, <span class="keywordtype">bool</span> isPreview);</div>
-<div class="line"><span class="comment">// wearable module</span></div>
-<div class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keywordtype">bool</span> Invoke(ApplyCabinetContext cabCtx, ApplyWearableContext wearCtx, ReadOnlyCollection&lt;WearableModule&gt; modules, <span class="keywordtype">bool</span> isPreview);</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md7"></a>
-Execution Constraints</h1>
-<p >DressingFramework schedules hooks and modules by constructing a dependency graph using the execution constraints defined by hooks and modules. The order of execution is obtained by performing a topological sort on the dependency graph.</p>
-<h2><a class="anchor" id="autotoc_md8"></a>
-Stages</h2>
-<p >You should categorize your hooks and modules into these stages for better management with other hooks and modules.</p>
-<ul>
-<li>Pre<ul>
-<li>Generic pre-stage. The earliest stage to execute hooks.</li>
-<li>You are preferred to categorize your hook instead of using this generic stage.</li>
-</ul>
-</li>
-<li>Analyzing<ul>
-<li>Analyzing stage. Scanning, generation, cloning are done in this stage.</li>
-</ul>
-</li>
-<li>Transpose<ul>
-<li>Transpose stage. Mapping, animation etc. general stuff are done in this stage.</li>
-</ul>
-</li>
-<li>Integration<ul>
-<li>Integration stage. Integration-specific hooks and modules are invoked in this stage.</li>
-</ul>
-</li>
-<li>Optimization<ul>
-<li>Optimization stage</li>
-</ul>
-</li>
-<li>Post<ul>
-<li>Generic post-stage. The latest stage to execute hooks.</li>
-<li>You are preferred to categorize your hook instead of using this generic stage.</li>
-</ul>
-</li>
-</ul>
-<h2><a class="anchor" id="autotoc_md9"></a>
-Cabinet hooks and modules</h2>
-<p ><code>CabinetHookBase</code> and <code>CabinetModuleProviderBase</code> consist of a short-hand function <code>ApplyAtStage</code> for creating constraints easily.</p>
-<ul>
-<li><code>CabinetHookStageRunOrder</code><ul>
-<li>Use <code>CabinetHookStageRunOrder.Before</code> to run your cabinet hooks and modules before the stage</li>
-<li>Use <code>CabinetHookStageRunOrder.After</code> to run your cabinet hooks and modules after the stage</li>
-</ul>
-</li>
-</ul>
-<p >The identifier defaults to use the class fullname if you do not override the <code>Identifier</code> property.</p>
-<div class="fragment"><div class="line"><span class="keyword">public</span> <span class="keyword">override</span> CabinetApplyConstraint Constraint =&gt;</div>
-<div class="line">    ApplyAtStage(<a class="code hl_enumeration" href="namespace_chocopoi_1_1_dressing_framework_1_1_extensibility_1_1_sequencing.html#ae37a74df58faf4e6f7a95bcdff8dd257">CabinetApplyStage</a>.Transpose, <a class="code hl_enumeration" href="namespace_chocopoi_1_1_dressing_framework_1_1_extensibility_1_1_sequencing.html#a61091da2c64969187de6b8b63cf83089">CabinetHookStageRunOrder</a>.Before)</div>
-<div class="line">        .BeforeCabinetHook(typeof(MyCabinetHook));</div>
-<div class="line">        .BeforeCabinetModule(<span class="stringliteral">&quot;com.example.modules.cabinet.my-some-module&quot;</span>)</div>
-<div class="line">        .AfterCabinetHook(<span class="stringliteral">&quot;com.example.hooks.cabinet.my-some-hook-identifier&quot;</span>);</div>
-<div class="line">        .AfterCabinetModule(<span class="stringliteral">&quot;Example.Hooks.MySomeCabinetHook&quot;</span>);</div>
-<div class="line">        .Build();</div>
-<div class="ttc" id="anamespace_chocopoi_1_1_dressing_framework_1_1_extensibility_1_1_sequencing_html_a61091da2c64969187de6b8b63cf83089"><div class="ttname"><a href="namespace_chocopoi_1_1_dressing_framework_1_1_extensibility_1_1_sequencing.html#a61091da2c64969187de6b8b63cf83089">Chocopoi.DressingFramework.Extensibility.Sequencing.CabinetHookStageRunOrder</a></div><div class="ttdeci">CabinetHookStageRunOrder</div><div class="ttdoc">Cabinet hook stage run order</div><div class="ttdef"><b>Definition:</b> CabinetApplyConstraint.cs:59</div></div>
-<div class="ttc" id="anamespace_chocopoi_1_1_dressing_framework_1_1_extensibility_1_1_sequencing_html_ae37a74df58faf4e6f7a95bcdff8dd257"><div class="ttname"><a href="namespace_chocopoi_1_1_dressing_framework_1_1_extensibility_1_1_sequencing.html#ae37a74df58faf4e6f7a95bcdff8dd257">Chocopoi.DressingFramework.Extensibility.Sequencing.CabinetApplyStage</a></div><div class="ttdeci">CabinetApplyStage</div><div class="ttdoc">Cabinet apply stage</div><div class="ttdef"><b>Definition:</b> CabinetApplyConstraint.cs:21</div></div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md10"></a>
-Wearable hooks and modules</h2>
-<p ><code>WearableHookBase</code> and <code>WearableModuleProviderBase</code> consist of a short-hand function <code>ApplyAtStage</code> for creating constraints easily.</p>
-<p >The identifier defaults to use the class fullname if you do not override the <code>Identifier</code> property.</p>
-<div class="fragment"><div class="line"><span class="keyword">public</span> <span class="keyword">override</span> WearableApplyConstraint Constraint =&gt;</div>
-<div class="line">    ApplyAtStage(<a class="code hl_enumeration" href="namespace_chocopoi_1_1_dressing_framework_1_1_extensibility_1_1_sequencing.html#ae37a74df58faf4e6f7a95bcdff8dd257">CabinetApplyStage</a>.Optimization)</div>
-<div class="line">        .BeforeWearableHook(typeof(MyWearableHook));</div>
-<div class="line">        .BeforeWearableModule(<span class="stringliteral">&quot;com.example.modules.wearble.my-some-module&quot;</span>)</div>
-<div class="line">        .AfterWearableHook(<span class="stringliteral">&quot;com.example.hooks.wearable.my-some-hook-identifier&quot;</span>);</div>
-<div class="line">        .AfterWearableModule(<span class="stringliteral">&quot;Example.Hooks.MySomeWearableHook&quot;</span>);</div>
-<div class="line">        .Build();</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md11"></a>
-Plugins</h1>
-<p >To register your hooks and modules, you need to define a plugin by inheriting the <code>PluginBase</code> base class. The identifier defaults to use the class fullname if you do not override the <code>Identifier</code> property.</p>
-<div class="fragment"><div class="line"><span class="keyword">internal</span> <span class="keyword">class </span>MyPlugin : PluginBase</div>
-<div class="line">{</div>
-<div class="line">    <span class="keyword">public</span> <span class="keyword">override</span> <span class="keywordtype">string</span> FriendlyName =&gt; <span class="stringliteral">&quot;My Great Plugin&quot;</span>;</div>
-<div class="line">    <span class="keyword">public</span> <span class="keyword">override</span> ExecutionConstraint Constraint =&gt; ExecutionConstraint.Empty;</div>
-<div class="line"> </div>
-<div class="line">    <span class="keyword">public</span> <span class="keyword">override</span> <span class="keywordtype">void</span> OnEnable()</div>
-<div class="line">    {</div>
-<div class="line">        <span class="comment">// will be called on enable</span></div>
-<div class="line">        RegisterCabinetHook(<span class="keyword">new</span> MyCabinetHook());</div>
-<div class="line">        RegisterWearableHook(<span class="keyword">new</span> MyWearableHook());</div>
-<div class="line">        RegisterCabinetModuleProvider(<span class="keyword">new</span> MyCabinetModuleProvider());</div>
-<div class="line">        RegisterWearableModuleProvider(<span class="keyword">new</span> MyWearableModuleProvider());</div>
-<div class="line">    }</div>
-<div class="line"> </div>
-<div class="line">    <span class="keyword">public</span> <span class="keyword">override</span> <span class="keywordtype">void</span> OnDisable()</div>
-<div class="line">    {</div>
-<div class="line">        <span class="comment">// will be called on disable</span></div>
-<div class="line">    }</div>
-<div class="line">}</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md12"></a>
-Documentation and samples</h1>
-<p >More will be released soon. API reference: <a href="https://poi-vrc.github.io/DressingFramework">https://poi-vrc.github.io/DressingFramework</a></p>
-<h1><a class="anchor" id="autotoc_md13"></a>
+<h1><a class="anchor" id="autotoc_md4"></a>
 License</h1>
 <p >This project is licensed under the LGPLv3 License. <a href="https://tldrlegal.com/license/gnu-lesser-general-public-license-v3-(lgpl-3)">tl;dr</a> </p>
 </div></div><!-- contents -->

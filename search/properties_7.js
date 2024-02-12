@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['major_0',['Major',['../class_chocopoi_1_1_dressing_framework_1_1_serialization_1_1_serialization_version.html#a3b986dc4b0f9fa91b59581d595e7db25',1,'Chocopoi::DressingFramework::Serialization::SerializationVersion']]],
-  ['minor_1',['Minor',['../class_chocopoi_1_1_dressing_framework_1_1_serialization_1_1_serialization_version.html#af675b3e63cd7ac9aa9a160f9214a1d4c',1,'Chocopoi::DressingFramework::Serialization::SerializationVersion']]],
-  ['moduleprovidertype_2',['ModuleProviderType',['../class_chocopoi_1_1_dressing_framework_1_1_u_i_1_1_custom_wearable_module_editor.html#a4012af95683714a1676970ef9e86dc9c',1,'Chocopoi::DressingFramework::UI::CustomWearableModuleEditor']]]
+  ['leftcontroller_0',['LeftController',['../class_chocopoi_1_1_dressing_framework_1_1_menu_1_1_four_axis_item.html#a0168b031e130d98c567f928f16fcf3e8',1,'Chocopoi::DressingFramework::Menu::FourAxisItem']]],
+  ['leftlabel_1',['LeftLabel',['../class_chocopoi_1_1_dressing_framework_1_1_menu_1_1_four_axis_item.html#a665c00d6fed1fbeac7cb7e12dde33b34',1,'Chocopoi.DressingFramework.Menu.FourAxisItem.LeftLabel()'],['../class_chocopoi_1_1_dressing_framework_1_1_menu_1_1_two_axis_item.html#a6ec9ad249a3e46c478d8296afe63d12c',1,'Chocopoi.DressingFramework.Menu.TwoAxisItem.LeftLabel()']]]
 ];

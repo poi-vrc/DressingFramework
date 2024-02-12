@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['name_0',['name',['../class_chocopoi_1_1_dressing_tools_1_1_api_1_1_wearable_1_1_modules_1_1_built_in_1_1_cabinet_animbc31f1d1138ccd1924c8992023204e9e.html#abb02f9db97bfbd9258fa9a3171b6fa4d',1,'Chocopoi.DressingTools.Api.Wearable.Modules.BuiltIn.CabinetAnimWearableModuleConfig.Customizable.name()'],['../class_chocopoi_1_1_dressing_framework_1_1_wearable_1_1_avatar_config.html#a14c8d49d1529ea75ce2427a035776b4d',1,'Chocopoi.DressingFramework.Wearable.AvatarConfig.name()'],['../class_chocopoi_1_1_dressing_framework_1_1_wearable_1_1_wearable_info.html#a2ed5e1eaab86172dd62fc33633dc3a59',1,'Chocopoi.DressingFramework.Wearable.WearableInfo.name()']]],
-  ['newclip_1',['newClip',['../class_chocopoi_1_1_dressing_framework_1_1_animations_1_1_animation_clip_container.html#a225d4179435e6aea73f5dcba761f5972',1,'Chocopoi::DressingFramework::Animations::AnimationClipContainer']]]
+  ['saved_0',['saved',['../class_chocopoi_1_1_dressing_framework_1_1_animations_1_1_animator_parameters_1_1_parameter_config.html#a356618615c3231a883f44e3e70acc52d',1,'Chocopoi::DressingFramework::Animations::AnimatorParameters::ParameterConfig']]],
+  ['selector_1',['selector',['../class_chocopoi_1_1_dressing_framework_1_1_animations_1_1_animator_parameters_1_1_parameter_config.html#ad8797e44ab8a1c384fb23cc23c8a1d89',1,'Chocopoi::DressingFramework::Animations::AnimatorParameters::ParameterConfig']]],
+  ['stage_2',['stage',['../class_chocopoi_1_1_dressing_framework_1_1_extensibility_1_1_sequencing_1_1_build_constraint.html#aeb291cf5f788de167bfb2205b2b19b11',1,'Chocopoi::DressingFramework::Extensibility::Sequencing::BuildConstraint']]]
 ];

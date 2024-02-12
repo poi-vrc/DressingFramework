@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['gameobject_0',['GameObject',['../interface_chocopoi_1_1_dressing_framework_1_1_proxy_1_1_i_dynamics_proxy.html#a03af4b018046cd91729c70fca118afe8',1,'Chocopoi::DressingFramework::Proxy::IDynamicsProxy']]],
-  ['generatedtime_1',['GeneratedTime',['../class_chocopoi_1_1_dressing_framework_1_1_logging_1_1_d_k_report.html#a531378faf5c294ebb83fd24f3f17d708',1,'Chocopoi::DressingFramework::Logging::DKReport']]]
+  ['friendlyname_0',['FriendlyName',['../class_chocopoi_1_1_dressing_framework_1_1_extensibility_1_1_plugin.html#a6d45df40998eb371da3a32f6db0e1d75',1,'Chocopoi.DressingFramework.Extensibility.Plugin.FriendlyName()'],['../class_chocopoi_1_1_dressing_framework_1_1_extensibility_1_1_sequencing_1_1_build_pass.html#ad93d5e8413831224dd8cdd1048a36767',1,'Chocopoi.DressingFramework.Extensibility.Sequencing.BuildPass.FriendlyName()']]]
 ];

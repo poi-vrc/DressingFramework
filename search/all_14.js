@@ -1,10 +1,12 @@
 var searchData=
 [
-  ['unknownmoduleconfig_0',['UnknownModuleConfig',['../class_chocopoi_1_1_dressing_framework_1_1_serialization_1_1_unknown_module_config.html',1,'Chocopoi.DressingFramework.Serialization.UnknownModuleConfig'],['../class_chocopoi_1_1_dressing_framework_1_1_serialization_1_1_unknown_module_config.html#a6dc44e6aebcf78aea9f6cac8e8035f98',1,'Chocopoi.DressingFramework.Serialization.UnknownModuleConfig.UnknownModuleConfig()']]],
-  ['unknownmoduleconfig_2ecs_1',['UnknownModuleConfig.cs',['../_unknown_module_config_8cs.html',1,'']]],
-  ['unload_2',['Unload',['../class_chocopoi_1_1_dressing_framework_1_1_u_i_1_1_element_view_base.html#a5fc1e7675672e13d7209d820399bfd29',1,'Chocopoi.DressingFramework.UI.ElementViewBase.Unload()'],['../interface_chocopoi_1_1_dressing_framework_1_1_u_i_1_1_i_editor_view.html#ab5b83093a81c4bb66ae429dd0f79fc2d',1,'Chocopoi.DressingFramework.UI.IEditorView.Unload()'],['../class_chocopoi_1_1_dressing_framework_1_1_u_i_1_1_i_m_g_u_i_view_base.html#abf3f2ca82f306765f083f42f4a90329e',1,'Chocopoi.DressingFramework.UI.IMGUIViewBase.Unload()']]],
-  ['unresolvedgraphtest_3',['UnresolvedGraphTest',['../class_chocopoi_1_1_dressing_framework_1_1_tests_1_1_extensibility_1_1_sequencing_1_1_dependency_graph_test.html#a404e2f71f90b81bb1bf40db8f0a89404',1,'Chocopoi::DressingFramework::Tests::Extensibility::Sequencing::DependencyGraphTest']]],
-  ['updateavatarpreview_4',['UpdateAvatarPreview',['../interface_chocopoi_1_1_dressing_framework_1_1_u_i_1_1_i_wearable_module_editor_view_parent.html#aad1165723793ff0b287ccb4daf7c10ae',1,'Chocopoi::DressingFramework::UI::IWearableModuleEditorViewParent']]],
-  ['updatedtime_5',['updatedTime',['../class_chocopoi_1_1_dressing_framework_1_1_wearable_1_1_wearable_info.html#a3668c5ef937765e2b91781d744c6a979',1,'Chocopoi::DressingFramework::Wearable::WearableInfo']]],
-  ['uuid_6',['uuid',['../class_chocopoi_1_1_dressing_framework_1_1_wearable_1_1_wearable_info.html#a16f394d5f5631f6ab55d26499dd802ed',1,'Chocopoi::DressingFramework::Wearable::WearableInfo']]]
+  ['verticalcontroller_0',['VerticalController',['../class_chocopoi_1_1_dressing_framework_1_1_menu_1_1_two_axis_item.html#ae7911b5ac6d9d85f0c7690a640bf9bcd',1,'Chocopoi::DressingFramework::Menu::TwoAxisItem']]],
+  ['vrcanimutils_2ecs_1',['VRCAnimUtils.cs',['../_v_r_c_anim_utils_8cs.html',1,'']]],
+  ['vrcanimutilstest_2ecs_2',['VRCAnimUtilsTest.cs',['../_v_r_c_anim_utils_test_8cs.html',1,'']]],
+  ['vrcmenubuilderextensions_2ecs_3',['VRCMenuBuilderExtensions.cs',['../_v_r_c_menu_builder_extensions_8cs.html',1,'']]],
+  ['vrcmenuitem_2ecs_4',['VRCMenuItem.cs',['../_v_r_c_menu_item_8cs.html',1,'']]],
+  ['vrcmenuutils_2ecs_5',['VRCMenuUtils.cs',['../_v_r_c_menu_utils_8cs.html',1,'']]],
+  ['vrcmenuutilstest_2ecs_6',['VRCMenuUtilsTest.cs',['../_v_r_c_menu_utils_test_8cs.html',1,'']]],
+  ['vrcmenuwrapper_2ecs_7',['VRCMenuWrapper.cs',['../_v_r_c_menu_wrapper_8cs.html',1,'']]],
+  ['vrcsubmenuitemtest_2ecs_8',['VRCSubMenuItemTest.cs',['../_v_r_c_sub_menu_item_test_8cs.html',1,'']]]
 ];

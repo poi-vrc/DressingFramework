@@ -1,19 +1,8 @@
 var searchData=
 [
-  ['cabinetanimcabinetmoduleconfig_0',['CabinetAnimCabinetModuleConfig',['../class_chocopoi_1_1_dressing_tools_1_1_api_1_1_cabinet_1_1_modules_1_1_built_in_1_1_cabinet_anim_cabinet_module_config.html',1,'Chocopoi::DressingTools::Api::Cabinet::Modules::BuiltIn']]],
-  ['cabinetanimwearablemoduleconfig_1',['CabinetAnimWearableModuleConfig',['../class_chocopoi_1_1_dressing_tools_1_1_api_1_1_wearable_1_1_modules_1_1_built_in_1_1_cabinet_anim_wearable_module_config.html',1,'Chocopoi::DressingTools::Api::Wearable::Modules::BuiltIn']]],
-  ['cabinetapplier_2',['CabinetApplier',['../class_chocopoi_1_1_dressing_framework_1_1_cabinet_applier.html',1,'Chocopoi::DressingFramework']]],
-  ['cabinetappliertest_3',['CabinetApplierTest',['../class_chocopoi_1_1_dressing_framework_1_1_tests_1_1_cabinet_applier_test.html',1,'Chocopoi::DressingFramework::Tests']]],
-  ['cabinetapplyconstraint_4',['CabinetApplyConstraint',['../class_chocopoi_1_1_dressing_framework_1_1_extensibility_1_1_sequencing_1_1_cabinet_apply_constraint.html',1,'Chocopoi::DressingFramework::Extensibility::Sequencing']]],
-  ['cabinetapplyconstraintbuilder_5',['CabinetApplyConstraintBuilder',['../class_chocopoi_1_1_dressing_framework_1_1_extensibility_1_1_sequencing_1_1_cabinet_apply_constraint_builder.html',1,'Chocopoi::DressingFramework::Extensibility::Sequencing']]],
-  ['cabinetconfig_6',['CabinetConfig',['../class_chocopoi_1_1_dressing_framework_1_1_cabinet_1_1_cabinet_config.html',1,'Chocopoi::DressingFramework::Cabinet']]],
-  ['cabinetconfigtest_7',['CabinetConfigTest',['../class_chocopoi_1_1_dressing_framework_1_1_tests_1_1_cabinet_1_1_cabinet_config_test.html',1,'Chocopoi::DressingFramework::Tests::Cabinet']]],
-  ['cabinetconfigutilitytest_8',['CabinetConfigUtilityTest',['../class_chocopoi_1_1_dressing_framework_1_1_tests_1_1_extensibility_1_1_serialization_1_1_cabinet_config_utility_test.html',1,'Chocopoi::DressingFramework::Tests::Extensibility::Serialization']]],
-  ['cabinethookbase_9',['CabinetHookBase',['../class_chocopoi_1_1_dressing_framework_1_1_extensibility_1_1_plugin_1_1_cabinet_hook_base.html',1,'Chocopoi::DressingFramework::Extensibility::Plugin']]],
-  ['cabinetmodule_10',['CabinetModule',['../class_chocopoi_1_1_dressing_framework_1_1_cabinet_1_1_modules_1_1_cabinet_module.html',1,'Chocopoi::DressingFramework::Cabinet::Modules']]],
-  ['cabinetmoduleconverter_11',['CabinetModuleConverter',['../class_chocopoi_1_1_dressing_framework_1_1_serialization_1_1_cabinet_module_converter.html',1,'Chocopoi::DressingFramework::Serialization']]],
-  ['cabinetmoduleproviderbase_12',['CabinetModuleProviderBase',['../class_chocopoi_1_1_dressing_framework_1_1_extensibility_1_1_plugin_1_1_cabinet_module_provider_base.html',1,'Chocopoi::DressingFramework::Extensibility::Plugin']]],
-  ['constraintbuildertest_13',['ConstraintBuilderTest',['../class_chocopoi_1_1_dressing_framework_1_1_tests_1_1_extensibility_1_1_sequencing_1_1_constraint_builder_test.html',1,'Chocopoi::DressingFramework::Tests::Extensibility::Sequencing']]],
-  ['customizable_14',['Customizable',['../class_chocopoi_1_1_dressing_tools_1_1_api_1_1_wearable_1_1_modules_1_1_built_in_1_1_cabinet_animbc31f1d1138ccd1924c8992023204e9e.html',1,'Chocopoi::DressingTools::Api::Wearable::Modules::BuiltIn::CabinetAnimWearableModuleConfig']]],
-  ['customwearablemoduleeditor_15',['CustomWearableModuleEditor',['../class_chocopoi_1_1_dressing_framework_1_1_u_i_1_1_custom_wearable_module_editor.html',1,'Chocopoi::DressingFramework::UI']]]
+  ['constraintbuildertest_0',['ConstraintBuilderTest',['../class_chocopoi_1_1_dressing_framework_1_1_tests_1_1_extensibility_1_1_sequencing_1_1_constraint_builder_test.html',1,'Chocopoi::DressingFramework::Tests::Extensibility::Sequencing']]],
+  ['context_1',['Context',['../class_chocopoi_1_1_dressing_framework_1_1_context.html',1,'Chocopoi::DressingFramework']]],
+  ['contextfeature_2',['ContextFeature',['../class_chocopoi_1_1_dressing_framework_1_1_context_feature.html',1,'Chocopoi::DressingFramework']]],
+  ['contexttest_3',['ContextTest',['../class_chocopoi_1_1_dressing_framework_1_1_tests_1_1_context_test.html',1,'Chocopoi::DressingFramework::Tests']]],
+  ['controlleronopenitem_4',['ControllerOnOpenItem',['../class_chocopoi_1_1_dressing_framework_1_1_menu_1_1_controller_on_open_item.html',1,'Chocopoi::DressingFramework::Menu']]]
 ];

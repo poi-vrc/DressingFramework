@@ -1,5 +1,11 @@
 var searchData=
 [
-  ['moduleproviderbase_0',['ModuleProviderBase',['../class_chocopoi_1_1_dressing_framework_1_1_extensibility_1_1_plugin_1_1_module_provider_base.html',1,'Chocopoi::DressingFramework::Extensibility::Plugin']]],
-  ['moverootwearablemoduleconfig_1',['MoveRootWearableModuleConfig',['../class_chocopoi_1_1_dressing_tools_1_1_api_1_1_wearable_1_1_modules_1_1_built_in_1_1_move_root_wearable_module_config.html',1,'Chocopoi::DressingTools::Api::Wearable::Modules::BuiltIn']]]
+  ['parameterconfig_0',['ParameterConfig',['../class_chocopoi_1_1_dressing_framework_1_1_animations_1_1_animator_parameters_1_1_parameter_config.html',1,'Chocopoi::DressingFramework::Animations::AnimatorParameters']]],
+  ['pathremapper_1',['PathRemapper',['../class_chocopoi_1_1_dressing_framework_1_1_animations_1_1_path_remapper.html',1,'Chocopoi::DressingFramework::Animations']]],
+  ['pathremappertest_2',['PathRemapperTest',['../class_chocopoi_1_1_dressing_framework_1_1_tests_1_1_animations_1_1_path_remapper_test.html',1,'Chocopoi::DressingFramework::Tests::Animations']]],
+  ['plugin_3',['Plugin',['../class_chocopoi_1_1_dressing_framework_1_1_extensibility_1_1_plugin.html',1,'Chocopoi::DressingFramework::Extensibility']]],
+  ['pluginconstraint_4',['PluginConstraint',['../class_chocopoi_1_1_dressing_framework_1_1_extensibility_1_1_sequencing_1_1_plugin_constraint.html',1,'Chocopoi::DressingFramework::Extensibility::Sequencing']]],
+  ['pluginconstraintbuilder_5',['PluginConstraintBuilder',['../class_chocopoi_1_1_dressing_framework_1_1_extensibility_1_1_sequencing_1_1_plugin_constraint_builder.html',1,'Chocopoi::DressingFramework::Extensibility::Sequencing']]],
+  ['pluginmanagertest_6',['PluginManagerTest',['../class_chocopoi_1_1_dressing_framework_1_1_tests_1_1_extensibility_1_1_plugin_manager_test.html',1,'Chocopoi::DressingFramework::Tests::Extensibility']]],
+  ['plugintest_7',['PluginTest',['../class_chocopoi_1_1_dressing_framework_1_1_tests_1_1_extensibility_1_1_plugin_test.html',1,'Chocopoi::DressingFramework::Tests::Extensibility']]]
 ];
