@@ -8,6 +8,5 @@ var searchData=
   ['findtype_5fcachecoverage_5',['FindType_CacheCoverage',['../class_chocopoi_1_1_dressing_framework_1_1_tests_1_1_d_k_editor_utils_test.html#aeabf5b880059aae1d20131e5af5b3ad5',1,'Chocopoi::DressingFramework::Tests::DKEditorUtilsTest']]],
   ['findtype_5fnosuchtype_5freturnsnull_6',['FindType_NoSuchType_ReturnsNull',['../class_chocopoi_1_1_dressing_framework_1_1_tests_1_1_d_k_editor_utils_test.html#aacea8d8f2ca47a74c2e34546d46e3293',1,'Chocopoi::DressingFramework::Tests::DKEditorUtilsTest']]],
   ['findtype_5freturnscorrecttype_7',['FindType_ReturnsCorrectType',['../class_chocopoi_1_1_dressing_framework_1_1_tests_1_1_d_k_editor_utils_test.html#aed8c79a47de3ceccb32190044f1eb9e8',1,'Chocopoi::DressingFramework::Tests::DKEditorUtilsTest']]],
-  ['flush_8',['Flush',['../class_chocopoi_1_1_dressing_framework_1_1_menu_1_1_menu_store.html#ad503eeff28010ceef4d9bbf3c6a41ad3',1,'Chocopoi::DressingFramework::Menu::MenuStore']]],
-  ['flushtest_9',['FlushTest',['../class_chocopoi_1_1_dressing_framework_1_1_tests_1_1_menu_1_1_menu_store_test.html#a1f1e5e914a907c29bfadc3b12e8bda42',1,'Chocopoi::DressingFramework::Tests::Menu::MenuStoreTest']]]
+  ['flush_8',['Flush',['../class_chocopoi_1_1_dressing_framework_1_1_menu_1_1_menu_store.html#ad503eeff28010ceef4d9bbf3c6a41ad3',1,'Chocopoi::DressingFramework::Menu::MenuStore']]]
 ];

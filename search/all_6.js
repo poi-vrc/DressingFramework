@@ -10,8 +10,7 @@ var searchData=
   ['findtype_5freturnscorrecttype_7',['FindType_ReturnsCorrectType',['../class_chocopoi_1_1_dressing_framework_1_1_tests_1_1_d_k_editor_utils_test.html#aed8c79a47de3ceccb32190044f1eb9e8',1,'Chocopoi::DressingFramework::Tests::DKEditorUtilsTest']]],
   ['flush_8',['Flush',['../class_chocopoi_1_1_dressing_framework_1_1_menu_1_1_menu_store.html#ad503eeff28010ceef4d9bbf3c6a41ad3',1,'Chocopoi::DressingFramework::Menu::MenuStore']]],
   ['flushmenustorepass_2ecs_9',['FlushMenuStorePass.cs',['../_flush_menu_store_pass_8cs.html',1,'']]],
-  ['flushtest_10',['FlushTest',['../class_chocopoi_1_1_dressing_framework_1_1_tests_1_1_menu_1_1_menu_store_test.html#a1f1e5e914a907c29bfadc3b12e8bda42',1,'Chocopoi::DressingFramework::Tests::Menu::MenuStoreTest']]],
-  ['fouraxisitem_11',['FourAxisItem',['../class_chocopoi_1_1_dressing_framework_1_1_menu_1_1_four_axis_item.html',1,'Chocopoi::DressingFramework::Menu']]],
-  ['fouraxisitem_2ecs_12',['FourAxisItem.cs',['../_four_axis_item_8cs.html',1,'']]],
-  ['friendlyname_13',['FriendlyName',['../class_chocopoi_1_1_dressing_framework_1_1_extensibility_1_1_plugin.html#a6d45df40998eb371da3a32f6db0e1d75',1,'Chocopoi.DressingFramework.Extensibility.Plugin.FriendlyName()'],['../class_chocopoi_1_1_dressing_framework_1_1_extensibility_1_1_sequencing_1_1_build_pass.html#ad93d5e8413831224dd8cdd1048a36767',1,'Chocopoi.DressingFramework.Extensibility.Sequencing.BuildPass.FriendlyName()']]]
+  ['fouraxisitem_10',['FourAxisItem',['../class_chocopoi_1_1_dressing_framework_1_1_menu_1_1_four_axis_item.html',1,'Chocopoi::DressingFramework::Menu']]],
+  ['fouraxisitem_2ecs_11',['FourAxisItem.cs',['../_four_axis_item_8cs.html',1,'']]],
+  ['friendlyname_12',['FriendlyName',['../class_chocopoi_1_1_dressing_framework_1_1_extensibility_1_1_plugin.html#a6d45df40998eb371da3a32f6db0e1d75',1,'Chocopoi.DressingFramework.Extensibility.Plugin.FriendlyName()'],['../class_chocopoi_1_1_dressing_framework_1_1_extensibility_1_1_sequencing_1_1_build_pass.html#ad93d5e8413831224dd8cdd1048a36767',1,'Chocopoi.DressingFramework.Extensibility.Sequencing.BuildPass.FriendlyName()']]]
 ];

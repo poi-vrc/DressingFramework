@@ -15,7 +15,7 @@ var searchData=
   ['menuitemtest_2ecs_12',['MenuItemTest.cs',['../_menu_item_test_8cs.html',1,'']]],
   ['menurepositorybuilder_13',['MenuRepositoryBuilder',['../class_chocopoi_1_1_dressing_framework_1_1_menu_1_1_menu_repository_builder.html',1,'Chocopoi.DressingFramework.Menu.MenuRepositoryBuilder'],['../class_chocopoi_1_1_dressing_framework_1_1_menu_1_1_menu_repository_builder.html#a3e05d0d01ee469ca990bb01b529fd2ab',1,'Chocopoi.DressingFramework.Menu.MenuRepositoryBuilder.MenuRepositoryBuilder()']]],
   ['menurepositorybuilder_2ecs_14',['MenuRepositoryBuilder.cs',['../_menu_repository_builder_8cs.html',1,'']]],
-  ['menustore_15',['MenuStore',['../class_chocopoi_1_1_dressing_framework_1_1_menu_1_1_menu_store.html',1,'Chocopoi.DressingFramework.Menu.MenuStore'],['../class_chocopoi_1_1_dressing_framework_1_1_menu_1_1_menu_store.html#aef77d4e836a36b9ab572b1a48916c67f',1,'Chocopoi.DressingFramework.Menu.MenuStore.MenuStore()']]],
+  ['menustore_15',['MenuStore',['../class_chocopoi_1_1_dressing_framework_1_1_menu_1_1_menu_store.html',1,'Chocopoi.DressingFramework.Menu.MenuStore'],['../class_chocopoi_1_1_dressing_framework_1_1_menu_1_1_menu_store.html#a8c2f247a4803e1db7f3184fa5df78222',1,'Chocopoi.DressingFramework.Menu.MenuStore.MenuStore()']]],
   ['menustore_2ecs_16',['MenuStore.cs',['../_menu_store_8cs.html',1,'']]],
   ['menustoretest_17',['MenuStoreTest',['../class_chocopoi_1_1_dressing_framework_1_1_tests_1_1_menu_1_1_menu_store_test.html',1,'Chocopoi::DressingFramework::Tests::Menu']]],
   ['menustoretest_2ecs_18',['MenuStoreTest.cs',['../_menu_store_test_8cs.html',1,'']]],

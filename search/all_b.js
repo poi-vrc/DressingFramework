@@ -1,8 +1,8 @@
 var searchData=
 [
   ['label_0',['Label',['../class_chocopoi_1_1_dressing_framework_1_1_menu_1_1_menu_item_1_1_label.html',1,'Chocopoi::DressingFramework::Menu::MenuItem']]],
-  ['leftcontroller_1',['LeftController',['../class_chocopoi_1_1_dressing_framework_1_1_menu_1_1_four_axis_item.html#a0168b031e130d98c567f928f16fcf3e8',1,'Chocopoi::DressingFramework::Menu::FourAxisItem']]],
-  ['leftlabel_2',['LeftLabel',['../class_chocopoi_1_1_dressing_framework_1_1_menu_1_1_four_axis_item.html#a665c00d6fed1fbeac7cb7e12dde33b34',1,'Chocopoi.DressingFramework.Menu.FourAxisItem.LeftLabel()'],['../class_chocopoi_1_1_dressing_framework_1_1_menu_1_1_two_axis_item.html#a6ec9ad249a3e46c478d8296afe63d12c',1,'Chocopoi.DressingFramework.Menu.TwoAxisItem.LeftLabel()']]],
+  ['leftcontroller_1',['LeftController',['../class_chocopoi_1_1_dressing_framework_1_1_menu_1_1_four_axis_item.html#aef6dfe2a2cb4d5a27bfdf1825cd0871d',1,'Chocopoi::DressingFramework::Menu::FourAxisItem']]],
+  ['leftlabel_2',['LeftLabel',['../class_chocopoi_1_1_dressing_framework_1_1_menu_1_1_four_axis_item.html#a0f1ca7a3936da6a6299e20b234d4ca1c',1,'Chocopoi.DressingFramework.Menu.FourAxisItem.LeftLabel()'],['../class_chocopoi_1_1_dressing_framework_1_1_menu_1_1_two_axis_item.html#a4a1796069105749d17a3d40ef2a6d717',1,'Chocopoi.DressingFramework.Menu.TwoAxisItem.LeftLabel()']]],
   ['loadeditortestasset_3c_20t_20_3e_3',['LoadEditorTestAsset&lt; T &gt;',['../class_chocopoi_1_1_dressing_framework_1_1_tests_1_1_editor_test_base.html#a11e11971b4d87be51e9564a60ef19025',1,'Chocopoi::DressingFramework::Tests::EditorTestBase']]],
   ['loadruntimetestasset_3c_20t_20_3e_4',['LoadRuntimeTestAsset&lt; T &gt;',['../class_chocopoi_1_1_dressing_framework_1_1_tests_1_1_runtime_test_base.html#a212124ab436e464488d0195088e7f3a3',1,'Chocopoi::DressingFramework::Tests::RuntimeTestBase']]],
   ['loadtranslations_5',['LoadTranslations',['../class_chocopoi_1_1_dressing_framework_1_1_localization_1_1_i18n_translator.html#a204596b06826086f526225538a1b49be',1,'Chocopoi::DressingFramework::Localization::I18nTranslator']]],

@@ -1,12 +1,20 @@
 var searchData=
 [
-  ['verticalcontroller_0',['VerticalController',['../class_chocopoi_1_1_dressing_framework_1_1_menu_1_1_two_axis_item.html#ae7911b5ac6d9d85f0c7690a640bf9bcd',1,'Chocopoi::DressingFramework::Menu::TwoAxisItem']]],
-  ['vrcanimutils_2ecs_1',['VRCAnimUtils.cs',['../_v_r_c_anim_utils_8cs.html',1,'']]],
-  ['vrcanimutilstest_2ecs_2',['VRCAnimUtilsTest.cs',['../_v_r_c_anim_utils_test_8cs.html',1,'']]],
-  ['vrcmenubuilderextensions_2ecs_3',['VRCMenuBuilderExtensions.cs',['../_v_r_c_menu_builder_extensions_8cs.html',1,'']]],
-  ['vrcmenuitem_2ecs_4',['VRCMenuItem.cs',['../_v_r_c_menu_item_8cs.html',1,'']]],
-  ['vrcmenuutils_2ecs_5',['VRCMenuUtils.cs',['../_v_r_c_menu_utils_8cs.html',1,'']]],
-  ['vrcmenuutilstest_2ecs_6',['VRCMenuUtilsTest.cs',['../_v_r_c_menu_utils_test_8cs.html',1,'']]],
-  ['vrcmenuwrapper_2ecs_7',['VRCMenuWrapper.cs',['../_v_r_c_menu_wrapper_8cs.html',1,'']]],
-  ['vrcsubmenuitemtest_2ecs_8',['VRCSubMenuItemTest.cs',['../_v_r_c_sub_menu_item_test_8cs.html',1,'']]]
+  ['verticalcontroller_0',['VerticalController',['../class_chocopoi_1_1_dressing_framework_1_1_menu_1_1_two_axis_item.html#ac9d01810ca5936a84909c46ca8a7eccb',1,'Chocopoi::DressingFramework::Menu::TwoAxisItem']]],
+  ['vrcanimatorparametercontrollerwrapper_2ecs_1',['VRCAnimatorParameterControllerWrapper.cs',['../_v_r_c_animator_parameter_controller_wrapper_8cs.html',1,'']]],
+  ['vrcanimutils_2ecs_2',['VRCAnimUtils.cs',['../_v_r_c_anim_utils_8cs.html',1,'']]],
+  ['vrcanimutilstest_2ecs_3',['VRCAnimUtilsTest.cs',['../_v_r_c_anim_utils_test_8cs.html',1,'']]],
+  ['vrcbuttonitemwrapper_2ecs_4',['VRCButtonItemWrapper.cs',['../_v_r_c_button_item_wrapper_8cs.html',1,'']]],
+  ['vrcfouraxisitemwrapper_2ecs_5',['VRCFourAxisItemWrapper.cs',['../_v_r_c_four_axis_item_wrapper_8cs.html',1,'']]],
+  ['vrcmenubuilderextensions_2ecs_6',['VRCMenuBuilderExtensions.cs',['../_v_r_c_menu_builder_extensions_8cs.html',1,'']]],
+  ['vrcmenuitemlabelwrapper_2ecs_7',['VRCMenuItemLabelWrapper.cs',['../_v_r_c_menu_item_label_wrapper_8cs.html',1,'']]],
+  ['vrcmenuutils_2ecs_8',['VRCMenuUtils.cs',['../_v_r_c_menu_utils_8cs.html',1,'']]],
+  ['vrcmenuutilstest_2ecs_9',['VRCMenuUtilsTest.cs',['../_v_r_c_menu_utils_test_8cs.html',1,'']]],
+  ['vrcmenuwrapper_2ecs_10',['VRCMenuWrapper.cs',['../_v_r_c_menu_wrapper_8cs.html',1,'']]],
+  ['vrcradialitemwrapper_2ecs_11',['VRCRadialItemWrapper.cs',['../_v_r_c_radial_item_wrapper_8cs.html',1,'']]],
+  ['vrcsubmenuitem_2ecs_12',['VRCSubMenuItem.cs',['../_v_r_c_sub_menu_item_8cs.html',1,'']]],
+  ['vrcsubmenuitemtest_2ecs_13',['VRCSubMenuItemTest.cs',['../_v_r_c_sub_menu_item_test_8cs.html',1,'']]],
+  ['vrcsubmenuitemwrapper_2ecs_14',['VRCSubMenuItemWrapper.cs',['../_v_r_c_sub_menu_item_wrapper_8cs.html',1,'']]],
+  ['vrctoggleitemwrapper_2ecs_15',['VRCToggleItemWrapper.cs',['../_v_r_c_toggle_item_wrapper_8cs.html',1,'']]],
+  ['vrctwoaxisitemwrapper_2ecs_16',['VRCTwoAxisItemWrapper.cs',['../_v_r_c_two_axis_item_wrapper_8cs.html',1,'']]]
 ];
