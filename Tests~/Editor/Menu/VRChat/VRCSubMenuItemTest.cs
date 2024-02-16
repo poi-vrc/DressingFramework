@@ -12,6 +12,7 @@
 
 #if DK_VRCSDK3A
 using Chocopoi.DressingFramework.Menu;
+using Chocopoi.DressingFramework.Menu.VRChat;
 using NUnit.Framework;
 
 namespace Chocopoi.DressingFramework.Tests.Menu.VRChat

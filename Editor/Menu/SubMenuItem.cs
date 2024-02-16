@@ -14,6 +14,6 @@ namespace Chocopoi.DressingFramework.Menu
 {
     public class SubMenuItem : ControllerOnOpenItem
     {
-        public MenuGroup SubMenu { get; set; }
+        public virtual MenuGroup SubMenu { get; set; }
     }
 }

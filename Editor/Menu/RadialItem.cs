@@ -14,6 +14,6 @@ namespace Chocopoi.DressingFramework.Menu
 {
     public class RadialItem : ControllerOnOpenItem
     {
-        public MenuItemController RadialController { get; set; }
+        public virtual MenuItemController RadialController { get; set; }
     }
 }

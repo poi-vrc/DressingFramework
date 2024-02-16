@@ -13,11 +13,11 @@
 #if DK_VRCSDK3A
 using VRC.SDK3.Avatars.ScriptableObjects;
 
-namespace Chocopoi.DressingFramework.Menu
+namespace Chocopoi.DressingFramework.Menu.VRChat
 {
     public class VRCSubMenuItem : ControllerOnOpenItem
     {
-        public VRCExpressionsMenu SubMenu { get; set; }
+        public virtual VRCExpressionsMenu SubMenu { get; set; }
     }
 }
 #endif
