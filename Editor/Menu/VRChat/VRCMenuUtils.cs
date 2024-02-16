@@ -74,24 +74,6 @@ namespace Chocopoi.DressingFramework.Menu.VRChat
             return expressionsMenu;
         }
 
-        private static MenuItemController[] ParametersToItemControllers(float value, VRCExpressionsMenu.Control.Parameter[] parameters)
-        {
-            if (parameters == null)
-            {
-                return null;
-            }
-            var output = new MenuItemController[parameters.Length];
-            for (var i = 0; i < parameters.Length; i++)
-            {
-                output[i] = new AnimatorParameterController()
-                {
-                    ParameterName = parameters[i].name,
-                    ParameterValue = value
-                };
-            }
-            return output;
-        }
-
         private static void ItemControllerToAnimatorParameter(MenuItemController ctrl, out VRCExpressionsMenu.Control.Parameter parameter, out float value)
         {
             if (ctrl == null)
@@ -129,24 +111,6 @@ namespace Chocopoi.DressingFramework.Menu.VRChat
             return output;
         }
 
-        private static MenuItem.Label[] VRCLabelsToDKLabels(VRCExpressionsMenu.Control.Label[] labels)
-        {
-            if (labels == null)
-            {
-                return null;
-            }
-            var output = new MenuItem.Label[labels.Length];
-            for (var i = 0; i < labels.Length; i++)
-            {
-                output[i] = new MenuItem.Label()
-                {
-                    Name = labels[i].name,
-                    Icon = labels[i].icon
-                };
-            }
-            return output;
-        }
-
         private static VRCExpressionsMenu.Control.Label[] DKLabelsToVRCLabels(params MenuItem.Label[] labels)
         {
             var output = new VRCExpressionsMenu.Control.Label[labels.Length];
@@ -161,77 +125,32 @@ namespace Chocopoi.DressingFramework.Menu.VRChat
             return output;
         }
 
-        private static T TryGetOrDefault<T>(T[] array, int index)
-        {
-            return array.Length > index ? array[index] : default;
-        }
-
         public static MenuItem ControlToMenuItem(VRCExpressionsMenu.Control ctrl)
         {
-            var controller = new AnimatorParameterController()
-            {
-                ParameterName = ctrl.parameter.name,
-                ParameterValue = ctrl.value
-            };
-            var subControllers = ParametersToItemControllers(ctrl.value, ctrl.subParameters);
-            var subLabels = VRCLabelsToDKLabels(ctrl.labels);
-
             MenuItem item;
             switch (ctrl.type)
             {
                 case VRCExpressionsMenu.Control.ControlType.Button:
-                    item = new ButtonItem() { Controller = controller };
+                    item = new VRCButtonItemWrapper(ctrl);
                     break;
                 case VRCExpressionsMenu.Control.ControlType.Toggle:
-                    item = new ToggleItem() { Controller = controller };
+                    item = new VRCToggleItemWrapper(ctrl);
                     break;
                 case VRCExpressionsMenu.Control.ControlType.SubMenu:
-                    item = new VRCSubMenuItem()
-                    {
-                        ControllerOnOpen = controller,
-                        SubMenu = ctrl.subMenu
-                    };
+                    item = new VRCSubMenuItemWrapper(ctrl);
                     break;
                 case VRCExpressionsMenu.Control.ControlType.TwoAxisPuppet:
-                    item = new TwoAxisItem()
-                    {
-                        ControllerOnOpen = controller,
-                        HorizontalController = TryGetOrDefault(subControllers, 0),
-                        VerticalController = TryGetOrDefault(subControllers, 1),
-                        UpLabel = TryGetOrDefault(subLabels, 0),
-                        RightLabel = TryGetOrDefault(subLabels, 1),
-                        DownLabel = TryGetOrDefault(subLabels, 2),
-                        LeftLabel = TryGetOrDefault(subLabels, 3),
-                    };
+                    item = new VRCTwoAxisItemWrapper(ctrl);
                     break;
                 case VRCExpressionsMenu.Control.ControlType.FourAxisPuppet:
-                    item = new FourAxisItem()
-                    {
-                        ControllerOnOpen = controller,
-                        UpController = TryGetOrDefault(subControllers, 0),
-                        RightController = TryGetOrDefault(subControllers, 1),
-                        DownController = TryGetOrDefault(subControllers, 2),
-                        LeftController = TryGetOrDefault(subControllers, 3),
-                        UpLabel = TryGetOrDefault(subLabels, 0),
-                        RightLabel = TryGetOrDefault(subLabels, 1),
-                        DownLabel = TryGetOrDefault(subLabels, 2),
-                        LeftLabel = TryGetOrDefault(subLabels, 3),
-                    };
+                    item = new VRCFourAxisItemWrapper(ctrl);
                     break;
                 case VRCExpressionsMenu.Control.ControlType.RadialPuppet:
-                    item = new RadialItem()
-                    {
-                        ControllerOnOpen = controller,
-                        RadialController = TryGetOrDefault(subControllers, 0)
-                    };
+                    item = new VRCRadialItemWrapper(ctrl);
                     break;
                 default:
                     return null;
             }
-
-            item.Name = ctrl.name;
-            item.Icon = ctrl.icon;
-
             return item;
         }
 
@@ -277,7 +196,7 @@ namespace Chocopoi.DressingFramework.Menu.VRChat
                     if (subMenuItem.SubMenu != null)
                     {
                         var subMenu = MenuGroupToVRCMenu(subMenuItem.SubMenu, ctx);
-                        ctx?.CreateUniqueAsset(subMenu, $"{item.Name}_SubMenu_{DKEditorUtils.RandomString(6)}.asset");
+                        ctx?.CreateUniqueAsset(subMenu, $"{item.Name}_SubMenu");
                         ctrl.subMenu = subMenu;
                     }
                 }
@@ -326,6 +245,21 @@ namespace Chocopoi.DressingFramework.Menu.VRChat
                 vrcMenu.controls.Add(MenuItemToControl(menuItem, ctx));
             }
             return vrcMenu;
+        }
+
+        public static void WriteMenuItemController(MenuItemController from, VRCAnimatorParameterControllerWrapper to)
+        {
+            if (from is AnimatorParameterController val)
+            {
+                to.ParameterName = val.ParameterName;
+                to.ParameterValue = val.ParameterValue;
+            }
+        }
+
+        public static void WriteLabel(MenuItem.Label from, VRCMenuItemLabelWrapper to)
+        {
+            to.Name = from.Name;
+            to.Icon = from.Icon;
         }
     }
 }

@@ -14,16 +14,16 @@ namespace Chocopoi.DressingFramework.Menu
 {
     public class TwoAxisItem : ControllerOnOpenItem
     {
-        public MenuItemController HorizontalController { get; set; }
+        public virtual MenuItemController HorizontalController { get; set; }
 
-        public MenuItemController VerticalController { get; set; }
+        public virtual MenuItemController VerticalController { get; set; }
 
-        public Label UpLabel { get; set; }
+        public virtual Label UpLabel { get; set; }
 
-        public Label RightLabel { get; set; }
+        public virtual Label RightLabel { get; set; }
 
-        public Label DownLabel { get; set; }
+        public virtual Label DownLabel { get; set; }
 
-        public Label LeftLabel { get; set; }
+        public virtual Label LeftLabel { get; set; }
     }
 }

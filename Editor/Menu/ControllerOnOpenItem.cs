@@ -14,6 +14,6 @@ namespace Chocopoi.DressingFramework.Menu
 {
     public abstract class ControllerOnOpenItem : MenuItem
     {
-        public MenuItemController ControllerOnOpen { get; set; }
+        public virtual MenuItemController ControllerOnOpen { get; set; }
     }
 }

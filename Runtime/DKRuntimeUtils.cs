@@ -60,5 +60,27 @@ namespace Chocopoi.DressingFramework
 
             return list;
         }
+
+        public static GameObject GetAvatarRoot(GameObject gameObject)
+        {
+            if (gameObject.scene == null)
+            {
+                return null;
+            }
+
+            var avatars = FindSceneAvatars(gameObject.scene);
+
+            var p = gameObject.transform;
+            while (p != null)
+            {
+                if (avatars.Contains(p.gameObject))
+                {
+                    return p.gameObject;
+                }
+                p = p.parent;
+            }
+
+            return null;
+        }
     }
 }

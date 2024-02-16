@@ -28,7 +28,7 @@ namespace Chocopoi.DressingFramework.Menu
         /// Schedule an append of single menu item.
         /// </summary>
         /// <param name="menuItem">Menu item</param>
-        void Append(MenuItem menuItem);
+        void Append(MenuItem menuItem, string path = null);
 
         /// <summary>
         /// Flush the changes onto the avatar's root menu

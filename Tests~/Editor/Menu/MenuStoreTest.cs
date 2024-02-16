@@ -10,6 +10,7 @@
  * You should have received a copy of the GNU General Public License along with DressingFramework. If not, see <https://www.gnu.org/licenses/>.
  */
 
+using Chocopoi.DressingFramework.Detail.DK;
 using Chocopoi.DressingFramework.Menu;
 using NUnit.Framework;
 
@@ -21,7 +22,7 @@ namespace Chocopoi.DressingFramework.Tests.Menu
         {
             private readonly MenuGroup _rootMenu;
 
-            public TestMenuStore()
+            public TestMenuStore(Context ctx) : base(ctx)
             {
                 _rootMenu = new MenuGroup();
             }
@@ -38,9 +39,10 @@ namespace Chocopoi.DressingFramework.Tests.Menu
         }
 
         [Test]
-        public void FlushTest()
+        public void SimpleFlushTest()
         {
-            var store = new TestMenuStore();
+            var ctx = new DKNativeContext(CreateGameObject("abc"));
+            var store = new TestMenuStore(ctx);
             var realMenu = store.GetRootMenu();
             var menuItem = new ToggleItem();
 
@@ -50,6 +52,106 @@ namespace Chocopoi.DressingFramework.Tests.Menu
             store.Flush();
             Assert.AreEqual(1, realMenu.Count());
             Assert.AreEqual(menuItem, realMenu[0]);
+        }
+
+        private void AssertThroughPath(MenuGroup mg, string[] paths, int index, MenuItem expectedItem)
+        {
+            if (index < paths.Length)
+            {
+                var found = false;
+                foreach (var mi in mg)
+                {
+                    if (index < paths.Length)
+                    {
+                        if (mi is SubMenuItem subMenuItem && subMenuItem.Name == paths[index])
+                        {
+                            found = true;
+                            AssertThroughPath(subMenuItem.SubMenu, paths, index + 1, expectedItem);
+                            break;
+                        }
+                    }
+                }
+                Assert.True(found, $"Sub-menu {paths[index]} not found through {string.Join("/", paths)}");
+            }
+            else
+            {
+                AssertHasMenuItem(mg, expectedItem);
+            }
+        }
+
+        private void AssertHasMenuItem(MenuGroup mg, MenuItem expectedItem)
+        {
+            var found = false;
+            foreach (var mi in mg)
+            {
+                if (mi == expectedItem)
+                {
+                    found = true;
+                    break;
+                }
+            }
+            Assert.True(found, $"Menu item not found");
+        }
+
+        [Test]
+        public void InstallToPathNoExistingSubMenuTest()
+        {
+            var ctx = new DKNativeContext(CreateGameObject("abc"));
+            var store = new TestMenuStore(ctx);
+            var realMenu = (MenuGroup)store.GetRootMenu();
+
+            var menuItem1 = new ToggleItem();
+            store.Append(menuItem1, "A");
+
+            var menuItem2 = new ToggleItem();
+            store.Append(menuItem2, "B/C");
+
+            var menuItem3 = new ToggleItem();
+            store.Append(menuItem3, "C/D/E");
+
+            store.Flush();
+
+            AssertThroughPath(realMenu, new string[] { "A" }, 0, menuItem1);
+            AssertThroughPath(realMenu, new string[] { "B", "C" }, 0, menuItem2);
+            AssertThroughPath(realMenu, new string[] { "C", "D", "E" }, 0, menuItem3);
+        }
+
+        [Test]
+        public void InstallToPathExistingSubMenuTest()
+        {
+            var ctx = new DKNativeContext(CreateGameObject("abc"));
+            var store = new TestMenuStore(ctx);
+            var realMenu = (MenuGroup)store.GetRootMenu();
+            realMenu.Add(new SubMenuItem()
+            {
+                Name = "A",
+                SubMenu = new MenuGroup()
+            });
+            realMenu.Add(new SubMenuItem()
+            {
+                Name = "B",
+                SubMenu = new MenuGroup()
+            });
+            realMenu.Add(new SubMenuItem()
+            {
+                Name = "C",
+                SubMenu = null
+            });
+
+            var menuItem1 = new ToggleItem();
+            store.Append(menuItem1, "A");
+
+            var menuItem2 = new ToggleItem();
+            store.Append(menuItem2, "B/C");
+
+            var menuItem3 = new ToggleItem();
+            store.Append(menuItem3, "C/D/E");
+
+            store.Flush();
+
+            AssertThroughPath(realMenu, new string[] { "A" }, 0, menuItem1);
+            AssertThroughPath(realMenu, new string[] { "B", "C" }, 0, menuItem2);
+            AssertThroughPath(realMenu, new string[] { "C", "D", "E" }, 0, menuItem3);
         }
     }
 }

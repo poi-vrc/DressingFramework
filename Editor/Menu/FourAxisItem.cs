@@ -15,20 +15,20 @@ namespace Chocopoi.DressingFramework.Menu
     public class FourAxisItem : ControllerOnOpenItem
     {
 
-        public MenuItemController UpController { get; set; }
+        public virtual MenuItemController UpController { get; set; }
 
-        public MenuItemController RightController { get; set; }
+        public virtual MenuItemController RightController { get; set; }
 
-        public MenuItemController DownController { get; set; }
+        public virtual MenuItemController DownController { get; set; }
 
-        public MenuItemController LeftController { get; set; }
+        public virtual MenuItemController LeftController { get; set; }
 
-        public Label UpLabel { get; set; }
+        public virtual Label UpLabel { get; set; }
 
-        public Label RightLabel { get; set; }
+        public virtual Label RightLabel { get; set; }
 
-        public Label DownLabel { get; set; }
+        public virtual Label DownLabel { get; set; }
 
-        public Label LeftLabel { get; set; }
+        public virtual Label LeftLabel { get; set; }
     }
 }

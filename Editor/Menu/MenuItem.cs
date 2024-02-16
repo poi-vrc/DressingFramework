@@ -23,13 +23,13 @@ namespace Chocopoi.DressingFramework.Menu
     {
         public class Label
         {
-            public string Name { get; set; }
+            public virtual string Name { get; set; }
 
-            public Texture2D Icon { get; set; }
+            public virtual Texture2D Icon { get; set; }
         }
 
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
 
-        public Texture2D Icon { get; set; }
+        public virtual Texture2D Icon { get; set; }
     }
 }

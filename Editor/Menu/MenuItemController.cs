@@ -18,7 +18,7 @@ namespace Chocopoi.DressingFramework.Menu
 
     public class AnimatorParameterController : MenuItemController
     {
-        public string ParameterName { get; set; }
-        public float ParameterValue { get; set; }
+        public virtual string ParameterName { get; set; }
+        public virtual float ParameterValue { get; set; }
     }
 }

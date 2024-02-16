@@ -13,6 +13,7 @@
 using Chocopoi.DressingFramework.Menu;
 #if DK_VRCSDK3A
 using Chocopoi.DressingFramework.Menu.VRChat;
+using UnityEditor;
 #endif
 
 namespace Chocopoi.DressingFramework.Detail.DK
@@ -21,7 +22,7 @@ namespace Chocopoi.DressingFramework.Detail.DK
     {
         private Context _ctx;
 
-        public DKMenuStore(Context ctx)
+        public DKMenuStore(Context ctx) : base(ctx)
         {
             _ctx = ctx;
         }
