@@ -13,7 +13,6 @@
 using Chocopoi.DressingFramework.Menu;
 #if DK_VRCSDK3A
 using Chocopoi.DressingFramework.Menu.VRChat;
-using UnityEditor;
 #endif
 
 namespace Chocopoi.DressingFramework.Detail.DK
@@ -34,7 +33,7 @@ namespace Chocopoi.DressingFramework.Detail.DK
             {
                 if (_ctx.AvatarGameObject.TryGetComponent<VRC.SDK3.Avatars.Components.VRCAvatarDescriptor>(out var avatarDesc))
                 {
-                    rootMenu = new VRCMenuWrapper(avatarDesc.expressionsMenu, _ctx);
+                    rootMenu = new VRCMenuSafeWrapper(avatarDesc.expressionsMenu, _ctx);
                 }
                 else
                 {

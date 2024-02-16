@@ -240,9 +240,10 @@ namespace Chocopoi.DressingFramework.Menu.VRChat
         public static VRCExpressionsMenu MenuGroupToVRCMenu(MenuGroup menuGroup, Context ctx = null)
         {
             var vrcMenu = UnityEngine.Object.Instantiate(GetDefaultExpressionsMenu());
+            var wrapper = new VRCMenuSafeWrapper(vrcMenu, ctx);
             foreach (var menuItem in menuGroup.Items)
             {
-                vrcMenu.controls.Add(MenuItemToControl(menuItem, ctx));
+                wrapper.Add(menuItem);
             }
             return vrcMenu;
         }
