@@ -44,7 +44,7 @@ namespace Chocopoi.DressingFramework.Detail.DK.Passes.VRChat
             var menuCopy = Object.Instantiate(vrcMenu);
 
             avatarDesc.expressionsMenu = menuCopy;
-            ctx.CreateUniqueAsset(menuCopy, "RootMenu.asset");
+            ctx.CreateUniqueAsset(menuCopy, "RootMenu");
         }
 
         private static void CopyAndReplaceExpressionParameters(Context ctx, VRCAvatarDescriptor avatarDesc)
@@ -60,7 +60,7 @@ namespace Chocopoi.DressingFramework.Detail.DK.Passes.VRChat
             var paramsCopy = Object.Instantiate(vrcParams);
 
             avatarDesc.expressionParameters = paramsCopy;
-            ctx.CreateUniqueAsset(paramsCopy, "RootParameters.asset");
+            ctx.CreateUniqueAsset(paramsCopy, "RootParameters");
         }
 
         public override bool Invoke(Context ctx)
