@@ -64,7 +64,7 @@ namespace Chocopoi.DressingFramework.Detail.DK
             var dtComps = Context.AvatarGameObject.GetComponentsInChildren<DKBaseComponent>();
             foreach (var comp in dtComps)
             {
-                // Object.DestroyImmediate(comp);
+                Object.DestroyImmediate(comp);
             }
 
             EditorUtility.SetDirty(Context.AssetContainer);
