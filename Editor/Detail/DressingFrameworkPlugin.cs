@@ -31,6 +31,8 @@ namespace Chocopoi.DressingFramework.Detail
         private void RegisterInternalPasses()
         {
             RegisterBuildPass(new DK.Passes.FlushMenuStorePass());
+            RegisterBuildPass(new DK.Passes.DispatchAnimationStorePass());
+            RegisterBuildPass(new DK.Passes.RemapAnimationsPass());
 #if DK_VRCSDK3A
             RegisterBuildPass(new DK.Passes.VRChat.CloneVRCAnimLayersPass());
             RegisterBuildPass(new DK.Passes.VRChat.CloneVRCExMenuAndParamsPass());
