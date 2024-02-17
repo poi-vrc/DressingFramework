@@ -49,7 +49,7 @@ namespace Chocopoi.DressingFramework.Detail.DK.Passes.VRChat
                     {
                         if (type != animParam.type)
                         {
-                            ctx.Report.LogErrorLocalized(I18nManager.Instance.FrameworkTranslator, LogLabel, MessageCode.MismatchParameterTypesBetweenAnimators);
+                            ctx.Report.LogErrorLocalized(I18nManager.Instance.FrameworkTranslator, LogLabel, MessageCode.MismatchParameterTypesBetweenAnimators, type, animParam.type);
                         }
                     }
                     else
@@ -104,7 +104,7 @@ namespace Chocopoi.DressingFramework.Detail.DK.Passes.VRChat
                 var vrcParamType = UnityParamTypeToVRCParamType(parameters[parameterName]);
                 if (vrcParamType == null)
                 {
-                    ctx.Report.LogWarnLocalized(I18nManager.Instance.FrameworkTranslator, LogLabel, MessageCode.UnsupportedUnityParamTypeForVRC);
+                    ctx.Report.LogWarnLocalized(I18nManager.Instance.FrameworkTranslator, LogLabel, MessageCode.UnsupportedUnityParamTypeForVRC, parameters[parameterName].ToString());
                     continue;
                 }
 
