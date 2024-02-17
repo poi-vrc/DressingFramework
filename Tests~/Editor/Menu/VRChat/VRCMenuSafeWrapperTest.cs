@@ -217,6 +217,34 @@ namespace Chocopoi.DressingFramework.Tests.Menu.VRChat
             }
             Assert.AreEqual(17, wrapper.Count());
         }
+        
+        [Test]
+        public void EnumerationTest()
+        {
+            var exMenu = ScriptableObject.CreateInstance<VRCExpressionsMenu>();
+            Assert.AreEqual(0, exMenu.controls.Count);
+            var ctx = new DKNativeContext(CreateGameObject("abc"));
+            var wrapper = new VRCMenuSafeWrapper(exMenu, ctx);
+            AddPages(wrapper, 3);
+
+            var count = 0;
+            foreach(var item in wrapper) {
+                Assert.AreEqual(count++.ToString(), item.Name);
+            }
+            Assert.AreEqual(3 * VRCMenuSafeWrapper.MaxUsableControls, count);
+        }
+
+        [Test]
+        public void SetDirtyTest() {
+            var exMenu = ScriptableObject.CreateInstance<VRCExpressionsMenu>();
+            Assert.AreEqual(0, exMenu.controls.Count);
+            var ctx = new DKNativeContext(CreateGameObject("abc"));
+            var wrapper = new VRCMenuSafeWrapper(exMenu, ctx);
+            AddPages(wrapper, 3);
+
+            // just for coverage
+            wrapper.SetAllDirty();
+        }
 
         // [Test]
         // public void InsertTest1()

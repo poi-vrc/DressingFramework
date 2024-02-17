@@ -211,7 +211,8 @@ namespace Chocopoi.DressingFramework.Menu.VRChat
         {
             foreach (var menu in _vrcMenus)
             {
-                for (var i = 0; i < MaxUsableControls; i++)
+                var len = Math.Min(menu.controls.Count, MaxUsableControls);
+                for (var i = 0; i < len; i++)
                 {
                     yield return VRCMenuUtils.ControlToMenuItem(menu.controls[i]);
                 }
