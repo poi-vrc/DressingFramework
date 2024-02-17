@@ -24,5 +24,10 @@
     "report.editor.saveReportToFile": "レポートを保存",
     "detail.dk.avatarBuilder.msgCode.error.passHasErrors": "エラー: エラーが発生しました: {0}",
     "triggers.vrc.dialog.msg.errorPreprocessingReferReportWindow": "アバターの前処理中にエラーが発生しました。レポート ウィンドウを参照してください。",
-    "detail.dk.avatarBuilder.msgCode.error.unresolvedOrCyclicDependencies": "エラー: 未解決の依存関係または循環依存関係が検出されました。必要なプラグインが正しくインポートされているかどうかを確認してください。"
+    "detail.dk.avatarBuilder.msgCode.error.unresolvedOrCyclicDependencies": "エラー: 未解決の依存関係または循環依存関係が検出されました。必要なプラグインが正しくインポートされているかどうかを確認してください。",
+    "detail.dk.passes.vrc.applyVrcExParams.msgCode.warn.unsupportedUnityParamTypeForVRC": "VRC サポートされていない Unity アニメーター パラメータ タイプが発見しました: {0}",
+    "detail.dk.passes.vrc.applyVrcExParams.msgCode.error.mismatchParameterTypesBetweenAnimators": "アニメータ間でパラメータ タイプが一致しません: {0} != {1}",
+    "detail.dk.passes.vrc.cloneVrcAnimLayers.msgCode.error.unableToObtainDefaultAnimLayerAsset": "デフォルトの VRC アニメーション レイヤ アセットを取得できません",
+    "detail.dk.passes.vrc.cloneVrcExMenuAndParams.msgCode.error.unableToObtainDefaultExMenuAsset": "デフォルトの VRC メニュー アセットを取得できません",
+    "detail.dk.passes.vrc.cloneVrcExMenuAndParams.msgCode.error.unableToObtainDefaultExParamsAsset": "デフォルトの VRC パラメータ アセットを取得できません"
 }
