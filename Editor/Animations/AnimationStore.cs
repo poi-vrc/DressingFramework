@@ -55,7 +55,7 @@ namespace Chocopoi.DressingFramework.Animations
             {
                 if (clip.newClip != null && clip.originalClip != clip.newClip)
                 {
-                    _ctx.CreateUniqueAsset(clip.newClip, $"Clip_{clip.newClip.name}_{DKEditorUtils.RandomString(6)}.anim");
+                    _ctx.CreateUniqueAsset(clip.newClip, $"AnimStore_{clip.newClip.name}");
                     clip.dispatchFunc?.Invoke(clip.newClip);
                 }
             }
