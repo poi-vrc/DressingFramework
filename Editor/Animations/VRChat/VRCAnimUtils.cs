@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.Animations;
 using UnityEngine;
+using UnityEngine.Analytics;
 using VRC.SDK3.Avatars.Components;
 
 namespace Chocopoi.DressingFramework.Animations.VRChat
@@ -59,6 +60,12 @@ namespace Chocopoi.DressingFramework.Animations.VRChat
                 originalObject is AnimatorTransitionBase))
             {
                 throw new System.Exception(string.Format("Unknown type detected while animator merging: {0}", originalObjectType.FullName));
+            }
+
+            // do not copy VRC proxy anims
+            if (originalObject is Motion m && IsProxyAnimation(m))
+            {
+                return originalObject;
             }
 
             // try obtain from cache
