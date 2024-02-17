@@ -24,5 +24,10 @@
     "report.editor.saveReportToFile": "儲存報告",
     "triggers.vrc.dialog.msg.errorPreprocessingReferReportWindow": "預處理角色時出錯，請參閱報告視窗。",
     "detail.dk.avatarBuilder.msgCode.error.passHasErrors": "錯誤：建構過程發生錯誤：{0}",
-    "detail.dk.avatarBuilder.msgCode.error.unresolvedOrCyclicDependencies": "錯誤：偵測到未解決的依賴關係或循環依賴關係。請檢查是否一些必需的插件未有正確導入。"
+    "detail.dk.avatarBuilder.msgCode.error.unresolvedOrCyclicDependencies": "錯誤：偵測到未解決的依賴關係或循環依賴關係。請檢查是否一些必需的插件未有正確導入。",
+    "detail.dk.passes.vrc.applyVrcExParams.msgCode.error.mismatchParameterTypesBetweenAnimators": "動畫控制器之間的參數類型不符：{0} != {1}",
+    "detail.dk.passes.vrc.cloneVrcExMenuAndParams.msgCode.error.unableToObtainDefaultExMenuAsset": "無法取得預設的 VRC 表情選單資源",
+    "detail.dk.passes.vrc.cloneVrcExMenuAndParams.msgCode.error.unableToObtainDefaultExParamsAsset": "無法取得預設 VRC 參數資源",
+    "detail.dk.passes.vrc.applyVrcExParams.msgCode.warn.unsupportedUnityParamTypeForVRC": "VRC 不支援的 Unity 動畫器參數類型：{0}",
+    "detail.dk.passes.vrc.cloneVrcAnimLayers.msgCode.error.unableToObtainDefaultAnimLayerAsset": "無法取得預設的VRC動畫圖層資源"
 }
