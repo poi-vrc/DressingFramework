@@ -11,9 +11,11 @@
  */
 
 using UnityEditor;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+#if UNITY_EDITOR
+using UnityEditor.SceneManagement;
+#endif
 
 namespace Chocopoi.DressingFramework.Detail.DK.Triggers.PlayMode
 {
@@ -28,7 +30,9 @@ namespace Chocopoi.DressingFramework.Detail.DK.Triggers.PlayMode
     /// But the disadvantage of this is to have a spawner object present in the scene.
     /// Instead of marking as hidden and always present in the scene, the spawner will be destroyed on play mode update and entering edit mode.
     /// </summary>
+#if UNITY_EDITOR
     [InitializeOnLoad]
+#endif
     [AddComponentMenu("")]
     [DefaultExecutionOrder(-19999)]
     [DisallowMultipleComponent]
@@ -45,6 +49,7 @@ namespace Chocopoi.DressingFramework.Detail.DK.Triggers.PlayMode
         public delegate void OnAvatarLifecycleDelegate(Lifecycle stage, GameObject avatarGameObject);
         public static OnAvatarLifecycleDelegate OnAvatarLifecycle = (stage, avatarGameObject) => { };
 
+#if UNITY_EDITOR
         static PlayModeBuildTriggerSpawner()
         {
             EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
@@ -86,9 +91,14 @@ namespace Chocopoi.DressingFramework.Detail.DK.Triggers.PlayMode
             }
         }
 
+        private static bool IsInvalidScene(Scene scene)
+        {
+            return !scene.IsValid() || EditorSceneManager.IsPreviewScene(scene) || EditorApplication.isPlaying;
+        }
+
         private static void CreateSpawnersToScene(Scene scene)
         {
-            if (!scene.IsValid() || EditorSceneManager.IsPreviewScene(scene) || EditorApplication.isPlaying)
+            if (IsInvalidScene(scene))
             {
                 return;
             }
@@ -123,7 +133,7 @@ namespace Chocopoi.DressingFramework.Detail.DK.Triggers.PlayMode
 
         private static void DestroySpawnersOfScene(Scene scene)
         {
-            if (!scene.IsValid() || EditorSceneManager.IsPreviewScene(scene) || EditorApplication.isPlaying)
+            if (IsInvalidScene(scene))
             {
                 return;
             }
@@ -137,6 +147,7 @@ namespace Chocopoi.DressingFramework.Detail.DK.Triggers.PlayMode
                 }
             }
         }
+#endif
 
         private void Awake()
         {
