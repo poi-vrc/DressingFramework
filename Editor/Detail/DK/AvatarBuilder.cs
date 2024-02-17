@@ -10,6 +10,7 @@
  * You should have received a copy of the GNU General Public License along with DressingFramework. If not, see <https://www.gnu.org/licenses/>.
  */
 
+using System.Diagnostics;
 using Chocopoi.DressingFramework.Animations;
 using Chocopoi.DressingFramework.Components;
 using Chocopoi.DressingFramework.Extensibility;
@@ -17,6 +18,7 @@ using Chocopoi.DressingFramework.Extensibility.Sequencing;
 using Chocopoi.DressingFramework.Localization;
 using UnityEditor;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace Chocopoi.DressingFramework.Detail.DK
 {
@@ -55,7 +57,6 @@ namespace Chocopoi.DressingFramework.Detail.DK
 
         private void TearDown()
         {
-            RemapAnimations();
             DispatchAnimationStore();
             Context.OnDisable();
 
@@ -63,7 +64,7 @@ namespace Chocopoi.DressingFramework.Detail.DK
             var dtComps = Context.AvatarGameObject.GetComponentsInChildren<DKBaseComponent>();
             foreach (var comp in dtComps)
             {
-                Object.DestroyImmediate(comp);
+                // Object.DestroyImmediate(comp);
             }
 
             EditorUtility.SetDirty(Context.AssetContainer);
@@ -72,62 +73,11 @@ namespace Chocopoi.DressingFramework.Detail.DK
 
         private void DispatchAnimationStore()
         {
-            var store = Context.Feature<AnimationStore>();
-            store.Dispatch();
-        }
-
-        private void RemapAnimations()
-        {
-            var store = Context.Feature<AnimationStore>();
-            var remapper = Context.Feature<PathRemapper>();
-
-            foreach (var clipContainer in store.Clips)
-            {
-                var oldClip = clipContainer.originalClip;
-                var remapped = false;
-
-                var newClip = new AnimationClip()
-                {
-                    name = oldClip.name,
-                    legacy = oldClip.legacy,
-                    frameRate = oldClip.frameRate,
-                    localBounds = oldClip.localBounds,
-                    wrapMode = oldClip.wrapMode
-                };
-                AnimationUtility.SetAnimationClipSettings(newClip, AnimationUtility.GetAnimationClipSettings(oldClip));
-
-                var curveBindings = AnimationUtility.GetCurveBindings(oldClip);
-                foreach (var curveBinding in curveBindings)
-                {
-                    var avoidContainerBones = curveBinding.type == typeof(Transform);
-                    var newPath = remapper.Remap(curveBinding.path, avoidContainerBones);
-
-                    remapped |= newPath != curveBinding.path;
-
-                    newClip.SetCurve(newPath, curveBinding.type, curveBinding.propertyName, AnimationUtility.GetEditorCurve(oldClip, curveBinding));
-                }
-
-                var objRefBindings = AnimationUtility.GetObjectReferenceCurveBindings(oldClip);
-                foreach (var objRefBinding in objRefBindings)
-                {
-                    var newPath = remapper.Remap(objRefBinding.path, false);
-
-                    remapped |= newPath != objRefBinding.path;
-
-                    var newObjRefBinding = objRefBinding;
-                    newObjRefBinding.path = newPath;
-                    AnimationUtility.SetObjectReferenceCurve(newClip, newObjRefBinding, AnimationUtility.GetObjectReferenceCurve(oldClip, objRefBinding));
-                }
-
-                if (remapped)
-                {
-                    clipContainer.newClip = newClip;
-                }
-            }
         }
 
         private bool RunPassesAtStage(BuildStage stage)
         {
+            Debug.Log($"[DK] =========== {stage} Start ===========");
             var passes = _plugMgr.GetSortedBuildPassesAtStage(stage);
 
             if (passes == null)
@@ -138,7 +88,12 @@ namespace Chocopoi.DressingFramework.Detail.DK
 
             foreach (var pass in passes)
             {
+                Debug.Log($"[DK] -- {pass.Identifier} Start");
+                var sw = new Stopwatch();
+                sw.Start();
                 var result = pass.Invoke(Context);
+                sw.Stop();
+                Debug.Log($"[DK] -- {pass.Identifier} End ({sw.Elapsed.TotalSeconds} s)");
 
                 if (!result)
                 {
@@ -146,6 +101,7 @@ namespace Chocopoi.DressingFramework.Detail.DK
                     return false;
                 }
             }
+            Debug.Log($"[DK] =========== {stage} End ===========");
 
             return true;
         }
