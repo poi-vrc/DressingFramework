@@ -77,7 +77,7 @@ namespace Chocopoi.DressingFramework.Detail.DK
 
         private bool RunPassesAtStage(BuildStage stage)
         {
-            Debug.Log($"[DK] =========== {stage} Start ===========");
+            // Debug.Log($"[DK] =========== {stage} Start ===========");
             var passes = _plugMgr.GetSortedBuildPassesAtStage(stage);
 
             if (passes == null)
@@ -88,12 +88,12 @@ namespace Chocopoi.DressingFramework.Detail.DK
 
             foreach (var pass in passes)
             {
-                Debug.Log($"[DK] -- {pass.Identifier} Start");
-                var sw = new Stopwatch();
-                sw.Start();
+                // Debug.Log($"[DK] -- {pass.Identifier} Start");
+                // var sw = new Stopwatch();
+                // sw.Start();
                 var result = pass.Invoke(Context);
-                sw.Stop();
-                Debug.Log($"[DK] -- {pass.Identifier} End ({sw.Elapsed.TotalSeconds} s)");
+                // sw.Stop();
+                // Debug.Log($"[DK] -- {pass.Identifier} End ({sw.Elapsed.TotalSeconds} s)");
 
                 if (!result)
                 {
@@ -101,7 +101,7 @@ namespace Chocopoi.DressingFramework.Detail.DK
                     return false;
                 }
             }
-            Debug.Log($"[DK] =========== {stage} End ===========");
+            // Debug.Log($"[DK] =========== {stage} End ===========");
 
             return true;
         }
