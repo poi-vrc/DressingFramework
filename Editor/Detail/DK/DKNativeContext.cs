@@ -43,6 +43,10 @@ namespace Chocopoi.DressingFramework.Detail.DK
         {
             _report = new DKReport();
             _assetContainer = ScriptableObject.CreateInstance<DKNativeAssetContainer>();
+            if (!AssetDatabase.IsValidFolder(GeneratedAssetsPath))
+            {
+                AssetDatabase.CreateFolder("Assets", GeneratedAssetsFolderName);
+            }
             AssetDatabase.CreateAsset(_assetContainer, $"{GeneratedAssetsPath}/{AvatarGameObject.name}_{DKEditorUtils.RandomString(8)}.asset");
 
             AddContextFeature(new AnimationStore(this));
