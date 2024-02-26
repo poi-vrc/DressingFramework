@@ -41,11 +41,6 @@ namespace Chocopoi.DressingFramework.Detail.DK
 
         public AvatarBuilder(GameObject rootGameObject)
         {
-            if (!AssetDatabase.IsValidFolder(DKNativeContext.GeneratedAssetsPath))
-            {
-                AssetDatabase.CreateFolder("Assets", DKNativeContext.GeneratedAssetsFolderName);
-            }
-
             _plugMgr = new PluginManager();
             Context = new DKNativeContext(rootGameObject);
         }
