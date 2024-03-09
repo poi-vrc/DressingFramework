@@ -29,5 +29,6 @@
     "detail.dk.passes.vrc.applyVrcExParams.msgCode.error.mismatchParameterTypesBetweenAnimators": "アニメータ間でパラメータ タイプが一致しません: {0} != {1}",
     "detail.dk.passes.vrc.cloneVrcAnimLayers.msgCode.error.unableToObtainDefaultAnimLayerAsset": "デフォルトの VRC アニメーション レイヤ アセットを取得できません",
     "detail.dk.passes.vrc.cloneVrcExMenuAndParams.msgCode.error.unableToObtainDefaultExMenuAsset": "デフォルトの VRC メニュー アセットを取得できません",
-    "detail.dk.passes.vrc.cloneVrcExMenuAndParams.msgCode.error.unableToObtainDefaultExParamsAsset": "デフォルトの VRC パラメータ アセットを取得できません"
+    "detail.dk.passes.vrc.cloneVrcExMenuAndParams.msgCode.error.unableToObtainDefaultExParamsAsset": "デフォルトの VRC パラメータ アセットを取得できません",
+    "detail.dk.passes.vrc.applyVrcExParams.msgCode.error.maxParameterCostExceeded": "同期パラメータの最大コストを超えました: {0} > {1}"
 }
