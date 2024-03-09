@@ -17,6 +17,7 @@ using Chocopoi.DressingFramework.Animations;
 using Chocopoi.DressingFramework.Animations.VRChat;
 using Chocopoi.DressingFramework.Extensibility.Sequencing;
 using Chocopoi.DressingFramework.Localization;
+using Chocopoi.DressingFramework.Menu.VRChat;
 using UnityEditor;
 using UnityEngine;
 using VRC.SDK3.Avatars.Components;
@@ -34,6 +35,7 @@ namespace Chocopoi.DressingFramework.Detail.DK.Passes.VRChat
             public const string UnsupportedUnityParamTypeForVRC = "detail.dk.passes.vrc.applyVrcExParams.msgCode.warn.unsupportedUnityParamTypeForVRC";
             // Error
             public const string MismatchParameterTypesBetweenAnimators = "detail.dk.passes.vrc.applyVrcExParams.msgCode.error.mismatchParameterTypesBetweenAnimators";
+            public const string MaxParameterCostExceeded = "detail.dk.passes.vrc.applyVrcExParams.msgCode.error.maxParameterCostExceeded";
         }
 
         public override BuildConstraint Constraint => InvokeAtStage(BuildStage.Transpose).Build();
@@ -120,6 +122,13 @@ namespace Chocopoi.DressingFramework.Detail.DK.Passes.VRChat
                 vrcParam.defaultValue = paramConfig.defaultValue;
                 vrcParam.networkSynced = paramConfig.networkSynced;
                 vrcParam.valueType = vrcParamType.Value;
+            }
+
+            var totalCost = VRCMenuUtils.CalculateParametersCost(vrcParamList);
+            if (totalCost > VRCExpressionParameters.MAX_PARAMETER_COST)
+            {
+                ctx.Report.LogWarnLocalized(I18nManager.Instance.FrameworkTranslator, LogLabel, MessageCode.MaxParameterCostExceeded, totalCost, VRCExpressionParameters.MAX_PARAMETER_COST);
+                return false;
             }
 
             // write into vrc params

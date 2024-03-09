@@ -7,6 +7,7 @@
     "detail.dk.passes.vrc.cloneVrcAnimLayers.msgCode.error.unableToObtainDefaultAnimLayerAsset": "Unable to obtain default VRC animation layer asset",
     "detail.dk.passes.vrc.cloneVrcExMenuAndParams.msgCode.error.unableToObtainDefaultExMenuAsset": "Unable to obtain default VRC expressions menu asset",
     "detail.dk.passes.vrc.cloneVrcExMenuAndParams.msgCode.error.unableToObtainDefaultExParamsAsset": "Unable to obtain default VRC expressions parameters asset",
+    "detail.dk.passes.vrc.applyVrcExParams.msgCode.error.maxParameterCostExceeded": "Maximum synced parameter cost exceeded",
     "triggers.vrc.dialog.msg.errorPreprocessingReferReportWindow": "Error preprocessing avatar, please refer to the report window.",
     "common.dialog.btn.ok": "OK",
     "report.editor.helpbox.resultError": "Result: Errors occurred",

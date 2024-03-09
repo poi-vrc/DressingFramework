@@ -12,6 +12,7 @@
 
 #if DK_VRCSDK3A
 using System;
+using System.Collections.Generic;
 using Chocopoi.DressingFramework.Menu;
 using Chocopoi.DressingFramework.Menu.VRChat;
 using NUnit.Framework;
@@ -347,6 +348,52 @@ namespace Chocopoi.DressingFramework.Tests.Menu.VRChat
                 Assert.AreEqual(1, ctrl.subParameters.Length);
                 Assert.AreEqual("1", ctrl.subParameters[0].name);
             });
+        }
+
+        [Test]
+        public void CalculateParametersCostTest()
+        {
+            var parameters = new List<VRCExpressionParameters.Parameter>
+            {
+                new VRCExpressionParameters.Parameter()
+                {
+                    valueType = VRCExpressionParameters.ValueType.Int,
+                    networkSynced = true,
+                },
+                new VRCExpressionParameters.Parameter()
+                {
+                    valueType = VRCExpressionParameters.ValueType.Int,
+                    networkSynced = false,
+                },
+                new VRCExpressionParameters.Parameter()
+                {
+                    valueType = VRCExpressionParameters.ValueType.Float,
+                    networkSynced = true,
+                },
+                new VRCExpressionParameters.Parameter()
+                {
+                    valueType = VRCExpressionParameters.ValueType.Float,
+                    networkSynced = false,
+                },
+                new VRCExpressionParameters.Parameter()
+                {
+                    valueType = VRCExpressionParameters.ValueType.Bool,
+                    networkSynced = true,
+                },
+                new VRCExpressionParameters.Parameter()
+                {
+                    valueType = VRCExpressionParameters.ValueType.Bool,
+                    networkSynced = false,
+                }
+            };
+
+            // network synced cost does not count
+            var expectedCost =
+                VRCExpressionParameters.TypeCost(VRCExpressionParameters.ValueType.Int) +
+                VRCExpressionParameters.TypeCost(VRCExpressionParameters.ValueType.Float) +
+                VRCExpressionParameters.TypeCost(VRCExpressionParameters.ValueType.Bool);
+
+            Assert.AreEqual(expectedCost, VRCMenuUtils.CalculateParametersCost(parameters));
         }
     }
 }
