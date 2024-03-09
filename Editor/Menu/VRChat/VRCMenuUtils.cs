@@ -12,6 +12,7 @@
 
 #if DK_VRCSDK3A
 using System;
+using System.Collections.Generic;
 using UnityEditor;
 using VRC.SDK3.Avatars.Components;
 using VRC.SDK3.Avatars.ScriptableObjects;
@@ -261,6 +262,21 @@ namespace Chocopoi.DressingFramework.Menu.VRChat
         {
             to.Name = from.Name;
             to.Icon = from.Icon;
+        }
+
+        public static int CalculateParametersCost(IEnumerable<VRCExpressionParameters.Parameter> parameters)
+        {
+            var cost = 0;
+
+            foreach (var p in parameters)
+            {
+                if (p.networkSynced)
+                {
+                    cost += VRCExpressionParameters.TypeCost(p.valueType);
+                }
+            }
+
+            return cost;
         }
     }
 }
