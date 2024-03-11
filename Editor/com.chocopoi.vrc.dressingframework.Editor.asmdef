@@ -1,5 +1,6 @@
 {
     "name": "com.chocopoi.vrc.dressingframework.Editor",
+    "rootNamespace": "",
     "references": [
         "GUID:dcaf16fd99f37914888e6e13bdf533ea",
         "GUID:62ced99b048af7f4d8dfe4bed8373d76",
@@ -21,19 +22,19 @@
             "define": "DK_VRM"
         },
         {
+            "name": "com.vrchat.avatars",
+            "expression": "",
+            "define": "DK_VRCSDK3A"
+        },
+        {
             "name": "nadena.dev.modular-avatar",
-            "expression": "1.8.0",
+            "expression": "[1.9.0,2.0.0)",
             "define": "DK_MA"
         },
         {
             "name": "nadena.dev.ndmf",
-            "expression": "1.2.0",
+            "expression": "[1.3.0,2.0.0)",
             "define": "DK_NDMF"
-        },
-        {
-            "name": "com.vrchat.avatars",
-            "expression": "",
-            "define": "DK_VRCSDK3A"
         }
     ],
     "noEngineReferences": false

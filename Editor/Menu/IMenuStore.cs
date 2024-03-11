@@ -18,13 +18,6 @@ namespace Chocopoi.DressingFramework.Menu
     internal interface IMenuStore
     {
         /// <summary>
-        /// Obtains the root menu associated to this avatar.
-        /// Note that appends are not applied unless Flush is called.
-        /// </summary>
-        /// <returns>CRUD interface on the root menu</returns>
-        IMenuRepository GetRootMenu();
-
-        /// <summary>
         /// Schedule an append of single menu item.
         /// </summary>
         /// <param name="menuItem">Menu item</param>
