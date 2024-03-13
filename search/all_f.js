@@ -17,13 +17,14 @@ var searchData=
   ['pluginconstraint_14',['PluginConstraint',['../class_chocopoi_1_1_dressing_framework_1_1_extensibility_1_1_sequencing_1_1_plugin_constraint.html',1,'Chocopoi::DressingFramework::Extensibility::Sequencing']]],
   ['pluginconstraint_2ecs_15',['PluginConstraint.cs',['../_plugin_constraint_8cs.html',1,'']]],
   ['pluginconstraintbuilder_16',['PluginConstraintBuilder',['../class_chocopoi_1_1_dressing_framework_1_1_extensibility_1_1_sequencing_1_1_plugin_constraint_builder.html',1,'Chocopoi::DressingFramework::Extensibility::Sequencing']]],
-  ['pluginexecutionconstraintbuildertest_17',['PluginExecutionConstraintBuilderTest',['../class_chocopoi_1_1_dressing_framework_1_1_tests_1_1_extensibility_1_1_sequencing_1_1_constraint_builder_test.html#a62db132e0ed9c3dfdb2cdae285c35ead',1,'Chocopoi::DressingFramework::Tests::Extensibility::Sequencing::ConstraintBuilderTest']]],
-  ['pluginmanager_2ecs_18',['PluginManager.cs',['../_plugin_manager_8cs.html',1,'']]],
-  ['pluginmanagertest_19',['PluginManagerTest',['../class_chocopoi_1_1_dressing_framework_1_1_tests_1_1_extensibility_1_1_plugin_manager_test.html',1,'Chocopoi::DressingFramework::Tests::Extensibility']]],
-  ['pluginmanagertest_2ecs_20',['PluginManagerTest.cs',['../_plugin_manager_test_8cs.html',1,'']]],
-  ['plugintest_21',['PluginTest',['../class_chocopoi_1_1_dressing_framework_1_1_tests_1_1_extensibility_1_1_plugin_test.html',1,'Chocopoi::DressingFramework::Tests::Extensibility']]],
-  ['plugintest_2ecs_22',['PluginTest.cs',['../_plugin_test_8cs.html',1,'']]],
-  ['post_23',['Post',['../namespace_chocopoi_1_1_dressing_framework_1_1_extensibility_1_1_sequencing.html#a23f475a764e18bc6dd4209609150ba06a03d947a2158373c3b9d74325850cb8b9',1,'Chocopoi::DressingFramework::Extensibility::Sequencing']]],
-  ['pre_24',['Pre',['../namespace_chocopoi_1_1_dressing_framework_1_1_extensibility_1_1_sequencing.html#a23f475a764e18bc6dd4209609150ba06afb55a965b77791b31ffd2bb548f71080',1,'Chocopoi::DressingFramework::Extensibility::Sequencing']]],
-  ['preparation_25',['Preparation',['../namespace_chocopoi_1_1_dressing_framework_1_1_extensibility_1_1_sequencing.html#a23f475a764e18bc6dd4209609150ba06a9a5f09cf66e692efdae493ce4c9aa64f',1,'Chocopoi::DressingFramework::Extensibility::Sequencing']]]
+  ['plugindefinition_2ecs_17',['PluginDefinition.cs',['../_plugin_definition_8cs.html',1,'']]],
+  ['pluginexecutionconstraintbuildertest_18',['PluginExecutionConstraintBuilderTest',['../class_chocopoi_1_1_dressing_framework_1_1_tests_1_1_extensibility_1_1_sequencing_1_1_constraint_builder_test.html#a62db132e0ed9c3dfdb2cdae285c35ead',1,'Chocopoi::DressingFramework::Tests::Extensibility::Sequencing::ConstraintBuilderTest']]],
+  ['pluginmanager_2ecs_19',['PluginManager.cs',['../_plugin_manager_8cs.html',1,'']]],
+  ['pluginmanagertest_20',['PluginManagerTest',['../class_chocopoi_1_1_dressing_framework_1_1_tests_1_1_extensibility_1_1_plugin_manager_test.html',1,'Chocopoi::DressingFramework::Tests::Extensibility']]],
+  ['pluginmanagertest_2ecs_21',['PluginManagerTest.cs',['../_plugin_manager_test_8cs.html',1,'']]],
+  ['plugintest_22',['PluginTest',['../class_chocopoi_1_1_dressing_framework_1_1_tests_1_1_extensibility_1_1_plugin_test.html',1,'Chocopoi::DressingFramework::Tests::Extensibility']]],
+  ['plugintest_2ecs_23',['PluginTest.cs',['../_plugin_test_8cs.html',1,'']]],
+  ['post_24',['Post',['../namespace_chocopoi_1_1_dressing_framework_1_1_extensibility_1_1_sequencing.html#a23f475a764e18bc6dd4209609150ba06a03d947a2158373c3b9d74325850cb8b9',1,'Chocopoi::DressingFramework::Extensibility::Sequencing']]],
+  ['pre_25',['Pre',['../namespace_chocopoi_1_1_dressing_framework_1_1_extensibility_1_1_sequencing.html#a23f475a764e18bc6dd4209609150ba06afb55a965b77791b31ffd2bb548f71080',1,'Chocopoi::DressingFramework::Extensibility::Sequencing']]],
+  ['preparation_26',['Preparation',['../namespace_chocopoi_1_1_dressing_framework_1_1_extensibility_1_1_sequencing.html#a23f475a764e18bc6dd4209609150ba06a9a5f09cf66e692efdae493ce4c9aa64f',1,'Chocopoi::DressingFramework::Extensibility::Sequencing']]]
 ];

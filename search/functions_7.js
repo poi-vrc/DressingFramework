@@ -5,7 +5,6 @@ var searchData=
   ['getcontainingmenurepository_2',['GetContainingMenuRepository',['../class_chocopoi_1_1_dressing_framework_1_1_menu_1_1_menu_repository_builder.html#aa0b79bc4ea634403bf290be64cbe025a',1,'Chocopoi::DressingFramework::Menu::MenuRepositoryBuilder']]],
   ['getenumerator_3',['GetEnumerator',['../class_chocopoi_1_1_dressing_framework_1_1_menu_1_1_menu_group.html#ae2b77e29f20b36c2e3bbce7e6262f3a8',1,'Chocopoi::DressingFramework::Menu::MenuGroup']]],
   ['getlogentriesasdictionarytest_4',['GetLogEntriesAsDictionaryTest',['../class_chocopoi_1_1_dressing_framework_1_1_tests_1_1_detail_1_1_d_k_1_1_logging_1_1_d_k_report_test.html#a084634afce888fb87cd079330fac6010',1,'Chocopoi::DressingFramework::Tests::Detail::DK::Logging::DKReportTest']]],
-  ['getrootmenu_5',['GetRootMenu',['../class_chocopoi_1_1_dressing_framework_1_1_menu_1_1_menu_store.html#a3e83d69607e7bdadc4f857337ce16aeb',1,'Chocopoi::DressingFramework::Menu::MenuStore']]],
-  ['gettersettertest_6',['GetterSetterTest',['../class_chocopoi_1_1_dressing_framework_1_1_tests_1_1_detail_1_1_d_k_1_1_logging_1_1_d_k_report_test.html#abf7d41fea97b0281288ca78691346c98',1,'Chocopoi::DressingFramework::Tests::Detail::DK::Logging::DKReportTest']]],
-  ['gettranslatortest_7',['GetTranslatorTest',['../class_chocopoi_1_1_dressing_framework_1_1_tests_1_1_cabinet_1_1_i18n_test.html#abe146ebf52ffa2f975c8652673a000b3',1,'Chocopoi::DressingFramework::Tests::Cabinet::I18nTest']]]
+  ['gettersettertest_5',['GetterSetterTest',['../class_chocopoi_1_1_dressing_framework_1_1_tests_1_1_detail_1_1_d_k_1_1_logging_1_1_d_k_report_test.html#abf7d41fea97b0281288ca78691346c98',1,'Chocopoi::DressingFramework::Tests::Detail::DK::Logging::DKReportTest']]],
+  ['gettranslatortest_6',['GetTranslatorTest',['../class_chocopoi_1_1_dressing_framework_1_1_tests_1_1_cabinet_1_1_i18n_test.html#abe146ebf52ffa2f975c8652673a000b3',1,'Chocopoi::DressingFramework::Tests::Cabinet::I18nTest']]]
 ];
