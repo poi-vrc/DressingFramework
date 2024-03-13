@@ -44,7 +44,7 @@ namespace Chocopoi.DressingFramework.Tests.Extensibility
             var plugin = new TestRegisterPlugin();
             plugin.OnEnable();
 
-            Assert.AreEqual(1, plugin.GetAllBuildPasses().Count);
+            Assert.AreEqual(1, plugin.GetBuildPassesAtStage(BuildRuntime.DK, BuildStage.Pre).Count);
         }
     }
 }

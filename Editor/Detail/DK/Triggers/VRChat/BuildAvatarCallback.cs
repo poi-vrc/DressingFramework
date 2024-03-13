@@ -12,6 +12,7 @@
 
 #if DK_VRCSDK3A
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
@@ -21,6 +22,7 @@ using UnityEditor;
 using UnityEngine;
 using VRC.SDKBase;
 using VRC.SDKBase.Editor.BuildPipeline;
+using Debug = UnityEngine.Debug;
 using LogType = Chocopoi.DressingFramework.Logging.LogType;
 
 namespace Chocopoi.DressingFramework.Detail.DK.Triggers.VRChat
@@ -30,14 +32,40 @@ namespace Chocopoi.DressingFramework.Detail.DK.Triggers.VRChat
     {
         private static readonly I18nTranslator t = I18nManager.Instance.FrameworkTranslator;
         private const string LogLabel = "BuildAvatarCallback";
+        private const string VRCAvatarBuilderTypeName = "VRC.SDK3.Builder.VRCAvatarBuilder";
 
         public int callbackOrder => -12000;
 
         // for mocking
         internal UI ui = new UnityEditorUI();
 
+        private static bool CheckCalledFromVRCAvatarBuilder()
+        {
+            if (DKEditorUtils.FindType(VRCAvatarBuilderTypeName) == null)
+            {
+                Debug.LogWarning($"[DressingFramework] Could not find {VRCAvatarBuilderTypeName} in assemblies. Maybe VRCSDK API changed? For compatibility reasons, we will act like it is called from VRCSDK instead.");
+                return true;
+            }
+
+            var stackTrace = new StackTrace();
+            var frames = stackTrace.GetFrames();
+            foreach (var frame in frames)
+            {
+                if (frame.GetMethod().DeclaringType.FullName == VRCAvatarBuilderTypeName)
+                {
+                    return true;
+                }
+            }
+
+            // TODO: align with this issue later on
+            Debug.Log("[DressingFramework] BuildAvatarCallback was not triggered by VRCSDK! Ignoring this build to prevent issues.");
+            return false;
+        }
+
         public bool OnPreprocessAvatar(GameObject avatarGameObject)
         {
+            if (!CheckCalledFromVRCAvatarBuilder()) return true;
+
             ReportWindow.Reset();
 
             var ab = new AvatarBuilder(avatarGameObject);

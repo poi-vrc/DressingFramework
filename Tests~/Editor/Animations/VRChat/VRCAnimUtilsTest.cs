@@ -12,6 +12,7 @@
 
 #if DK_VRCSDK3A
 using Chocopoi.DressingFramework.Animations.VRChat;
+using Chocopoi.DressingFramework.Extensibility.Sequencing;
 using Chocopoi.DressingFramework.Logging;
 using NUnit.Framework;
 using UnityEditor;
@@ -155,6 +156,7 @@ namespace Chocopoi.DressingFramework.Tests.Animations.VRChat
 
         private class TestContext : Context
         {
+            public override BuildRuntime CurrentRuntime => throw new System.NotImplementedException();
             public override object RuntimeContext => throw new System.NotImplementedException();
             internal override Report Report => throw new System.NotImplementedException();
 

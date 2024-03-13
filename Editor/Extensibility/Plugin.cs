@@ -47,9 +47,14 @@ namespace Chocopoi.DressingFramework.Extensibility
             _buildPasses[hook.Identifier] = hook;
         }
 
-        internal List<BuildPass> GetAllBuildPasses()
+        internal List<BuildPass> GetBuildPassesAtStage(BuildRuntime runtime, BuildStage stage)
         {
-            return _buildPasses.Values.ToList();
+            return _buildPasses.Values
+                .Where(p =>
+                    ((runtime == BuildRuntime.DK && p.Constraint.buildRuntimes.Count == 0) ||
+                        p.Constraint.buildRuntimes.Contains(runtime)) &&
+                    p.Constraint.stage == stage)
+                .ToList();
         }
     }
 }

@@ -10,6 +10,7 @@
  * You should have received a copy of the GNU General Public License along with DressingFramework. If not, see <https://www.gnu.org/licenses/>.
  */
 
+using Chocopoi.DressingFramework.Extensibility.Sequencing;
 using Chocopoi.DressingFramework.Logging;
 using NUnit.Framework;
 using UnityEngine;
@@ -20,7 +21,7 @@ namespace Chocopoi.DressingFramework.Tests
     {
         public class DummyContext : Context
         {
-
+            public override BuildRuntime CurrentRuntime => throw new System.NotImplementedException();
             public override object RuntimeContext => throw new System.NotImplementedException();
             public override Object AssetContainer => throw new System.NotImplementedException();
             internal override Report Report => throw new System.NotImplementedException();

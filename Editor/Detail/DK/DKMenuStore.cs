@@ -17,9 +17,9 @@ using Chocopoi.DressingFramework.Menu.VRChat;
 
 namespace Chocopoi.DressingFramework.Detail.DK
 {
-    internal class DKMenuStore : MenuStore
+    internal class DKMenuStore : MenuRepositoryStore
     {
-        private Context _ctx;
+        private readonly Context _ctx;
 
         public DKMenuStore(Context ctx) : base(ctx)
         {

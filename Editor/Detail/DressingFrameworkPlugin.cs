@@ -39,6 +39,10 @@ namespace Chocopoi.DressingFramework.Detail
             RegisterBuildPass(new DK.Passes.VRChat.ScanVRCAnimationsPass());
             RegisterBuildPass(new DK.Passes.VRChat.ApplyVRCExParamsPass());
 #endif
+
+#if DK_NDMF
+            RegisterBuildPass(new NDMF.Passes.CheckDKNDMFCallOrderPass());
+#endif
         }
 
         public override void OnDisable()

@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2023 chocopoi
+ * Copyright (c) 2024 chocopoi
  * 
  * This file is part of DressingFramework.
  * 
@@ -10,22 +10,33 @@
  * You should have received a copy of the GNU General Public License along with DressingFramework. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace Chocopoi.DressingFramework.Menu
-{
-    /// <summary>
-    /// Menu store interface
-    /// </summary>
-    internal interface IMenuStore
-    {
-        /// <summary>
-        /// Schedule an append of single menu item.
-        /// </summary>
-        /// <param name="menuItem">Menu item</param>
-        void Append(MenuItem menuItem, string path = null);
+#if DK_NDMF
+using nadena.dev.ndmf;
 
-        /// <summary>
-        /// Flush the changes onto the avatar's root menu
-        /// </summary>
-        void Flush();
+namespace Chocopoi.DressingFramework.Detail.NDMF
+{
+    public class DKExtensionContext : IExtensionContext
+    {
+        public Context Context { get; private set; }
+
+        public DKExtensionContext()
+        {
+            Context = null;
+        }
+
+        public void OnActivate(BuildContext ndmfCtx)
+        {
+            if (Context == null)
+            {
+                Context = new NDMFContext(ndmfCtx);
+                Context.OnEnable();
+            }
+        }
+
+        public void OnDeactivate(BuildContext ndmfCtx)
+        {
+            // TODO: when to disable?
+        }
     }
 }
+#endif

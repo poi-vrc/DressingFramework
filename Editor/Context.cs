@@ -13,6 +13,7 @@
 using System;
 using System.Collections.Generic;
 using Chocopoi.DressingFramework.Animations;
+using Chocopoi.DressingFramework.Extensibility.Sequencing;
 using Chocopoi.DressingFramework.Logging;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -26,6 +27,7 @@ namespace Chocopoi.DressingFramework
     {
         public GameObject AvatarGameObject { get; private set; }
 
+        public abstract BuildRuntime CurrentRuntime { get; }
         public abstract object RuntimeContext { get; }
         internal abstract Report Report { get; }
         public abstract Object AssetContainer { get; }
