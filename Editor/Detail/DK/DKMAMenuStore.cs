@@ -1,13 +1,13 @@
 ﻿/*
  * Copyright (c) 2024 chocopoi
  * 
- * This file is part of DressingTools.
+ * This file is part of DressingFramework.
  * 
- * DressingTools is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ * DressingFramework is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * 
- * DressingTools is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ * DressingFramework is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
  * 
- * You should have received a copy of the GNU General Public License along with DressingTools. If not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with DressingFramework. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #if DK_MA && DK_VRCSDK3A
@@ -30,13 +30,13 @@ namespace Chocopoi.DressingFramework.Detail.DK
     internal class DKMAMenuStore : MenuStore
     {
         private readonly Context _ctx;
-        private readonly Dictionary<string, List<MenuItem>> _buffer;
+        private readonly Dictionary<string, MenuGroup> _buffer;
         private readonly HashSet<VRCExpressionsMenu> _clonedVrcMenus;
 
         public DKMAMenuStore(Context ctx)
         {
             _ctx = ctx;
-            _buffer = new Dictionary<string, List<MenuItem>>();
+            _buffer = new Dictionary<string, MenuGroup>();
             _clonedVrcMenus = new HashSet<VRCExpressionsMenu>();
         }
 
@@ -50,17 +50,17 @@ namespace Chocopoi.DressingFramework.Detail.DK
 
             if (!_buffer.TryGetValue(path, out var menuItems))
             {
-                menuItems = _buffer[path] = new List<MenuItem>();
+                menuItems = _buffer[path] = new MenuGroup();
             }
             menuItems.Add(menuItem);
         }
 
-        private static VRCExpressionsMenu.Control MakeSubMenuControl(string name, VRCExpressionsMenu subMenu)
+        private static VRCExpressionsMenu.Control MakeSubMenuControl(string name, Texture2D icon, VRCExpressionsMenu subMenu)
         {
             return new VRCExpressionsMenu.Control()
             {
                 name = name,
-                icon = null,
+                icon = icon,
                 type = VRCExpressionsMenu.Control.ControlType.SubMenu,
                 parameter = new VRCExpressionsMenu.Control.Parameter() { name = "" },
                 style = VRCExpressionsMenu.Control.Style.Style1,
@@ -76,7 +76,7 @@ namespace Chocopoi.DressingFramework.Detail.DK
             _ctx.CreateUniqueAsset(menu, string.Join("_", paths, 0, index));
             if (index < paths.Length)
             {
-                var newMenuItem = MakeSubMenuControl(paths[index], MakeDownwardsMenuGroups(paths, index + 1));
+                var newMenuItem = MakeSubMenuControl(paths[index], null, MakeDownwardsMenuGroups(paths, index + 1));
                 menu.controls.Add(newMenuItem);
             }
             return menu;
@@ -120,11 +120,46 @@ namespace Chocopoi.DressingFramework.Detail.DK
             }
 
             // if not found, we create empty menu groups recursively downwards
-            var newMenuItem = MakeSubMenuControl(paths[index], MakeDownwardsMenuGroups(paths, index + 1));
+            var newMenuItem = MakeSubMenuControl(paths[index], null, MakeDownwardsMenuGroups(paths, index + 1));
             parent.controls.Add(newMenuItem);
 
             // find again
             return FindInstallTarget(parent, paths, index);
+        }
+
+        private static void DKToMAMenuItem(GameObject parent, MenuItem menuItem)
+        {
+            var maItemObj = new GameObject(menuItem.Name);
+            maItemObj.transform.SetParent(parent.transform);
+
+            var maItem = maItemObj.AddComponent<ModularAvatarMenuItem>();
+
+            if (menuItem is SubMenuItem subMenuItem)
+            {
+                maItem.Control = MakeSubMenuControl(menuItem.Name, menuItem.Icon, null);
+                maItem.MenuSource = SubmenuSource.Children;
+                if (subMenuItem.SubMenu != null)
+                {
+                    DKGroupToMAItems(maItemObj, subMenuItem.SubMenu);
+                }
+            }
+            else if (menuItem is VRCSubMenuItem vrcSubMenuItem)
+            {
+                maItem.Control = MakeSubMenuControl(menuItem.Name, menuItem.Icon, vrcSubMenuItem.SubMenu);
+                maItem.MenuSource = SubmenuSource.MenuAsset;
+            }
+            else
+            {
+                maItem.Control = VRCMenuUtils.MenuItemToControl(menuItem);
+            }
+        }
+
+        private static void DKGroupToMAItems(GameObject parent, MenuGroup menuGroup)
+        {
+            foreach (var item in menuGroup)
+            {
+                DKToMAMenuItem(parent, item);
+            }
         }
 
         public override void Flush()
@@ -135,7 +170,7 @@ namespace Chocopoi.DressingFramework.Detail.DK
                 return;
             }
 
-            var dkMaRootObj = new GameObject("DKMA");
+            var dkMaRootObj = new GameObject("DKMAMenu");
             dkMaRootObj.transform.SetParent(_ctx.AvatarGameObject.transform);
 
             foreach (var kvp in _buffer)
@@ -170,14 +205,7 @@ namespace Chocopoi.DressingFramework.Detail.DK
                 maGroup.targetObject = menuObj;
 
                 // add menu items
-                foreach (var item in items)
-                {
-                    var maItemObj = new GameObject(item.Name);
-                    maItemObj.transform.SetParent(maGroup.transform);
-
-                    var maItem = maItemObj.AddComponent<ModularAvatarMenuItem>();
-                    // TODO
-                }
+                DKGroupToMAItems(menuObj, items);
             }
         }
 

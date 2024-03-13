@@ -54,10 +54,31 @@ namespace Chocopoi.DressingFramework.Extensibility.Sequencing
     }
 
     /// <summary>
+    /// Build runtime enum for passes to run on
+    /// </summary>
+    public enum BuildRuntime
+    {
+        /// <summary>
+        /// DressingFramework, default if not explicity specified
+        /// </summary>
+        DK = 0,
+
+        /// <summary>
+        /// NDMF
+        /// </summary>
+        NDMF = 1,
+    }
+
+    /// <summary>
     /// Build constraint
     /// </summary>
     public class BuildConstraint : ExecutionConstraint<string>
     {
+        /// <summary>
+        /// Build runtimes to invoke on
+        /// </summary>
+        public HashSet<BuildRuntime> buildRuntimes;
+
         /// <summary>
         /// Stage to execute
         /// </summary>
@@ -75,6 +96,7 @@ namespace Chocopoi.DressingFramework.Extensibility.Sequencing
 
         public BuildConstraint()
         {
+            buildRuntimes = new HashSet<BuildRuntime>();
             beforeRuntimePasses = new List<Dependency<string>>();
             afterRuntimePasses = new List<Dependency<string>>();
         }
@@ -88,6 +110,7 @@ namespace Chocopoi.DressingFramework.Extensibility.Sequencing
         protected List<Dependency<string>> beforeRuntimePasses;
         protected List<Dependency<string>> afterRuntimePasses;
 
+        private readonly HashSet<BuildRuntime> _buildRuntimes;
         private readonly BuildStage _stage;
 
         /// <summary>
@@ -96,9 +119,24 @@ namespace Chocopoi.DressingFramework.Extensibility.Sequencing
         /// <param name="stage">Stage to execute</param>
         public BuildConstraintBuilder(BuildStage stage)
         {
+            _buildRuntimes = new HashSet<BuildRuntime>();
             beforeRuntimePasses = new List<Dependency<string>>();
             afterRuntimePasses = new List<Dependency<string>>();
             _stage = stage;
+        }
+
+        /// <summary>
+        /// Run this pass on specific runtimes. Multiple runtimes can be specified and it will run on each once.
+        /// </summary>
+        /// <param name="buildRuntime">Build runtime</param>
+        /// <returns>This builder</returns>
+        public BuildConstraintBuilder WithRuntimes(params BuildRuntime[] buildRuntimes)
+        {
+            foreach (var rt in buildRuntimes)
+            {
+                _buildRuntimes.Add(rt);
+            }
+            return this;
         }
 
         public BuildConstraintBuilder BeforePass<T>(bool optional = false)
@@ -207,6 +245,20 @@ namespace Chocopoi.DressingFramework.Extensibility.Sequencing
             return this;
         }
 
+#if DK_NDMF
+        public BuildConstraintBuilder BeforeNDMFPass<T>(T pass) where T : nadena.dev.ndmf.Pass<T>, new()
+        {
+            InnerBeforeRuntimePass(pass.QualifiedName, false);
+            return this;
+        }
+
+        public BuildConstraintBuilder AfterNDMFPass<T>(T pass) where T : nadena.dev.ndmf.Pass<T>, new()
+        {
+            InnerAfterRuntimePass(pass.QualifiedName, false);
+            return this;
+        }
+#endif
+
         protected BuildConstraintBuilder InnerBeforeRuntimePass(string identifier, bool optional = false)
         {
             beforeRuntimePasses.Add(new Dependency<string>()
@@ -235,6 +287,7 @@ namespace Chocopoi.DressingFramework.Extensibility.Sequencing
         {
             return new BuildConstraint()
             {
+                buildRuntimes = _buildRuntimes,
                 stage = _stage,
                 beforeDependencies = beforeDependencies,
                 afterDependencies = afterDependencies,

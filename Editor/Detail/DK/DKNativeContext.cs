@@ -12,6 +12,7 @@
 
 using Chocopoi.DressingFramework.Animations;
 using Chocopoi.DressingFramework.Detail.DK.Logging;
+using Chocopoi.DressingFramework.Extensibility.Sequencing;
 using Chocopoi.DressingFramework.Logging;
 using UnityEditor;
 using UnityEngine;
@@ -32,6 +33,7 @@ namespace Chocopoi.DressingFramework.Detail.DK
         /// </summary>
         public const string GeneratedAssetsPath = "Assets/" + GeneratedAssetsFolderName;
 
+        public override BuildRuntime CurrentRuntime { get => BuildRuntime.DK; }
         public override object RuntimeContext => null;
         internal override Report Report => _report;
         public override Object AssetContainer => _assetContainer;
@@ -50,7 +52,16 @@ namespace Chocopoi.DressingFramework.Detail.DK
             AssetDatabase.CreateAsset(_assetContainer, $"{GeneratedAssetsPath}/{AvatarGameObject.name}_{DKEditorUtils.RandomString(8)}.asset");
 
             AddContextFeature(new AnimationStore(this));
+            AddMenuStoreFeature();
+        }
+
+        private void AddMenuStoreFeature()
+        {
+#if DK_MA && DK_VRCSDK3A
+            AddContextFeature(new DKMAMenuStore(this));
+#else
             AddContextFeature(new DKMenuStore(this));
+#endif
         }
 
         public override void CreateAsset(Object obj, string name)

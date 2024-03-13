@@ -68,28 +68,21 @@ namespace Chocopoi.DressingFramework.Extensibility
             }
         }
 
-        public List<BuildPass> GetBuildPassesAtStage(BuildStage stage)
+        public List<BuildPass> GetBuildPassesAtStage(BuildRuntime buildRuntime, BuildStage stage)
         {
             var stageHooks = new List<BuildPass>();
 
             foreach (var plugin in _plugins.Values)
             {
-                var pluginHooks = plugin.GetAllBuildPasses();
-                foreach (var hook in pluginHooks)
-                {
-                    if (hook.Constraint.stage == stage)
-                    {
-                        stageHooks.Add(hook);
-                    }
-                }
+                stageHooks.AddRange(plugin.GetBuildPassesAtStage(buildRuntime, stage));
             }
 
             return stageHooks;
         }
 
-        public List<BuildPass> GetSortedBuildPassesAtStage(BuildStage stage)
+        public List<BuildPass> GetSortedBuildPassesAtStage(BuildRuntime buildRuntime, BuildStage stage)
         {
-            return SortBuildPassesByDependencies(GetBuildPassesAtStage(stage));
+            return SortBuildPassesByDependencies(GetBuildPassesAtStage(buildRuntime, stage));
         }
 
         public static List<BuildPass> SortBuildPassesByDependencies(List<BuildPass> hooks)

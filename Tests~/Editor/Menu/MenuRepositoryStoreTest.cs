@@ -16,13 +16,13 @@ using NUnit.Framework;
 
 namespace Chocopoi.DressingFramework.Tests.Menu
 {
-    public class MenuStoreTest : EditorTestBase
+    public class MenuRepositoryStoreTest : EditorTestBase
     {
-        private class TestMenuStore : MenuStore
+        private class TestMenuRepositoryStore : MenuRepositoryStore
         {
             private readonly MenuGroup _rootMenu;
 
-            public TestMenuStore(Context ctx) : base(ctx)
+            public TestMenuRepositoryStore(Context ctx) : base(ctx)
             {
                 _rootMenu = new MenuGroup();
             }
@@ -42,7 +42,7 @@ namespace Chocopoi.DressingFramework.Tests.Menu
         public void SimpleFlushTest()
         {
             var ctx = new DKNativeContext(CreateGameObject("abc"));
-            var store = new TestMenuStore(ctx);
+            var store = new TestMenuRepositoryStore(ctx);
             var realMenu = store.GetRootMenu();
             var menuItem = new ToggleItem();
 
@@ -61,14 +61,11 @@ namespace Chocopoi.DressingFramework.Tests.Menu
                 var found = false;
                 foreach (var mi in mg)
                 {
-                    if (index < paths.Length)
+                    if (mi is SubMenuItem subMenuItem && subMenuItem.Name == paths[index])
                     {
-                        if (mi is SubMenuItem subMenuItem && subMenuItem.Name == paths[index])
-                        {
-                            found = true;
-                            AssertThroughPath(subMenuItem.SubMenu, paths, index + 1, expectedItem);
-                            break;
-                        }
+                        found = true;
+                        AssertThroughPath(subMenuItem.SubMenu, paths, index + 1, expectedItem);
+                        break;
                     }
                 }
                 Assert.True(found, $"Sub-menu {paths[index]} not found through {string.Join("/", paths)}");
@@ -97,7 +94,7 @@ namespace Chocopoi.DressingFramework.Tests.Menu
         public void InstallToPathNoExistingSubMenuTest()
         {
             var ctx = new DKNativeContext(CreateGameObject("abc"));
-            var store = new TestMenuStore(ctx);
+            var store = new TestMenuRepositoryStore(ctx);
             var realMenu = (MenuGroup)store.GetRootMenu();
 
             var menuItem1 = new ToggleItem();
@@ -120,7 +117,7 @@ namespace Chocopoi.DressingFramework.Tests.Menu
         public void InstallToPathExistingSubMenuTest()
         {
             var ctx = new DKNativeContext(CreateGameObject("abc"));
-            var store = new TestMenuStore(ctx);
+            var store = new TestMenuRepositoryStore(ctx);
             var realMenu = (MenuGroup)store.GetRootMenu();
             realMenu.Add(new SubMenuItem()
             {

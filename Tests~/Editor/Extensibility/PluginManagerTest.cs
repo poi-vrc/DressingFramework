@@ -58,7 +58,7 @@ namespace Chocopoi.DressingFramework.Tests.Extensibility
         [Test]
         public void PassesAtStageTest()
         {
-            AssertHasType(new PluginManager().GetBuildPassesAtStage(BuildStage.Generation), typeof(TestPass));
+            AssertHasType(new PluginManager().GetBuildPassesAtStage(BuildRuntime.DK, BuildStage.Generation), typeof(TestPass));
         }
     }
 }

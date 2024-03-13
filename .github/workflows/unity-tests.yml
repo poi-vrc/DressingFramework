@@ -2,6 +2,12 @@ name: Unity Tests
 
 on:
   push:
+    branches: master
+    paths:
+      - "**.cs"
+      - ".github/unity-project/**/*"
+      - ".github/workflows/unity-tests.yml"
+  pull_request:
     paths:
       - "**.cs"
       - ".github/unity-project/**/*"
@@ -9,14 +15,14 @@ on:
 
 jobs:
   build:
-    name: Build and Test (${{ matrix.unity-version }}${{ matrix.import-vrcsdk && ', VRC' || '' }}${{ matrix.import-dynbone && ', DynBone' || '' }}${{ matrix.import-univrm && ', VRM' || '' }})
+    name: Build and Test (${{ matrix.unity-version }}${{ matrix.import-vrcsdk && ', VRC' || '' }}${{ matrix.import-dynbone && ', DynBone' || '' }}${{ matrix.import-univrm && ', VRM' || '' }}${{ matrix.import-ma && ', MA' || '' }})
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
-      max-parallel: 6
       matrix:
         unity-version: ['2019.4.31f1', '2022.3.6f1', '2023.2.2f1']
         import-vrcsdk: [false, true]
+        import-ma: [false, true]
         # import-dynbone: [false, true]
         # import-univrm: [false, true]
         import-dynbone: [false]
@@ -24,6 +30,8 @@ jobs:
         exclude:
           # - unity-version: "2019.4.31f1"
           #   import-univrm: true
+          - import-vrcsdk: false
+            import-ma: true
           - unity-version: "2023.2.2f1"
             import-vrcsdk: true
     steps:
@@ -50,11 +58,17 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: Library
-          key: Library-${{ matrix.unity-version }}-${{ matrix.import-vrcsdk }}-${{ matrix.import-dynbone }}-${{ matrix.import-univrm }}-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          key: Library-${{ matrix.unity-version }}-${{ matrix.import-vrcsdk }}-${{ matrix.import-dynbone }}-${{ matrix.import-univrm }}-${{ matrix.import-ma }}-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
           restore-keys: |
-            Library-${{ matrix.unity-version }}-${{ matrix.import-vrcsdk }}-${{ matrix.import-dynbone }}-${{ matrix.import-univrm }}-
+            Library-${{ matrix.unity-version }}-${{ matrix.import-vrcsdk }}-${{ matrix.import-dynbone }}-${{ matrix.import-univrm }}-${{ matrix.import-ma }}-
 
-      - name: Use UniVRM manifest
+      - name: Prepare base UPM manifest
+        run: mv Packages/manifest.${{ matrix.unity-version }}.json Packages/manifest.json
+
+      - name: Prepare ProjectVersion
+        run: mv ProjectSettings/ProjectVersion.${{ matrix.unity-version }}.txt ProjectSettings/ProjectVersion.txt
+
+      - name: Prepare UniVRM manifest
         if: matrix.import-univrm
         run: mv Packages/manifest-vrm.json Packages/manifest.json
 
@@ -63,7 +77,14 @@ jobs:
         run: |
           mv Packages/vpm-manifest.${{ matrix.unity-version }}.json Packages/vpm-manifest.json
           dotnet tool install --global vrchat.vpm.cli
+          vpm add repo https://vpm.chocopoi.com/index.json
           vpm resolve project
+
+      - name: Import ModularAvatar
+        if: matrix.import-ma
+        run: |
+          vpm add repo https://vpm.nadena.dev/vpm.json
+          vpm add package nadena.dev.modular-avatar@1.9.7
 
       # DynamicsBones stub
       - name: Import DynamicBones stub

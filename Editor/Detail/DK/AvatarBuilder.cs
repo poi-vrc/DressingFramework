@@ -73,7 +73,7 @@ namespace Chocopoi.DressingFramework.Detail.DK
         private bool RunPassesAtStage(BuildStage stage)
         {
             // Debug.Log($"[DK] =========== {stage} Start ===========");
-            var passes = _plugMgr.GetSortedBuildPassesAtStage(stage);
+            var passes = _plugMgr.GetSortedBuildPassesAtStage(BuildRuntime.DK, stage);
 
             if (passes == null)
             {

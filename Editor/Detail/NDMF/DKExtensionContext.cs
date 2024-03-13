@@ -11,7 +11,6 @@
  */
 
 #if DK_NDMF
-using UnityEngine;
 using nadena.dev.ndmf;
 
 namespace Chocopoi.DressingFramework.Detail.NDMF
@@ -22,16 +21,13 @@ namespace Chocopoi.DressingFramework.Detail.NDMF
 
         public DKExtensionContext()
         {
-            Debug.Log("init ctx");
             Context = null;
         }
 
         public void OnActivate(BuildContext ndmfCtx)
         {
-            Debug.Log("act");
             if (Context == null)
             {
-                Debug.Log("null new contex");
                 Context = new NDMFContext(ndmfCtx);
                 Context.OnEnable();
             }
@@ -39,8 +35,7 @@ namespace Chocopoi.DressingFramework.Detail.NDMF
 
         public void OnDeactivate(BuildContext ndmfCtx)
         {
-            Debug.Log("deact");
-            // ndmf activates and deactivates on every phase, we do not want this behaviour
+            // TODO: when to disable?
         }
     }
 }

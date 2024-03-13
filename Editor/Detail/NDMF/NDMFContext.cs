@@ -12,6 +12,7 @@
 
 #if DK_NDMF
 using Chocopoi.DressingFramework.Detail.DK.Logging;
+using Chocopoi.DressingFramework.Extensibility.Sequencing;
 using Chocopoi.DressingFramework.Logging;
 using nadena.dev.ndmf;
 using UnityEditor;
@@ -24,6 +25,7 @@ namespace Chocopoi.DressingFramework.Detail.NDMF
     /// </summary>
     internal class NDMFContext : Context
     {
+        public override BuildRuntime CurrentRuntime { get => BuildRuntime.NDMF; }
         public override object RuntimeContext => _ndmfCtx;
         internal override Report Report => _report;
 

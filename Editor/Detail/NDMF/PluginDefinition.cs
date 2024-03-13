@@ -74,42 +74,38 @@ namespace Chocopoi.DressingFramework.Detail.NDMF
 
         private void ConfigureStages(PluginManager pluginMgr, BuildPhase ndmfPhase, BuildStage startStage, BuildStage endStage)
         {
-            string lastIdentifier = null;
-            for (var stage = startStage; stage <= endStage; stage++)
+            InPhase(ndmfPhase).WithRequiredExtension(typeof(DKExtensionContext), seq =>
             {
-                // TODO
-                var hooks = new BuildPass[0];
-
-                foreach (var hook in hooks)
+                string lastIdentifier = null;
+                for (var stage = startStage; stage <= endStage; stage++)
                 {
-                    var seq = InPhase(ndmfPhase);
+                    var dkPasses = pluginMgr.GetSortedBuildPassesAtStage(BuildRuntime.NDMF, stage);
 
-                    if (lastIdentifier != null)
+                    foreach (var dkPass in dkPasses)
                     {
-                        // add the last hook to ensure NDMF runs the same order from DK
-                        seq.AfterPass(lastIdentifier);
-                    }
-
-                    // NDMF-level dependencies
-                    foreach (var runtimeHook in hook.Constraint.afterRuntimePasses)
-                    {
-                        // optionality is currently unsupported
-                        seq.AfterPass(runtimeHook.identifier);
-                    }
-
-                    seq.WithRequiredExtension(typeof(DKExtensionContext), extSeq =>
-                    {
-                        var pass = extSeq.Run(new DKToNDMFPassWrapper(hook));
-
-                        foreach (var runtimeHook in hook.Constraint.beforeRuntimePasses)
+                        if (lastIdentifier != null)
                         {
-                            pass.BeforePass(runtimeHook.identifier);
+                            // add the last hook to ensure NDMF runs the same order from DK
+                            seq.AfterPass(lastIdentifier);
                         }
-                    });
 
-                    lastIdentifier = hook.Identifier;
+                        // NDMF-level dependencies (no optionality)
+                        foreach (var dep in dkPass.Constraint.afterRuntimePasses)
+                        {
+                            seq.AfterPass(dep.identifier);
+                        }
+
+                        var ndmfDp = seq.Run(new DKToNDMFPassWrapper(dkPass));
+
+                        foreach (var dep in dkPass.Constraint.beforeRuntimePasses)
+                        {
+                            ndmfDp.BeforePass(dep.identifier);
+                        }
+
+                        lastIdentifier = dkPass.Identifier;
+                    }
                 }
-            }
+            });
         }
 
         protected override void Configure()
