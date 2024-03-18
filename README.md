@@ -1,5 +1,5 @@
 # DressingFramework - DK
-A framework that assembles DressingTools and allows the creation of modular plugins for avatars.
+A framework that assembles DressingTools and manipulates avatar menus and animations through a set of APIs.
 
 > :warning: Very unstable API. Currently, it is only intended to use in my own tools internally. Use at your own risk. :warning:
 
