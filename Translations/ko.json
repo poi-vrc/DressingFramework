@@ -20,6 +20,6 @@
     "report.helpbox.noReport": "보고서를 사용할 수 없습니다.",
     "framework.name": "DressingFramework",
     "detail.dk.passes.vrc.applyVrcExParams.msgCode.error.mismatchParameterTypesBetweenAnimators": "애니메이터 간에 일치하지 않는 파라미터 유형: {0}!= {1}",
-    "detail.ndmf.unsupportedVersionChecker.unsupportedMaVersionDetected": "지원되지 않는 Modular Avatar 버전이 탐지되었습니다. 관련 통합을 위해 >=1.8.0에서 <2.0 사이에 지원되는 버전을 설치하십시오.",
-    "detail.ndmf.unsupportedVersionChecker.unsupportedNdmfVersionDetected": "지원되지 않는 NDMF 버전이 탐지되었습니다. 관련 통합을 위해 >=1.3.0에서 <2.0 사이에 지원되는 버전을 설치하십시오."
+    "detail.ndmf.unsupportedVersionChecker.unsupportedMaVersionDetected": "지원되지 않는 Modular Avatar 버전이 탐지되었습니다. 관련 통합을 위해 >=1.8.0에서 <2.0.0 사이에 지원되는 버전을 설치하십시오.",
+    "detail.ndmf.unsupportedVersionChecker.unsupportedNdmfVersionDetected": "지원되지 않는 NDMF 버전이 탐지되었습니다. 관련 통합을 위해 >=1.3.0에서 <2.0.0 사이에 지원되는 버전을 설치하십시오."
 }
