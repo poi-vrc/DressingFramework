@@ -66,27 +66,31 @@ $(function() {
   <div class="headertitle"><div class="title">DressingFramework - DK </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p >A framework that assembles DressingTools and allows the creation of modular plugins for avatars.</p>
+<div class="textblock"><p >A framework that assembles DressingTools and manipulates avatar menus and animations through a set of APIs.</p>
+<blockquote class="doxtable">
+<p >:warning: Very unstable API. Currently, it is only intended to use in my own tools internally. Use at your own risk. :warning: </p>
+</blockquote>
 <h1><a class="anchor" id="autotoc_md1"></a>
-API Stability</h1>
-<p >:warning: Very unstable. Currently, it is only intended to use internally by my own tools. Use at your own risk. :warning:</p>
-<h1><a class="anchor" id="autotoc_md2"></a>
 Features</h1>
 <ul>
 <li>Automatic non-destructive build while uploading avatars or entering play mode</li>
 <li>Sequencing passes executions by specifying before/after constraints and categorizing into different stages</li>
 <li>Animation scanning and path remapping are supported</li>
-<li>Non-VRChat workflows supported</li>
-<li>Acts as an avatar and build abstraction layer on top of other non-destructive frameworks</li>
+<li>Animator and menu cloning and manipulation in framework-level</li>
+<li>Non-VRChat workflows supported (Experimental)</li>
+<li>Acts as an avatar and build abstraction layer on top of other non-destructive frameworks<ul>
+<li>Supports NDMF currently and allows to run the same pass in multiple runtimes (Experimental)</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md3"></a>
-Removed/not available currently</h1>
+</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md2"></a>
+WIP</h2>
 <ul>
 <li>Standardized logging and reporting system</li>
 <li>Platform-independent avatar dynamics scanning</li>
 <li>Reading values from DynamicBones and VRCPhysBone without them installed (WIP)</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md4"></a>
+<h1><a class="anchor" id="autotoc_md3"></a>
 License</h1>
 <p >This project is licensed under the LGPLv3 License. <a href="https://tldrlegal.com/license/gnu-lesser-general-public-license-v3-(lgpl-3)">tl;dr</a> </p>
 </div></div><!-- contents -->

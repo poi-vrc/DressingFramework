@@ -13,12 +13,14 @@ var searchData=
   ['menuitemcontroller_2ecs_10',['MenuItemController.cs',['../_menu_item_controller_8cs.html',1,'']]],
   ['menuitemtest_11',['MenuItemTest',['../class_chocopoi_1_1_dressing_framework_1_1_tests_1_1_menu_1_1_menu_item_test.html',1,'Chocopoi::DressingFramework::Tests::Menu']]],
   ['menuitemtest_2ecs_12',['MenuItemTest.cs',['../_menu_item_test_8cs.html',1,'']]],
-  ['menurepositorybuilder_13',['MenuRepositoryBuilder',['../class_chocopoi_1_1_dressing_framework_1_1_menu_1_1_menu_repository_builder.html',1,'Chocopoi.DressingFramework.Menu.MenuRepositoryBuilder'],['../class_chocopoi_1_1_dressing_framework_1_1_menu_1_1_menu_repository_builder.html#a3e05d0d01ee469ca990bb01b529fd2ab',1,'Chocopoi.DressingFramework.Menu.MenuRepositoryBuilder.MenuRepositoryBuilder()']]],
-  ['menurepositorybuilder_2ecs_14',['MenuRepositoryBuilder.cs',['../_menu_repository_builder_8cs.html',1,'']]],
-  ['menurepositorystore_2ecs_15',['MenuRepositoryStore.cs',['../_menu_repository_store_8cs.html',1,'']]],
-  ['menurepositorystoretest_16',['MenuRepositoryStoreTest',['../class_chocopoi_1_1_dressing_framework_1_1_tests_1_1_menu_1_1_menu_repository_store_test.html',1,'Chocopoi::DressingFramework::Tests::Menu']]],
-  ['menurepositorystoretest_2ecs_17',['MenuRepositoryStoreTest.cs',['../_menu_repository_store_test_8cs.html',1,'']]],
-  ['menustore_18',['MenuStore',['../class_chocopoi_1_1_dressing_framework_1_1_menu_1_1_menu_store.html',1,'Chocopoi::DressingFramework::Menu']]],
-  ['menustore_2ecs_19',['MenuStore.cs',['../_menu_store_8cs.html',1,'']]],
-  ['minor_20',['Minor',['../class_chocopoi_1_1_dressing_framework_1_1_serialization_1_1_serialization_version.html#af675b3e63cd7ac9aa9a160f9214a1d4c',1,'Chocopoi::DressingFramework::Serialization::SerializationVersion']]]
+  ['menuitemtocontroltest_13',['MenuItemToControlTest',['../class_chocopoi_1_1_dressing_framework_1_1_tests_1_1_menu_1_1_v_r_chat_1_1_v_r_c_menu_utils_test.html#afc5bfb5b8ac1ef6101c42248c5dcdc90',1,'Chocopoi::DressingFramework::Tests::Menu::VRChat::VRCMenuUtilsTest']]],
+  ['menurepositorybuilder_14',['MenuRepositoryBuilder',['../class_chocopoi_1_1_dressing_framework_1_1_menu_1_1_menu_repository_builder.html',1,'Chocopoi.DressingFramework.Menu.MenuRepositoryBuilder'],['../class_chocopoi_1_1_dressing_framework_1_1_menu_1_1_menu_repository_builder.html#a3e05d0d01ee469ca990bb01b529fd2ab',1,'Chocopoi.DressingFramework.Menu.MenuRepositoryBuilder.MenuRepositoryBuilder()']]],
+  ['menurepositorybuilder_2ecs_15',['MenuRepositoryBuilder.cs',['../_menu_repository_builder_8cs.html',1,'']]],
+  ['menurepositorystore_2ecs_16',['MenuRepositoryStore.cs',['../_menu_repository_store_8cs.html',1,'']]],
+  ['menurepositorystoretest_17',['MenuRepositoryStoreTest',['../class_chocopoi_1_1_dressing_framework_1_1_tests_1_1_menu_1_1_menu_repository_store_test.html',1,'Chocopoi::DressingFramework::Tests::Menu']]],
+  ['menurepositorystoretest_2ecs_18',['MenuRepositoryStoreTest.cs',['../_menu_repository_store_test_8cs.html',1,'']]],
+  ['menustore_19',['MenuStore',['../class_chocopoi_1_1_dressing_framework_1_1_menu_1_1_menu_store.html',1,'Chocopoi::DressingFramework::Menu']]],
+  ['menustore_2ecs_20',['MenuStore.cs',['../_menu_store_8cs.html',1,'']]],
+  ['messagecode_21',['MessageCode',['../class_chocopoi_1_1_dressing_framework_1_1_detail_1_1_d_k_1_1_passes_1_1_v_r_chat_1_1_clone_v_r_cd8d815d1e2959b64bcf05ed2c703b816.html',1,'Chocopoi.DressingFramework.Detail.DK.Passes.VRChat.CloneVRCAnimLayersPass.MessageCode'],['../class_chocopoi_1_1_dressing_framework_1_1_detail_1_1_d_k_1_1_passes_1_1_v_r_chat_1_1_clone_v_r_cffa68ff943b712e5db92e568a4d214bf.html',1,'Chocopoi.DressingFramework.Detail.DK.Passes.VRChat.CloneVRCExMenuAndParamsPass.MessageCode']]],
+  ['minor_22',['Minor',['../class_chocopoi_1_1_dressing_framework_1_1_serialization_1_1_serialization_version.html#af675b3e63cd7ac9aa9a160f9214a1d4c',1,'Chocopoi::DressingFramework::Serialization::SerializationVersion']]]
 ];
