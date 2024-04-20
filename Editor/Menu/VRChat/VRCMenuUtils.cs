@@ -14,13 +14,54 @@
 using System;
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEngine;
 using VRC.SDK3.Avatars.Components;
 using VRC.SDK3.Avatars.ScriptableObjects;
+using Object = UnityEngine.Object;
 
 namespace Chocopoi.DressingFramework.Menu.VRChat
 {
     internal static class VRCMenuUtils
     {
+        private static IMenuRepository ProcessVRCMenuItem(MenuItem item, int index, Context ctx, string[] paths, HashSet<VRCExpressionsMenu> clonedVrcMenus)
+        {
+            if (item is VRCSubMenuItem vrcSubMenuItem)
+            {
+                if (vrcSubMenuItem.SubMenu == null)
+                {
+                    var newVrcMenu = Object.Instantiate(GetDefaultExpressionsMenu());
+                    ctx.CreateUniqueAsset(newVrcMenu, string.Join("_", paths, 0, index + 1));
+                    vrcSubMenuItem.SubMenu = newVrcMenu;
+
+                    clonedVrcMenus.Add(vrcSubMenuItem.SubMenu);
+                }
+                else if (!clonedVrcMenus.Contains(vrcSubMenuItem.SubMenu))
+                {
+                    var menuCopy = Object.Instantiate(vrcSubMenuItem.SubMenu);
+                    ctx.CreateUniqueAsset(menuCopy, string.Join("_", paths, 0, index + 1));
+                    vrcSubMenuItem.SubMenu = menuCopy;
+                    clonedVrcMenus.Add(vrcSubMenuItem.SubMenu);
+                }
+
+                return MenuUtils.GenericFindInstallTarget(new VRCMenuWrapper(vrcSubMenuItem.SubMenu, ctx), paths, index + 1, (anotherItem, anotherIndex) =>
+                    ProcessVRCMenuItem(anotherItem, anotherIndex, ctx, paths, clonedVrcMenus));
+            }
+            return null;
+
+        }
+
+        public static IMenuRepository FindInstallTarget(IMenuRepository rootMenu, string path, Context ctx, HashSet<VRCExpressionsMenu> clonedVrcMenus)
+        {
+            var installTarget = rootMenu;
+            if (!string.IsNullOrEmpty(path))
+            {
+                var paths = path.Trim().Split('/');
+                installTarget = MenuUtils.GenericFindInstallTarget(rootMenu, paths, 0, (anotherItem, anotherIndex) =>
+                    ProcessVRCMenuItem(anotherItem, anotherIndex, ctx, paths, clonedVrcMenus));
+            }
+            return installTarget;
+        }
+
         public static VRCExpressionParameters GetDefaultExpressionsParameters()
         {
             var expressionParameters = AssetDatabase.LoadAssetAtPath<VRCExpressionParameters>("Packages/com.vrchat.avatars/Samples/AV3 Demo Assets/Expressions Menu/DefaultExpressionParameters.asset");

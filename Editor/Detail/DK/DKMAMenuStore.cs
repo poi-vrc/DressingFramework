@@ -11,13 +11,16 @@
  */
 
 #if DK_MA && DK_VRCSDK3A
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Chocopoi.DressingFramework.Menu;
 using Chocopoi.DressingFramework.Menu.VRChat;
 using nadena.dev.modular_avatar.core;
 using UnityEngine;
 using VRC.SDK3.Avatars.Components;
 using VRC.SDK3.Avatars.ScriptableObjects;
+using Object = UnityEngine.Object;
 
 namespace Chocopoi.DressingFramework.Detail.DK
 {
@@ -30,29 +33,51 @@ namespace Chocopoi.DressingFramework.Detail.DK
     internal class DKMAMenuStore : MenuStore
     {
         private readonly Context _ctx;
-        private readonly Dictionary<string, MenuGroup> _buffer;
-        private readonly HashSet<VRCExpressionsMenu> _clonedVrcMenus;
+        private readonly MenuGroup _buffer;
+        private readonly Dictionary<VRCExpressionsMenu, Tuple<string, MenuGroup>> _vrcMenuAppends;
 
         public DKMAMenuStore(Context ctx)
         {
             _ctx = ctx;
-            _buffer = new Dictionary<string, MenuGroup>();
-            _clonedVrcMenus = new HashSet<VRCExpressionsMenu>();
+            _buffer = new MenuGroup();
+            _vrcMenuAppends = new Dictionary<VRCExpressionsMenu, Tuple<string, MenuGroup>>();
+        }
+
+        public IMenuRepository FindMAInstallTarget(IMenuRepository rootMenu, string path)
+        {
+            var installTarget = rootMenu;
+            if (!string.IsNullOrEmpty(path))
+            {
+                var paths = path.Trim().Split('/');
+                installTarget = MenuUtils.GenericFindInstallTarget(rootMenu, paths, 0, (item, idx) =>
+                {
+                    if (item is VRCSubMenuItem vrcSubMenuItem)
+                    {
+                        var newPath = $"{path}/{item.Name}";
+                        if (vrcSubMenuItem.SubMenu == null)
+                        {
+                            var newVrcMenu = Object.Instantiate(VRCMenuUtils.GetDefaultExpressionsMenu());
+                            _ctx.CreateUniqueAsset(newVrcMenu, newPath.Replace('/', '_'));
+                            vrcSubMenuItem.SubMenu = newVrcMenu;
+                        }
+                        if (!_vrcMenuAppends.TryGetValue(vrcSubMenuItem.SubMenu, out var menuGroup))
+                        {
+                            menuGroup = _vrcMenuAppends[vrcSubMenuItem.SubMenu] = new Tuple<string, MenuGroup>(newPath, new MenuGroup());
+                        }
+                        return menuGroup.Item2;
+                    }
+                    return null;
+                });
+            }
+            return installTarget;
         }
 
         public override void Append(MenuItem menuItem, string path = null)
         {
-            if (path == null)
-            {
-                path = "";
-            }
-            path = path.Trim();
-
-            if (!_buffer.TryGetValue(path, out var menuItems))
-            {
-                menuItems = _buffer[path] = new MenuGroup();
-            }
-            menuItems.Add(menuItem);
+            // append the item to our buffer
+            // in cases the path falls on a VRC menu, we install using MA installer instead
+            var target = FindMAInstallTarget(_buffer, path);
+            target.Add(menuItem);
         }
 
         private static VRCExpressionsMenu.Control MakeSubMenuControl(string name, Texture2D icon, VRCExpressionsMenu subMenu)
@@ -70,19 +95,7 @@ namespace Chocopoi.DressingFramework.Detail.DK
             };
         }
 
-        private VRCExpressionsMenu MakeDownwardsMenuGroups(string[] paths, int index)
-        {
-            var menu = Object.Instantiate(VRCMenuUtils.GetDefaultExpressionsMenu());
-            _ctx.CreateUniqueAsset(menu, string.Join("_", paths, 0, index));
-            if (index < paths.Length)
-            {
-                var newMenuItem = MakeSubMenuControl(paths[index], null, MakeDownwardsMenuGroups(paths, index + 1));
-                menu.controls.Add(newMenuItem);
-            }
-            return menu;
-        }
-
-        private VRCExpressionsMenu FindInstallTarget(VRCExpressionsMenu parent, string[] paths, int index)
+        private VRCExpressionsMenu FindExistingVRCMenu(VRCExpressionsMenu parent, string[] paths, int index)
         {
             if (index >= paths.Length)
             {
@@ -101,36 +114,44 @@ namespace Chocopoi.DressingFramework.Detail.DK
                     if (item.subMenu == null)
                     {
                         var newVrcMenu = Object.Instantiate(VRCMenuUtils.GetDefaultExpressionsMenu());
-                        _ctx.CreateUniqueAsset(newVrcMenu, string.Join("_", paths, 0, index + 1));
+                        _ctx.CreateUniqueAsset(newVrcMenu, $"{string.Join("_", paths, 0, index + 1)}_{item.name}");
                         item.subMenu = newVrcMenu;
-
-                        _clonedVrcMenus.Add(item.subMenu);
                     }
-                    else if (!_clonedVrcMenus.Contains(item.subMenu))
-                    {
-                        var menuCopy = Object.Instantiate(item.subMenu);
-                        _ctx.CreateUniqueAsset(menuCopy, string.Join("_", paths, 0, index + 1));
-                        item.subMenu = menuCopy;
-
-                        _clonedVrcMenus.Add(item.subMenu);
-                    }
-
-                    return FindInstallTarget(item.subMenu, paths, index + 1);
+                    return FindExistingVRCMenu(item.subMenu, paths, index + 1);
                 }
             }
 
-            // if not found, we create empty menu groups recursively downwards
-            var newMenuItem = MakeSubMenuControl(paths[index], null, MakeDownwardsMenuGroups(paths, index + 1));
-            parent.controls.Add(newMenuItem);
-
-            // find again
-            return FindInstallTarget(parent, paths, index);
+            // not found
+            return null;
         }
 
-        private static void DKToMAMenuItem(GameObject parent, MenuItem menuItem)
+        private void DKToMAMenuItem(Transform dkMaRoot, VRCExpressionsMenu avatarRootMenu, Transform parent, MenuItem menuItem, string absolutePathPrefix)
         {
+            var newPath = string.IsNullOrEmpty(absolutePathPrefix) ?
+                menuItem.Name :
+                $"{absolutePathPrefix}/{menuItem.Name}";
+
+            // prefer using MA installer on existing menus for supporting path install
+            if (menuItem is SubMenuItem preCheckSubMenuItem)
+            {
+                var newPaths = newPath.Split('/');
+                var vrcMenu = FindExistingVRCMenu(avatarRootMenu, newPaths, 0);
+                if (vrcMenu != null)
+                {
+                    // make a ma installer to that menu
+                    var menuObj = new GameObject(string.Join("_", newPaths));
+                    menuObj.transform.SetParent(dkMaRoot);
+                    var maInstaller = menuObj.AddComponent<ModularAvatarMenuInstaller>();
+                    maInstaller.installTargetMenu = vrcMenu;
+                    var maGroup = menuObj.AddComponent<ModularAvatarMenuGroup>();
+                    maGroup.targetObject = menuObj;
+                    DKGroupToMAItems(dkMaRoot, avatarRootMenu, menuObj.transform, preCheckSubMenuItem.SubMenu, newPath);
+                    return;
+                }
+            }
+
             var maItemObj = new GameObject(menuItem.Name);
-            maItemObj.transform.SetParent(parent.transform);
+            maItemObj.transform.SetParent(parent);
 
             var maItem = maItemObj.AddComponent<ModularAvatarMenuItem>();
 
@@ -140,7 +161,7 @@ namespace Chocopoi.DressingFramework.Detail.DK
                 maItem.MenuSource = SubmenuSource.Children;
                 if (subMenuItem.SubMenu != null)
                 {
-                    DKGroupToMAItems(maItemObj, subMenuItem.SubMenu);
+                    DKGroupToMAItems(dkMaRoot, avatarRootMenu, maItemObj.transform, subMenuItem.SubMenu, newPath);
                 }
             }
             else if (menuItem is VRCSubMenuItem vrcSubMenuItem)
@@ -154,11 +175,11 @@ namespace Chocopoi.DressingFramework.Detail.DK
             }
         }
 
-        private static void DKGroupToMAItems(GameObject parent, MenuGroup menuGroup)
+        private void DKGroupToMAItems(Transform dkMaRoot, VRCExpressionsMenu avatarRootMenu, Transform parent, MenuGroup menuGroup, string absolutePath)
         {
             foreach (var item in menuGroup)
             {
-                DKToMAMenuItem(parent, item);
+                DKToMAMenuItem(dkMaRoot, avatarRootMenu, parent, item, absolutePath);
             }
         }
 
@@ -173,40 +194,27 @@ namespace Chocopoi.DressingFramework.Detail.DK
             var dkMaRootObj = new GameObject("DKMAMenu");
             dkMaRootObj.transform.SetParent(_ctx.AvatarGameObject.transform);
 
-            foreach (var kvp in _buffer)
+            var rootMenuObj = new GameObject("Root");
+            rootMenuObj.transform.SetParent(dkMaRootObj.transform);
+            var rootMaInstaller = rootMenuObj.AddComponent<ModularAvatarMenuInstaller>();
+            rootMaInstaller.installTargetMenu = avatarDesc.expressionsMenu;
+            var rootMaGroup = rootMenuObj.AddComponent<ModularAvatarMenuGroup>();
+            rootMaGroup.targetObject = rootMenuObj;
+
+            // for paths pointing to existing vrc menus, we use the ma installer
+            foreach (var kvp in _vrcMenuAppends)
             {
-                var path = kvp.Key;
-                var items = kvp.Value;
-
-                // find and create the install target and pass to MA
-                string menuObjName;
-                VRCExpressionsMenu installTarget;
-                if (string.IsNullOrEmpty(path))
-                {
-                    menuObjName = "Root";
-                    installTarget = avatarDesc.expressionsMenu;
-                }
-                else
-                {
-                    var paths = path.Trim().Split('/');
-                    menuObjName = string.Join("_", paths);
-                    installTarget = FindInstallTarget(avatarDesc.expressionsMenu, paths, 0);
-                }
-
-                var menuObj = new GameObject(menuObjName);
+                var menuObj = new GameObject(kvp.Key.name);
                 menuObj.transform.SetParent(dkMaRootObj.transform);
-
-                // add installer
                 var maInstaller = menuObj.AddComponent<ModularAvatarMenuInstaller>();
-                maInstaller.installTargetMenu = installTarget;
-
-                // add menu group
+                maInstaller.installTargetMenu = kvp.Key;
                 var maGroup = menuObj.AddComponent<ModularAvatarMenuGroup>();
                 maGroup.targetObject = menuObj;
-
-                // add menu items
-                DKGroupToMAItems(menuObj, items);
+                DKGroupToMAItems(dkMaRootObj.transform, avatarDesc.expressionsMenu, menuObj.transform, kvp.Value.Item2, kvp.Value.Item1);
             }
+
+            // normal appends
+            DKGroupToMAItems(dkMaRootObj.transform, avatarDesc.expressionsMenu, rootMenuObj.transform, _buffer, "");
         }
 
         internal override void OnEnable() { }
