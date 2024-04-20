@@ -21,6 +21,7 @@ var searchData=
   ['menurepositorystoretest_2ecs_18',['MenuRepositoryStoreTest.cs',['../_menu_repository_store_test_8cs.html',1,'']]],
   ['menustore_19',['MenuStore',['../class_chocopoi_1_1_dressing_framework_1_1_menu_1_1_menu_store.html',1,'Chocopoi::DressingFramework::Menu']]],
   ['menustore_2ecs_20',['MenuStore.cs',['../_menu_store_8cs.html',1,'']]],
-  ['messagecode_21',['MessageCode',['../class_chocopoi_1_1_dressing_framework_1_1_detail_1_1_d_k_1_1_passes_1_1_v_r_chat_1_1_clone_v_r_cd8d815d1e2959b64bcf05ed2c703b816.html',1,'Chocopoi.DressingFramework.Detail.DK.Passes.VRChat.CloneVRCAnimLayersPass.MessageCode'],['../class_chocopoi_1_1_dressing_framework_1_1_detail_1_1_d_k_1_1_passes_1_1_v_r_chat_1_1_clone_v_r_cffa68ff943b712e5db92e568a4d214bf.html',1,'Chocopoi.DressingFramework.Detail.DK.Passes.VRChat.CloneVRCExMenuAndParamsPass.MessageCode']]],
-  ['minor_22',['Minor',['../class_chocopoi_1_1_dressing_framework_1_1_serialization_1_1_serialization_version.html#af675b3e63cd7ac9aa9a160f9214a1d4c',1,'Chocopoi::DressingFramework::Serialization::SerializationVersion']]]
+  ['menuutils_2ecs_21',['MenuUtils.cs',['../_menu_utils_8cs.html',1,'']]],
+  ['messagecode_22',['MessageCode',['../class_chocopoi_1_1_dressing_framework_1_1_detail_1_1_d_k_1_1_passes_1_1_v_r_chat_1_1_clone_v_r_cd8d815d1e2959b64bcf05ed2c703b816.html',1,'Chocopoi.DressingFramework.Detail.DK.Passes.VRChat.CloneVRCAnimLayersPass.MessageCode'],['../class_chocopoi_1_1_dressing_framework_1_1_detail_1_1_d_k_1_1_passes_1_1_v_r_chat_1_1_clone_v_r_cffa68ff943b712e5db92e568a4d214bf.html',1,'Chocopoi.DressingFramework.Detail.DK.Passes.VRChat.CloneVRCExMenuAndParamsPass.MessageCode']]],
+  ['minor_23',['Minor',['../class_chocopoi_1_1_dressing_framework_1_1_serialization_1_1_serialization_version.html#af675b3e63cd7ac9aa9a160f9214a1d4c',1,'Chocopoi::DressingFramework::Serialization::SerializationVersion']]]
 ];

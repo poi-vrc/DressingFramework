@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['object_0',['Object',['../_context_8cs.html#aef19bab18b9814edeef255c43e4f6bbc',1,'Object():&#160;Context.cs'],['../_v_r_c_menu_safe_wrapper_8cs.html#aef19bab18b9814edeef255c43e4f6bbc',1,'Object():&#160;VRCMenuSafeWrapper.cs']]],
+  ['object_0',['Object',['../_context_8cs.html#aef19bab18b9814edeef255c43e4f6bbc',1,'Object():&#160;Context.cs'],['../_d_k_m_a_menu_store_8cs.html#aef19bab18b9814edeef255c43e4f6bbc',1,'Object():&#160;DKMAMenuStore.cs'],['../_v_r_c_menu_safe_wrapper_8cs.html#aef19bab18b9814edeef255c43e4f6bbc',1,'Object():&#160;VRCMenuSafeWrapper.cs'],['../_v_r_c_menu_utils_8cs.html#aef19bab18b9814edeef255c43e4f6bbc',1,'Object():&#160;VRCMenuUtils.cs']]],
   ['onactivate_1',['OnActivate',['../class_chocopoi_1_1_dressing_framework_1_1_detail_1_1_n_d_m_f_1_1_d_k_extension_context.html#a9e95455399a292ce9921a413c48a0765',1,'Chocopoi::DressingFramework::Detail::NDMF::DKExtensionContext']]],
   ['ondeactivate_2',['OnDeactivate',['../class_chocopoi_1_1_dressing_framework_1_1_detail_1_1_n_d_m_f_1_1_d_k_extension_context.html#a6d4bbc7358750b60d5fe7551547e4f9d',1,'Chocopoi::DressingFramework::Detail::NDMF::DKExtensionContext']]],
   ['ondisable_3',['OnDisable',['../class_chocopoi_1_1_dressing_framework_1_1_extensibility_1_1_plugin.html#ab7e4852d412619296389ad77e215a86b',1,'Chocopoi.DressingFramework.Extensibility.Plugin.OnDisable()'],['../interface_chocopoi_1_1_dressing_framework_1_1_i_extra_context.html#ab9f060a2cfe79f62926c3687bd91cf47',1,'Chocopoi.DressingFramework.IExtraContext.OnDisable()']]],

@@ -8,5 +8,6 @@ var searchData=
   ['menurepositorybuilder_2ecs_5',['MenuRepositoryBuilder.cs',['../_menu_repository_builder_8cs.html',1,'']]],
   ['menurepositorystore_2ecs_6',['MenuRepositoryStore.cs',['../_menu_repository_store_8cs.html',1,'']]],
   ['menurepositorystoretest_2ecs_7',['MenuRepositoryStoreTest.cs',['../_menu_repository_store_test_8cs.html',1,'']]],
-  ['menustore_2ecs_8',['MenuStore.cs',['../_menu_store_8cs.html',1,'']]]
+  ['menustore_2ecs_8',['MenuStore.cs',['../_menu_store_8cs.html',1,'']]],
+  ['menuutils_2ecs_9',['MenuUtils.cs',['../_menu_utils_8cs.html',1,'']]]
 ];
