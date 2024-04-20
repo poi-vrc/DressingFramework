@@ -87,8 +87,120 @@ namespace Chocopoi.DressingFramework.Tests.Detail.DK
             }
         }
 
-        private static void AssertMAItems(GameObject avatar, VRCExpressionsMenu rootMenu, MenuItem dkItem1, MenuItem dkItem2, MenuItem dkItem3)
+        [Test]
+        public void InstallToPathNoExistingSubMenuTest()
         {
+            var avatar = CreateGameObject("Avatar");
+            var avatarDesc = avatar.AddComponent<VRCAvatarDescriptor>();
+            var rootMenu = ScriptableObject.CreateInstance<VRCExpressionsMenu>();
+            avatarDesc.expressionsMenu = rootMenu;
+
+            var ctx = new DKNativeContext(avatar);
+            var store = new DKMAMenuStore(ctx);
+
+            var dkItem1 = new ToggleItem() { Name = "1" };
+            store.Append(dkItem1, "A");
+
+            var dkItem2 = new ToggleItem() { Name = "2" };
+            store.Append(dkItem2, "B/C");
+
+            var dkItem3 = new ToggleItem() { Name = "3" };
+            store.Append(dkItem3, "C/D/E");
+
+            store.Flush();
+
+            var menu1 = avatar.transform.Find("DKMAMenu/Root/A");
+            Assert.NotNull(menu1);
+            var menu2 = avatar.transform.Find("DKMAMenu/Root/B/C");
+            Assert.NotNull(menu2);
+            var menu3 = avatar.transform.Find("DKMAMenu/Root/C/D/E");
+            Assert.NotNull(menu3);
+
+            // they will be installed to the root instead
+            Assert.True(menu1.TryGetComponent<ModularAvatarMenuItem>(out var item1));
+            Assert.AreEqual(VRCExpressionsMenu.Control.ControlType.SubMenu, item1.Control.type);
+            Assert.True(menu2.TryGetComponent<ModularAvatarMenuItem>(out var item2));
+            Assert.AreEqual(VRCExpressionsMenu.Control.ControlType.SubMenu, item2.Control.type);
+            Assert.True(menu3.TryGetComponent<ModularAvatarMenuItem>(out var item3));
+            Assert.AreEqual(VRCExpressionsMenu.Control.ControlType.SubMenu, item3.Control.type);
+
+            Assert.AreEqual(1, menu1.childCount);
+            Assert.True(menu1.GetChild(0).TryGetComponent<ModularAvatarMenuItem>(out var maItem1));
+            Assert.NotNull(maItem1.Control);
+            Assert.AreEqual(dkItem1.Name, maItem1.Control.name);
+            Assert.AreEqual(VRCExpressionsMenu.Control.ControlType.Toggle, maItem1.Control.type);
+
+            Assert.AreEqual(1, menu2.childCount);
+            Assert.True(menu2.GetChild(0).TryGetComponent<ModularAvatarMenuItem>(out var maItem2));
+            Assert.NotNull(maItem2.Control);
+            Assert.AreEqual(dkItem2.Name, maItem2.Control.name);
+            Assert.AreEqual(VRCExpressionsMenu.Control.ControlType.Toggle, maItem2.Control.type);
+
+            Assert.AreEqual(1, menu3.childCount);
+            Assert.True(menu3.GetChild(0).TryGetComponent<ModularAvatarMenuItem>(out var maItem3));
+            Assert.NotNull(maItem3.Control);
+            Assert.AreEqual(dkItem3.Name, maItem3.Control.name);
+            Assert.AreEqual(VRCExpressionsMenu.Control.ControlType.Toggle, maItem3.Control.type);
+        }
+
+        private static void AddMenusThroughPath(VRCExpressionsMenu menu, string[] paths, int index)
+        {
+            if (index < paths.Length)
+            {
+                var newMenu = ScriptableObject.CreateInstance<VRCExpressionsMenu>();
+                menu.controls.Add(new VRCExpressionsMenu.Control()
+                {
+                    name = paths[index],
+                    type = VRCExpressionsMenu.Control.ControlType.SubMenu,
+                    subMenu = newMenu
+                });
+                AddMenusThroughPath(newMenu, paths, index + 1);
+            }
+        }
+
+        private static void PrintHierarchy(Transform root, int hyphens)
+        {
+            for (var i = 0; i < root.childCount; i++)
+            {
+                var trans = root.GetChild(i);
+                var pre = "";
+                for (var j = 0; j < hyphens; j++)
+                {
+                    pre += "-";
+                }
+                Debug.Log(pre + trans.name);
+                PrintHierarchy(trans, hyphens + 1);
+            }
+        }
+
+        [Test]
+        public void InstallToPathExistingSubMenuTest()
+        {
+            var avatar = CreateGameObject("Avatar");
+            var avatarDesc = avatar.AddComponent<VRCAvatarDescriptor>();
+            var rootMenu = ScriptableObject.CreateInstance<VRCExpressionsMenu>();
+            avatarDesc.expressionsMenu = rootMenu;
+
+            AddMenusThroughPath(rootMenu, new string[] { "A" }, 0);
+            AddMenusThroughPath(rootMenu, new string[] { "B", "C" }, 0);
+            AddMenusThroughPath(rootMenu, new string[] { "C", "D", "E" }, 0);
+
+            var ctx = new DKNativeContext(avatar);
+            var store = new DKMAMenuStore(ctx);
+
+            var dkItem1 = new ToggleItem() { Name = "1" };
+            store.Append(dkItem1, "A");
+
+            var dkItem2 = new ToggleItem() { Name = "2" };
+            store.Append(dkItem2, "B/C");
+
+            var dkItem3 = new ToggleItem() { Name = "3" };
+            store.Append(dkItem3, "C/D/E");
+
+            store.Flush();
+            PrintHierarchy(avatar.transform, 0);
+
+            // the store will clone a copy of it, so the original cannot be used for asserts
             var vrcMenu1 = FindMenuThroughPath(rootMenu, new string[] { "A" }, 0);
             var vrcMenu2 = FindMenuThroughPath(rootMenu, new string[] { "B", "C" }, 0);
             var vrcMenu3 = FindMenuThroughPath(rootMenu, new string[] { "C", "D", "E" }, 0);
@@ -124,76 +236,6 @@ namespace Chocopoi.DressingFramework.Tests.Detail.DK
             Assert.NotNull(maItem3.Control);
             Assert.AreEqual(dkItem3.Name, maItem3.Control.name);
             Assert.AreEqual(VRCExpressionsMenu.Control.ControlType.Toggle, maItem3.Control.type);
-        }
-
-        [Test]
-        public void InstallToPathNoExistingSubMenuTest()
-        {
-            var avatar = CreateGameObject("Avatar");
-            var avatarDesc = avatar.AddComponent<VRCAvatarDescriptor>();
-            var rootMenu = ScriptableObject.CreateInstance<VRCExpressionsMenu>();
-            avatarDesc.expressionsMenu = rootMenu;
-
-            var ctx = new DKNativeContext(avatar);
-            var store = new DKMAMenuStore(ctx);
-
-            var dkItem1 = new ToggleItem() { Name = "1" };
-            store.Append(dkItem1, "A");
-
-            var dkItem2 = new ToggleItem() { Name = "2" };
-            store.Append(dkItem2, "B/C");
-
-            var dkItem3 = new ToggleItem() { Name = "3" };
-            store.Append(dkItem3, "C/D/E");
-
-            store.Flush();
-
-            AssertMAItems(avatar, rootMenu, dkItem1, dkItem2, dkItem3);
-        }
-
-        private static void AddMenusThroughPath(VRCExpressionsMenu menu, string[] paths, int index)
-        {
-            if (index < paths.Length)
-            {
-                var newMenu = ScriptableObject.CreateInstance<VRCExpressionsMenu>();
-                menu.controls.Add(new VRCExpressionsMenu.Control()
-                {
-                    name = paths[index],
-                    type = VRCExpressionsMenu.Control.ControlType.SubMenu,
-                    subMenu = newMenu
-                });
-                AddMenusThroughPath(newMenu, paths, index + 1);
-            }
-        }
-
-        [Test]
-        public void InstallToPathExistingSubMenuTest()
-        {
-            var avatar = CreateGameObject("Avatar");
-            var avatarDesc = avatar.AddComponent<VRCAvatarDescriptor>();
-            var rootMenu = ScriptableObject.CreateInstance<VRCExpressionsMenu>();
-            avatarDesc.expressionsMenu = rootMenu;
-
-            AddMenusThroughPath(rootMenu, new string[] { "A" }, 0);
-            AddMenusThroughPath(rootMenu, new string[] { "B", "C" }, 0);
-            AddMenusThroughPath(rootMenu, new string[] { "C", "D", "E" }, 0);
-
-            var ctx = new DKNativeContext(avatar);
-            var store = new DKMAMenuStore(ctx);
-
-            var dkItem1 = new ToggleItem() { Name = "1" };
-            store.Append(dkItem1, "A");
-
-            var dkItem2 = new ToggleItem() { Name = "2" };
-            store.Append(dkItem2, "B/C");
-
-            var dkItem3 = new ToggleItem() { Name = "3" };
-            store.Append(dkItem3, "C/D/E");
-
-            store.Flush();
-
-            // the store will clone a copy of it, so the original cannot be used for asserts
-            AssertMAItems(avatar, rootMenu, dkItem1, dkItem2, dkItem3);
         }
     }
 }

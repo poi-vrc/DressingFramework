@@ -17,6 +17,7 @@ using System.Linq;
 using Chocopoi.DressingFramework.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using UnityEditor;
 using UnityEngine;
 
 namespace Chocopoi.DressingFramework
@@ -85,6 +86,14 @@ namespace Chocopoi.DressingFramework
         // referenced from: http://answers.unity3d.com/questions/458207/copy-a-component-at-runtime.html
         public static Component CopyComponent(Component originalComponent, GameObject destGameObject)
         {
+            if (destGameObject.scene == null)
+            {
+                throw new Exception("Report this to the DressingTools developer! Destination GameObject does not contain a scene!");
+            }
+            if (PrefabUtility.IsPartOfAnyPrefab(destGameObject))
+            {
+                throw new Exception("Report this to the DressingTools developer! Destination GameObject is part of a prefab!");
+            }
             System.Type type = originalComponent.GetType();
 
             // get the destination component or add new

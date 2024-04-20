@@ -47,89 +47,13 @@ namespace Chocopoi.DressingFramework.Menu
             _buffer[menuItem] = path;
         }
 
-        private IMenuRepository FindInstallTarget(IMenuRepository parent, string[] paths, int index)
-        {
-            if (index >= paths.Length)
-            {
-                return parent;
-            }
-
-            foreach (var item in parent)
-            {
-                if (item.Name != paths[index])
-                {
-                    continue;
-                }
-
-                if (item is SubMenuItem subMenuItem)
-                {
-                    if (subMenuItem.SubMenu == null)
-                    {
-                        subMenuItem.SubMenu = new MenuGroup();
-                    }
-                    return FindInstallTarget(subMenuItem.SubMenu, paths, index + 1);
-                }
-#if DK_VRCSDK3A
-                else if (item is VRCSubMenuItem vrcSubMenuItem)
-                {
-                    if (vrcSubMenuItem.SubMenu == null)
-                    {
-                        var newVrcMenu = Object.Instantiate(VRCMenuUtils.GetDefaultExpressionsMenu());
-                        _ctx.CreateUniqueAsset(newVrcMenu, string.Join("_", paths, 0, index + 1));
-                        vrcSubMenuItem.SubMenu = newVrcMenu;
-
-                        _clonedVrcMenus.Add(vrcSubMenuItem.SubMenu);
-                    }
-                    else if (!_clonedVrcMenus.Contains(vrcSubMenuItem.SubMenu))
-                    {
-                        var menuCopy = Object.Instantiate(vrcSubMenuItem.SubMenu);
-                        _ctx.CreateUniqueAsset(menuCopy, string.Join("_", paths, 0, index + 1));
-                        vrcSubMenuItem.SubMenu = menuCopy;
-                        _clonedVrcMenus.Add(vrcSubMenuItem.SubMenu);
-                    }
-
-                    return FindInstallTarget(new VRCMenuWrapper(vrcSubMenuItem.SubMenu, _ctx), paths, index + 1);
-                }
-#endif
-            }
-
-            // if not found, we create empty menu groups recursively downwards
-            var newMenuItem = new SubMenuItem()
-            {
-                Name = paths[index],
-                Icon = null,
-                SubMenu = MakeDownwardsMenuGroups(paths, index + 1)
-            };
-            parent.Add(newMenuItem);
-
-            // find again, the menu group pointers above cannot be used after the CRUD operation
-            return FindInstallTarget(parent, paths, index);
-        }
-
-        private MenuGroup MakeDownwardsMenuGroups(string[] paths, int index)
-        {
-            var mg = new MenuGroup();
-            if (index < paths.Length)
-            {
-                var newMenuItem = new SubMenuItem()
-                {
-                    Name = paths[index],
-                    Icon = null,
-                    SubMenu = MakeDownwardsMenuGroups(paths, index + 1)
-                };
-                mg.Add(newMenuItem);
-            }
-            return mg;
-        }
-
         private void InstallMenuItem(IMenuRepository rootMenu, MenuItem item, string path)
         {
-            var installTarget = rootMenu;
-            if (!string.IsNullOrEmpty(path))
-            {
-                var paths = path.Trim().Split('/');
-                installTarget = FindInstallTarget(rootMenu, paths, 0);
-            }
+#if DK_VRCSDK3A
+            var installTarget = VRCMenuUtils.FindInstallTarget(rootMenu, path, _ctx, _clonedVrcMenus);
+#else
+            var installTarget = MenuUtils.FindInstallTarget(rootMenu, path);
+#endif
             installTarget.Add(item);
         }
 
