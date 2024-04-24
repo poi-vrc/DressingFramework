@@ -74,7 +74,7 @@ namespace Chocopoi.DressingFramework.Detail.NDMF
             try
             {
                 var dateTime = DateTime.Parse(dateTimeLine);
-                if ((DateTime.Now - dateTime).TotalMinutes > 1)
+                if ((DateTime.Now - dateTime).TotalMinutes <= 1)
                 {
                     return true;
                 }
